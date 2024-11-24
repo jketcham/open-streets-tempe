@@ -10,3 +10,25 @@ body {
     color-scheme: dark;
   }
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-display;
+}
+
+.bg-pedalpalooza-2 {
+  background-image: linear-gradient(
+      rgba(223, 255, 72, 0.65),
+      rgba(223, 255, 72, 0.65)
+    ),
+    image-set(
+      url("/pedalpalooza-2.webp") type("image/webp"),
+      url("/pedalpalooza-2.jpg") type("image/jpeg")
+    );
+  background-size: cover;
+  background-position: center;
+}
