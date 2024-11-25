@@ -32,7 +32,7 @@ jobs:
           project_id: ${{ vars.GCP_PROJECT }}
 
       - name: GCloud Docker Auth
-        run: gcloud auth configure-docker
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       # Step 4: Build and push Docker image
       - name: Build and push Docker image
