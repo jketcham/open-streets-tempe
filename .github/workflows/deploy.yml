@@ -37,7 +37,7 @@ jobs:
       # Step 4: Build and push Docker image
       - name: Build and push Docker image
         run: |
-          IMAGE="gcr.io/${{ vars.GCP_PROJECT }}/open-streets-tempe:${{github.sha}}"
+          IMAGE="us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/bike-tempe/open-streets-tempe:${{github.sha}}"
           docker build -t $IMAGE .
           docker push $IMAGE
 
