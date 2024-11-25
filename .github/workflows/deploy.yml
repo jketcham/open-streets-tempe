@@ -50,4 +50,5 @@ jobs:
             --platform=managed \
             --region=${{ vars.GCP_REGION }} \
             --memory=256Mi \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --update-env-vars=NODE_ENV=production
