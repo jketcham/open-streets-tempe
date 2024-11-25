@@ -1,0 +1,48 @@
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - main # Deploy on pushes to the main branch
+
+jobs:
+  deploy:
+    name: Deploy to Cloud Run
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Authenticate with Google Cloud
+      - name: Set up Workload Identity Federation
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/327348661717/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider"
+          service_account: "${{ vars.GCP_SERVICE_ACCOUNT }}"
+
+      # Step 3: Configure gcloud CLI
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ vars.GCP_PROJECT }}
+
+      - name: GCloud Docker Auth
+        run: gcloud auth configure-docker
+
+      # Step 4: Build and push Docker image
+      - name: Build and push Docker image
+        run: |
+          IMAGE="gcr.io/${{ vars.GCP_PROJECT }}/open-streets-tempe:${{github.sha}}"
+          docker build -t $IMAGE .
+          docker push $IMAGE
+
+      # Step 5: Deploy to Cloud Run
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy open-streets-tempe \
+            --image=gcr.io/${{ vars.GCP_PROJECT }}/open-streets-tempe:${{github.sha}} \
+            --platform=managed \
+            --region=${{ vars.GCP_REGION }} \
+            --allow-unauthenticated
