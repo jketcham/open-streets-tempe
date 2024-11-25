@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react";
 
 import * as gtag from "~/utils/gtags.client";
-import { useNonce } from "~/utils/nonce-provider.ts";
+import { useNonce } from "~/utils/nonce-provider";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
