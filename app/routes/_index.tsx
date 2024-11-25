@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="flex flex-col min-h-screen h-full">
-      <main className="grow flex flex-col justify-center items-center h-full min-h-80 bg-pedalpalooza-2">
+      <main className="grow flex flex-col justify-center items-center h-full min-h-96 bg-pedalpalooza-2">
         <div className="flex flex-col items-center justify-center text-center">
           <Riders
             aria-hidden
@@ -22,10 +22,34 @@ export default function Index() {
             height={95}
             className="mb-6 w-36 sm:w-56"
           />
-          <h1 className="text-2xl sm:text-5xl font-bold">Open Streets Tempe</h1>
+          <h1 className="text-2xl sm:text-5xl font-bold italic">
+            Open Streets Tempe
+          </h1>
           <h2 className="mt-5 text-lg sm:text-3xl">Coming April 13th, 2025</h2>
         </div>
       </main>
+
+      <div className="py-6 sm:py-16 px-6 sm:px-10">
+        <div className="max-w-2xl mx-auto flex flex-col">
+          <div className="flex flex-col space-y-8 text-center text-lg">
+            <p>
+              Open Streets Tempe invites you to experience the city like never
+              before. For one day, our streets transform into vibrant public
+              spaces where you can walk, bike, roll, dance, and connect with
+              your community. Without the usual traffic, we’ll see just how much
+              is possible when we prioritize people over cars—creating spaces
+              that bring us closer together.
+            </p>
+
+            <p>
+              This free, family-friendly event is for everyone—whether you're
+              biking in a parade, joining a yoga session, or simply strolling
+              with friends. Come reimagine our streets as places for people and
+              experience the possibilities of a more connected, livable Tempe.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="bg-eggplant text-white py-6 sm:py-16 px-6 sm:px-10">
         <div className="max-w-6xl mx-auto flex flex-col">
