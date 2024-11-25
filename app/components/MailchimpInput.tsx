@@ -15,7 +15,7 @@ export default function MailchimpForm() {
               <input
                 type="email"
                 name="EMAIL"
-                className="px-3 py-2 rounded text-black"
+                className="px-3 py-2 rounded text-black bg-white"
                 id="mce-EMAIL"
                 placeholder="Your email address"
                 required

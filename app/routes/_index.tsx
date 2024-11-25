@@ -36,7 +36,7 @@ export default function Index() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
             <div>
               <p>
-                Be the first to hear about upcoming events, volunteer
+                Be the first to hear about event updates, volunteer
                 opportunities and more.
               </p>
             </div>
