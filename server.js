@@ -1,19 +1,23 @@
+import * as crypto from "node:crypto";
 import { createRequestHandler } from "@remix-run/express";
 import helmet from "helmet";
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
 
-const viteDevServer =
-  process.env.NODE_ENV === "production"
-    ? undefined
-    : await import("vite").then((vite) =>
-        vite.createServer({
-          server: { middlewareMode: true },
-        })
-      );
+const isProduction = process.env.NODE_ENV === "production";
+const viteDevServer = isProduction
+  ? undefined
+  : await import("vite").then((vite) =>
+      vite.createServer({
+        server: { middlewareMode: true },
+      })
+    );
 
 const remixHandler = createRequestHandler({
+  getLoadContext: (req, res) => ({
+    cspNonce: res.locals.cspNonce,
+  }),
   build: viteDevServer
     ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
     : await import("./build/server/index.js"),
@@ -21,7 +25,30 @@ const remixHandler = createRequestHandler({
 
 const app = express();
 
-app.use(helmet());
+app.use((req, res, next) => {
+  res.locals.cspNonce = crypto.randomBytes(16).toString("hex");
+  next();
+});
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "script-src": [
+          "'self'",
+          "https://www.googletagmanager.com/",
+          (req, res) => `'nonce-${res.locals.cspNonce}'`,
+        ],
+        "connect-src": [
+          "'self'",
+          "https://www.google-analytics.com/",
+          () => (isProduction ? "" : "ws://localhost:24678"),
+        ],
+        "img-src": ["'self'", "data:", "https://www.googletagmanager.com"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+  })
+);
 app.use(compression());
 
 // handle asset requests

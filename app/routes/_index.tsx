@@ -1,12 +1,15 @@
 import type { MetaFunction } from "@remix-run/node";
 
-import Riders from "../components/svg/Riders";
-import MailchimpInput from "../components/MailchimpInput";
+import Riders from "~/components/svg/Riders";
+import MailchimpInput from "~/components/MailchimpInput";
 
 export const meta: MetaFunction = () => {
   return [
     { title: "Open Streets Tempe" },
-    { name: "description", content: "Car-free, care-free in Tempe, AZ" },
+    {
+      name: "description",
+      content: "April 13, 2025 – Car-free, care-free in Tempe, AZ",
+    },
   ];
 };
 
@@ -15,13 +18,7 @@ export default function Index() {
     <div className="flex flex-col min-h-screen h-full">
       <main className="grow flex flex-col justify-center items-center h-full min-h-96 bg-pedalpalooza-2">
         <div className="flex flex-col items-center justify-center text-center">
-          <Riders
-            aria-hidden
-            alt="Riders icon"
-            width={204}
-            height={95}
-            className="mb-6 w-36 sm:w-56"
-          />
+          <Riders aria-hidden className="mb-6 w-36 sm:w-56" />
           <h1 className="text-2xl sm:text-5xl font-bold italic">
             Open Streets Tempe
           </h1>
@@ -59,7 +56,7 @@ export default function Index() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
             <div>
-              <p>
+              <p className="text-lg">
                 Be the first to hear about event updates, volunteer
                 opportunities and more.
               </p>
@@ -85,6 +82,10 @@ export default function Index() {
               </li>
 
               <li>
+                <p>A program of Tempe Bicycle Action Group</p>
+              </li>
+
+              <li>
                 <a
                   className="flex items-center gap-2 hover:underline hover:underline-offset-4"
                   href="https://biketempe.org?utm_source=open-streets-tempe&utm_campaign=landing"
@@ -98,7 +99,7 @@ export default function Index() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-2 sm:mb-4">Get Involved</h4>
+            <h1 className="font-bold text-lg mb-2 sm:mb-4">Get Involved</h1>
             <ul className="space-y-2">
               <li>
                 <a
@@ -125,7 +126,7 @@ export default function Index() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-2 sm:mb-4">Follow us</h4>
+            <h1 className="font-bold text-lg mb-2 sm:mb-4">Follow us</h1>
             <ul className="space-y-2">
               <li>
                 <a
