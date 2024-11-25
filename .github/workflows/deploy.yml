@@ -51,4 +51,5 @@ jobs:
             --region=${{ vars.GCP_REGION }} \
             --memory=256Mi \
             --allow-unauthenticated \
+            --update-env-vars=GA_TRACKING_ID=G-VDDPT9B63T \
             --update-env-vars=NODE_ENV=production
