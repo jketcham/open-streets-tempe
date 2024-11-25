@@ -49,4 +49,5 @@ jobs:
             --image=$IMAGE \
             --platform=managed \
             --region=${{ vars.GCP_REGION }} \
+            --memory=256Mi \
             --allow-unauthenticated
