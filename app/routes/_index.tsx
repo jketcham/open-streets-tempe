@@ -22,8 +22,8 @@ export default function Index() {
             height={95}
             className="mb-6 w-36 sm:w-56"
           />
-          <h1 className="text-2xl sm:text-4xl font-bold">Open Streets Tempe</h1>
-          <h2 className="mt-2 text-lg sm:text-2xl">Coming April 13th, 2025</h2>
+          <h1 className="text-2xl sm:text-5xl font-bold">Open Streets Tempe</h1>
+          <h2 className="mt-5 text-lg sm:text-3xl">Coming April 13th, 2025</h2>
         </div>
       </main>
 
