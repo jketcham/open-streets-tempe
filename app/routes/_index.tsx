@@ -10,6 +10,22 @@ export const meta: MetaFunction = () => {
       name: "description",
       content: "April 13, 2025 – Car-free, care-free in Tempe, AZ",
     },
+    {
+      name: "theme-color",
+      content: "#C9CF6B",
+    },
+    {
+      name: "og:image",
+      content: "/site-preview.png",
+    },
+    {
+      name: "twitter:image",
+      content: "/site-preview.png",
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
   ];
 };
 
