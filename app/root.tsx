@@ -13,6 +13,7 @@ import { useEffect } from "react";
 
 import * as gtag from "~/utils/gtags.client";
 import { useNonce } from "~/utils/nonce-provider";
+import Navbar from "~/components/Navbar";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -76,6 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             />
           </>
         )}
+        <Navbar />
         {children}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
