@@ -7,7 +7,7 @@ export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <nav className="relative sticky top-0 z-50 bg-tachi p-4">
+    <nav className="sticky top-0 z-50 bg-tachi p-4">
       <div className="mx-auto flex max-w-6xl items-center justify-between">
         <Link to="/" className="text-xl font-bold">
           Open Streets Tempe
@@ -47,7 +47,7 @@ export default function Navbar() {
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.1 }}
               >
-                <XMarkIcon className="h-6 w-6" />
+                <XMarkIcon className="size-6" />
               </motion.div>
             ) : (
               <motion.div
@@ -57,7 +57,7 @@ export default function Navbar() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.1 }}
               >
-                <Bars3Icon className="h-6 w-6" />
+                <Bars3Icon className="size-6" />
               </motion.div>
             )}
           </AnimatePresence>

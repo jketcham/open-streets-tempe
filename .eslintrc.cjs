@@ -25,15 +25,16 @@ module.exports = {
   extends: ["eslint:recommended"],
 
   overrides: [
-    // React
+    // React + TailwindCSS
     {
       files: ["**/*.{js,jsx,ts,tsx}"],
-      plugins: ["react", "jsx-a11y"],
+      plugins: ["react", "jsx-a11y", "tailwindcss"],
       extends: [
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
+        "plugin:tailwindcss/recommended"
       ],
       settings: {
         react: {
@@ -47,6 +48,11 @@ module.exports = {
         "import/resolver": {
           typescript: {},
         },
+      },
+      rules: {
+        // You can add or override Tailwind-specific or other rules here
+        // For example:
+        // "tailwindcss/no-custom-classname": "off"
       },
     },
 
