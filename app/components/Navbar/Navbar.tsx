@@ -91,11 +91,11 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                to="/sponsor"
+                to="/volunteer"
                 className="block cursor-pointer px-4 py-2 hover:underline"
                 onClick={() => setNavOpen(false)}
               >
-                Sponsor
+                Volunteer
               </Link>
             </li>
             <li>
@@ -105,6 +105,15 @@ export default function Navbar() {
                 onClick={() => setNavOpen(false)}
               >
                 Call to Artists
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/sponsor"
+                className="block cursor-pointer px-4 py-2 hover:underline"
+                onClick={() => setNavOpen(false)}
+              >
+                Sponsor
               </Link>
             </li>
           </motion.ul>
