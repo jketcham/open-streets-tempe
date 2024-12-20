@@ -21,13 +21,18 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/sponsor" className="cursor-pointer hover:underline">
-              Sponsor
+            <Link to="/volunteer" className="cursor-pointer hover:underline">
+              Volunteer
             </Link>
           </li>
           <li>
             <Link to="/artists" className="cursor-pointer hover:underline">
               Call to Artists
+            </Link>
+          </li>
+          <li>
+            <Link to="/sponsor" className="cursor-pointer hover:underline">
+              Sponsor
             </Link>
           </li>
         </ul>
