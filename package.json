@@ -33,7 +33,6 @@
     "@remix-run/dev": "^2.15.0",
     "@svgr/cli": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
-    "@svgr/plugin-prettier": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
     "@types/compression": "^1.7.5",
     "@types/express": "^4.17.20",
