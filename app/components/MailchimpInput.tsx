@@ -15,7 +15,7 @@ export default function MailchimpForm() {
               <input
                 type="email"
                 name="EMAIL"
-                className="px-3 py-2 rounded text-black bg-white"
+                className="rounded bg-white px-3 py-2 text-black"
                 id="mce-EMAIL"
                 placeholder="Your email address"
                 required
@@ -49,7 +49,7 @@ export default function MailchimpForm() {
                   type="submit"
                   name="subscribe"
                   id="mc-embedded-subscribe"
-                  className="bg-apricot px-4 py-2 rounded text-black w-full sm:w-auto cursor-pointer hover:opacity-90"
+                  className="w-full cursor-pointer rounded bg-apricot px-4 py-2 text-black hover:opacity-90 sm:w-auto"
                   value="Subscribe"
                 />
               </div>

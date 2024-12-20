@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="bg-apricot min-h-64 p-6 sm:p-10">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+    <footer className="min-h-64 bg-apricot p-6 sm:p-10">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
         <div>
           <ul className="space-y-2">
             <li>
@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h1 className="font-bold text-lg mb-2 sm:mb-4">Get Involved</h1>
+          <h1 className="mb-2 text-lg font-bold sm:mb-4">Get Involved</h1>
           <ul className="space-y-2">
             <li>
               <a
@@ -57,7 +57,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h1 className="font-bold text-lg mb-2 sm:mb-4">Follow us</h1>
+          <h1 className="mb-2 text-lg font-bold sm:mb-4">Follow us</h1>
           <ul className="space-y-2">
             <li>
               <a

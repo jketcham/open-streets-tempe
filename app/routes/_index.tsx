@@ -31,19 +31,19 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="flex flex-col min-h-screen h-full">
-      <main className="grow flex flex-col justify-center items-center h-full min-h-96 bg-pedalpalooza-2">
+    <div className="flex h-full min-h-screen flex-col">
+      <main className="bg-pedalpalooza-2 flex h-full min-h-96 grow flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center text-center">
           <Riders aria-hidden className="mb-6 w-36 sm:w-56" />
-          <h1 className="text-2xl sm:text-5xl font-bold italic">
+          <h1 className="text-2xl font-bold italic sm:text-5xl">
             Open Streets Tempe
           </h1>
           <h2 className="mt-5 text-lg sm:text-3xl">Coming April 13th, 2025</h2>
         </div>
       </main>
 
-      <div className="py-6 sm:py-16 px-6 sm:px-10">
-        <div className="max-w-2xl mx-auto flex flex-col">
+      <div className="px-6 py-6 sm:px-10 sm:py-16">
+        <div className="mx-auto flex max-w-2xl flex-col">
           <div className="flex flex-col space-y-8 text-center text-lg">
             <p>
               Open Streets Tempe invites you to experience the city like never
@@ -64,13 +64,13 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="bg-eggplant text-white py-6 sm:py-16 px-6 sm:px-10">
-        <div className="max-w-6xl mx-auto flex flex-col">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+      <div className="bg-eggplant px-6 py-6 text-white sm:px-10 sm:py-16">
+        <div className="mx-auto flex max-w-6xl flex-col">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
             Sign up for updates!
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8">
             <div>
               <p className="text-lg">
                 Be the first to hear about event updates, volunteer

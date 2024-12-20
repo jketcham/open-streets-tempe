@@ -24,7 +24,7 @@ export default function handleRequest(
   // This is ignored so we can keep it in the template for visibility.  Feel
   // free to delete this parameter in your app if you're not using it!
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  loadContext: AppLoadContext
+  loadContext: AppLoadContext,
 ) {
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
@@ -32,14 +32,14 @@ export default function handleRequest(
         responseStatusCode,
         responseHeaders,
         remixContext,
-        loadContext
+        loadContext,
       )
     : handleBrowserRequest(
         request,
         responseStatusCode,
         responseHeaders,
         remixContext,
-        loadContext
+        loadContext,
       );
 }
 
@@ -48,7 +48,7 @@ function handleBotRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-  loadContext: AppLoadContext
+  loadContext: AppLoadContext,
 ) {
   const nonce = loadContext.cspNonce?.toString() ?? "";
   return new Promise((resolve, reject) => {
@@ -74,7 +74,7 @@ function handleBotRequest(
             new Response(stream, {
               headers: responseHeaders,
               status: responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -92,7 +92,7 @@ function handleBotRequest(
           }
         },
         nonce,
-      }
+      },
     );
 
     setTimeout(abort, ABORT_DELAY);
@@ -104,7 +104,7 @@ function handleBrowserRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-  loadContext: AppLoadContext
+  loadContext: AppLoadContext,
 ) {
   const nonce = loadContext.cspNonce?.toString() ?? "";
   return new Promise((resolve, reject) => {
@@ -130,7 +130,7 @@ function handleBrowserRequest(
             new Response(stream, {
               headers: responseHeaders,
               status: responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -148,7 +148,7 @@ function handleBrowserRequest(
           }
         },
         nonce,
-      }
+      },
     );
 
     setTimeout(abort, ABORT_DELAY);

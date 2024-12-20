@@ -7,14 +7,14 @@ export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <nav className="p-4 bg-tachi relative sticky top-0 z-50">
-      <div className="flex items-center max-w-6xl mx-auto justify-between">
-        <Link to="/" className="font-bold text-xl">
+    <nav className="relative sticky top-0 z-50 bg-tachi p-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between">
+        <Link to="/" className="text-xl font-bold">
           Open Streets Tempe
         </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-4">
+        <ul className="hidden space-x-4 md:flex">
           <li>
             <Link to="/about" className="cursor-pointer hover:underline">
               About
@@ -73,12 +73,12 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-full left-0 w-full bg-tachi py-2 flex flex-col border-t border-t-neutral-400 overflow-hidden z-50 shadow-md"
+            className="absolute left-0 top-full z-50 flex w-full flex-col overflow-hidden border-t border-t-neutral-400 bg-tachi py-2 shadow-md md:hidden"
           >
             <li>
               <Link
                 to="/about"
-                className="cursor-pointer hover:underline block px-4 py-2"
+                className="block cursor-pointer px-4 py-2 hover:underline"
                 onClick={() => setNavOpen(false)}
               >
                 About
@@ -87,7 +87,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/sponsor"
-                className="cursor-pointer hover:underline block px-4 py-2"
+                className="block cursor-pointer px-4 py-2 hover:underline"
                 onClick={() => setNavOpen(false)}
               >
                 Sponsor
@@ -96,7 +96,7 @@ export default function Navbar() {
             <li>
               <Link
                 to="/artists"
-                className="cursor-pointer hover:underline block px-4 py-2"
+                className="block cursor-pointer px-4 py-2 hover:underline"
                 onClick={() => setNavOpen(false)}
               >
                 Call to Artists
