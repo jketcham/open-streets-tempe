@@ -18,12 +18,12 @@ export default function MailchimpInput() {
         placeholder="Enter your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full rounded-md bg-black/40 px-6 py-3 text-lg placeholder:text-current/70 focus:outline-current"
+        className="placeholder:text-current/70 w-full rounded-md bg-black/40 px-6 py-3 text-lg focus:outline-current"
         required
       />
       <button
         type="submit"
-        className={`inline-flex items-center focus:outline-current justify-center rounded-md px-6 py-3 text-lg font-semibold ${theme.bg} ${theme.textOnLight} hover:opacity-90 transition-opacity`}
+        className={`inline-flex items-center justify-center rounded-md px-6 py-3 text-lg font-semibold focus:outline-current ${theme.bg} ${theme.textOnLight} transition-opacity hover:opacity-90`}
       >
         Subscribe
       </button>

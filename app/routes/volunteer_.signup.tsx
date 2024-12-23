@@ -18,7 +18,7 @@ export default function VolunteerSignup() {
           <h1 className="mb-8 text-4xl font-bold sm:text-5xl">
             Volunteer Signup
           </h1>
-          
+
           <div className="prose prose-lg max-w-none">
             <div className="min-h-[800px] w-full">
               {/* Form iframe will be embedded here */}
@@ -29,4 +29,4 @@ export default function VolunteerSignup() {
       </main>
     </div>
   );
-} 
+}

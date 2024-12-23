@@ -10,7 +10,7 @@ export function ThemedList({ items, className = "" }: ThemedListProps) {
 
   return (
     <ul
-      className={`not-prose pl-5 list-disc marker:${theme.text} ${className}`}
+      className={`not-prose list-disc pl-5 marker:${theme.text} ${className}`}
     >
       {items.map((item) => (
         <li key={item} className="my-2">

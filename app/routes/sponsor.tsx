@@ -177,7 +177,7 @@ export default function Sponsor() {
               </ContentSection>
             </div>
 
-            <div className="mt-12 border-current border-t-4 pt-8 text-center">
+            <div className="mt-12 border-t-4 border-current pt-8 text-center">
               <Link href="mailto:sponsor@openstreetstempe.org">
                 Contact our sponsor team at sponsor@openstreetstempe.org
               </Link>

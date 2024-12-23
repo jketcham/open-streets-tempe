@@ -29,7 +29,7 @@ function WhyItMatters() {
   return (
     <div className="max-w-none">
       <div>
-        <h2 className={`text-3xl mb-10 font-bold ${theme.textOnLight}`}>
+        <h2 className={`mb-10 text-3xl font-bold ${theme.textOnLight}`}>
           Why It Matters
         </h2>
         <div className="prose prose-lg max-w-none">
@@ -77,7 +77,7 @@ export default function About() {
         </LeadText>
       </PageHead>
 
-      <main className="grow py-16 space-y-16">
+      <main className="grow space-y-16 py-16">
         <Container size="md">
           <div>
             <div className="prose prose-lg max-w-none">

@@ -24,7 +24,7 @@ export default function Footer() {
               href="https://www.biketempe.org?utm_source=openstreetstempe"
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 hover:opacity-90 underline underline-offset-4"
+              className="shrink-0 underline underline-offset-4 hover:opacity-90"
             >
               Tempe Bicycle Action Group,
             </a>{" "}

@@ -19,7 +19,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Menu */}
-            <ul className="hidden text-lg space-x-4 md:flex">
+            <ul className="hidden space-x-4 text-lg md:flex">
               <li>
                 <Link to="/about" className="cursor-pointer hover:underline">
                   About
@@ -87,7 +87,7 @@ export default function Navbar() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className={`absolute left-0 top-full z-50 text-lg flex w-full flex-col overflow-hidden border-t border-current ${theme.bg} py-2 shadow-md md:hidden`}
+              className={`absolute left-0 top-full z-50 flex w-full flex-col overflow-hidden border-t border-current text-lg ${theme.bg} py-2 shadow-md md:hidden`}
             >
               <li>
                 <Link
