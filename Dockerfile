@@ -31,7 +31,8 @@ COPY package.json package-lock.json ./
 # Install only production dependencies
 RUN npm ci --only=production
 
-# Copy built application from builder
+# Copy server file and other necessary files
+COPY server.js ./
 COPY --from=builder /usr/src/app/build ./build
 COPY --from=builder /usr/src/app/public ./public
 
