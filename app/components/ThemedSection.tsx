@@ -17,7 +17,7 @@ export function ThemedSection({
     <div
       className={`${inverse ? theme.bgInverse : theme.bg} ${
         inverse ? theme.textInverse : theme.text
-      } p-6 sm:px-10 sm:py-16 ${className}`}
+      } py-10 sm:py-16 md:py-24 ${className}`}
     >
       {children}
     </div>

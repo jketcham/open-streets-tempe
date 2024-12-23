@@ -4,21 +4,21 @@ import { Container } from "~/components/Container";
 import { LeadText } from "~/components/LeadText";
 import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
-import { Button, Link } from "~/components/themed";
+import { Link } from "~/components/themed";
+import { ThemedList } from "~/components/ThemedList";
 import {
   getThemeBackgroundColor,
   type ThemeColor,
   useTheme,
 } from "~/components/ThemeProvider";
 
-const pageTheme: ThemeColor = "eggplant-dark";
+const pageTheme: ThemeColor = "eggplant";
 
 interface SponsorCardProps {
   title: string;
   price: number;
   description?: string;
   benefits?: string[];
-  isTitle?: boolean;
   subtitle?: string;
   note?: string;
 }
@@ -28,7 +28,6 @@ function SponsorCard({
   price,
   description,
   benefits,
-  isTitle = false,
   subtitle,
   note,
 }: SponsorCardProps) {
@@ -36,9 +35,7 @@ function SponsorCard({
 
   return (
     <div
-      className={`rounded-2xl ${
-        isTitle ? `border-2 ${theme.text}` : ""
-      } bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl`}
+      className={`rounded-2xl bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl`}
     >
       <h3 className={`mb-4 text-2xl font-bold ${theme.text}`}>{title}</h3>
       {subtitle && (
@@ -54,11 +51,10 @@ function SponsorCard({
           <h4 className={`mb-2 text-lg font-semibold ${theme.text}`}>
             Benefits Include:
           </h4>
-          <ul className="space-y-2 text-[1.25rem] leading-relaxed text-gray-600">
-            {benefits.map((benefit) => (
-              <li key={benefit}>{benefit}</li>
-            ))}
-          </ul>
+          <ThemedList
+            items={benefits}
+            className="text-[1.25rem] leading-relaxed text-gray-600"
+          />
         </div>
       )}
       <p className={`text-xl font-bold ${theme.text}`}>
@@ -118,7 +114,8 @@ export default function Sponsor() {
             <ContentSection title="Sponsorship Opportunities">
               <div className="space-y-12">
                 <SponsorCard
-                  title="Title Sponsor (Limit 1)"
+                  title="Title Sponsor"
+                  subtitle="Limited to 1"
                   price={5000}
                   description="Premier branding and visibility throughout the event."
                   benefits={[
@@ -128,24 +125,24 @@ export default function Sponsor() {
                     "Speaking opportunity at event",
                     "Social media recognition",
                   ]}
-                  isTitle
                 />
 
                 <SponsorCard
-                  title="Premium Sponsor (Limit 3)"
-                  price={5000}
+                  title="Premium Sponsor"
+                  subtitle="Limited to 3"
+                  price={3000}
                   benefits={[
-                    "Branding on 1 bike valet site",
+                    "Branding on 1 bike valet or seating area site",
                     "1 music stage sign",
                     "1 post on @biketempe Instagram",
-                    "1 Bike Tempe newsletter thank-you ad",
+                    "1 Bike Tempe newsletter thank-you shoutout",
                     "1 booth",
                   ]}
                 />
 
                 <SponsorCard
                   title="Giveaways Sponsor"
-                  price={3000}
+                  price={1000}
                   subtitle="Limit 1 per type of item, available at information booths"
                   benefits={[
                     "Front bike light",
@@ -156,7 +153,7 @@ export default function Sponsor() {
 
                 <SponsorCard
                   title="Activation or Booth"
-                  price={1000}
+                  price={500}
                   description="Host a table, a game, an Instagrammable photo op or another creative way to interact with your brand"
                   note="Nonprofits participate for FREE!"
                 />
@@ -180,10 +177,9 @@ export default function Sponsor() {
               </ContentSection>
             </div>
 
-            <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Button to="/sponsor/apply">Become a Sponsor</Button>
+            <div className="mt-12 border-current border-t-4 pt-8 text-center">
               <Link href="mailto:sponsor@openstreetstempe.org">
-                Contact our sponsor team
+                Contact our sponsor team at sponsor@openstreetstempe.org
               </Link>
             </div>
           </div>

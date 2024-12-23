@@ -5,9 +5,11 @@ import { LeadText } from "~/components/LeadText";
 import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
 import { Button, Link } from "~/components/themed";
+import { ThemedSection } from "~/components/ThemedSection";
 import {
   getThemeBackgroundColor,
   type ThemeColor,
+  useTheme,
 } from "~/components/ThemeProvider";
 import {
   MapPinIcon,
@@ -20,6 +22,34 @@ import {
   SpeakerWaveIcon,
 } from "@heroicons/react/24/outline";
 import { ContentCard } from "~/components/ContentCard";
+
+function WhyItMatters() {
+  const theme = useTheme();
+
+  return (
+    <div className="max-w-none">
+      <div>
+        <h2 className={`text-3xl mb-10 font-bold ${theme.textOnLight}`}>
+          Why It Matters
+        </h2>
+        <div className="prose prose-lg max-w-none">
+          <p>
+            Open Streets events do more than just create a fun day out—they
+            demonstrate how our streets can become vibrant public spaces that:
+          </p>
+          <ul>
+            <li>Build stronger community connections</li>
+            <li>Support local businesses</li>
+            <li>Promote active transportation</li>
+            <li>Improve public health</li>
+            <li>Reduce carbon emissions</li>
+            <li>Create more livable neighborhoods</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const pageTheme: ThemeColor = "eggplant";
 
@@ -47,7 +77,7 @@ export default function About() {
         </LeadText>
       </PageHead>
 
-      <main className="grow py-16">
+      <main className="grow py-16 space-y-16">
         <Container size="md">
           <div>
             <div className="prose prose-lg max-w-none">
@@ -122,24 +152,18 @@ export default function About() {
                 />
               </div>
             </ContentSection>
+          </div>
+        </Container>
 
+        <ThemedSection>
+          <Container>
+            <WhyItMatters />
+          </Container>
+        </ThemedSection>
+
+        <Container size="md">
+          <div>
             <div className="prose prose-lg max-w-none">
-              <ContentSection title="Why It Matters">
-                <p>
-                  Open Streets events do more than just create a fun day
-                  out—they demonstrate how our streets can become vibrant public
-                  spaces that:
-                </p>
-                <ul>
-                  <li>Build stronger community connections</li>
-                  <li>Support local businesses</li>
-                  <li>Promote active transportation</li>
-                  <li>Improve public health</li>
-                  <li>Reduce carbon emissions</li>
-                  <li>Create more livable neighborhoods</li>
-                </ul>
-              </ContentSection>
-
               <ContentSection title="Who We Are">
                 <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
                   <div className="shrink-0">
@@ -173,7 +197,7 @@ export default function About() {
               </ContentSection>
             </div>
 
-            <ContentSection title="Our Partners">
+            <ContentSection title="Our Partners" id="partners">
               <div className="prose prose-lg">
                 <p className="mb-8">
                   We&apos;re proud to partner with these organizations to make
@@ -182,7 +206,7 @@ export default function About() {
               </div>
               <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
                 <a
-                  href="https://www.tempe.gov"
+                  href="https://www.tempe.gov?utm_source=openstreetstempe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center"
@@ -194,7 +218,7 @@ export default function About() {
                   />
                 </a>
                 <a
-                  href="https://www.downtowntempe.com"
+                  href="https://www.downtowntempe.com?utm_source=openstreetstempe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center"
@@ -206,7 +230,7 @@ export default function About() {
                   />
                 </a>
                 <a
-                  href="https://www.tempechamber.org"
+                  href="https://www.tempechamber.org?utm_source=openstreetstempe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center"
@@ -218,7 +242,7 @@ export default function About() {
                   />
                 </a>
                 <a
-                  href="https://www.tempetourism.com"
+                  href="https://www.tempetourism.com?utm_source=openstreetstempe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center"
@@ -232,17 +256,8 @@ export default function About() {
               </div>
             </ContentSection>
 
-            <ContentSection title="Contact Us">
+            <ContentSection title="Contact Us" id="contact">
               <div className="grid grid-cols-1 gap-8 text-lg sm:grid-cols-2">
-                <div>
-                  <h3 className="mb-2 text-xl font-semibold">
-                    Project and Partner Inquiries
-                  </h3>
-                  <Link href="mailto:partner@openstreetstempe.org">
-                    partner@openstreetstempe.org
-                  </Link>
-                </div>
-
                 <div>
                   <h3 className="mb-2 text-xl font-semibold">
                     General Contact
@@ -266,9 +281,9 @@ export default function About() {
                     Mailing Address
                   </h3>
                   <address className="not-italic">
-                    PO Box 28251
+                    PO Box 1884
                     <br />
-                    Tempe, AZ 85285
+                    Tempe, AZ 85280
                   </address>
                 </div>
               </div>

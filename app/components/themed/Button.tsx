@@ -4,41 +4,42 @@ import { useTheme } from "../ThemeProvider";
 interface ButtonProps {
   children: React.ReactNode;
   to?: string;
-  href?: string;
   type?: "button" | "submit" | "reset";
-  onClick?: () => void;
-  className?: string;
+  external?: boolean;
 }
 
 export function Button({
   children,
   to,
-  href,
   type = "button",
-  onClick,
-  className = "",
+  external,
 }: ButtonProps) {
   const theme = useTheme();
-  const baseClasses = `inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold ${theme.bg} ${theme.textOnLight} transition-transform hover:scale-105 ${className}`;
+
+  const className = `inline-flex items-center justify-center rounded-md px-6 py-3 text-lg font-semibold ${theme.bgInverse} ${theme.textInverse} hover:opacity-90 transition-opacity`;
 
   if (to) {
+    if (external) {
+      return (
+        <a
+          href={to}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+        >
+          {children}
+        </a>
+      );
+    }
     return (
-      <Link to={to} className={baseClasses}>
+      <Link to={to} className={className}>
         {children}
       </Link>
     );
   }
 
-  if (href) {
-    return (
-      <a href={href} className={baseClasses}>
-        {children}
-      </a>
-    );
-  }
-
   return (
-    <button type={type} onClick={onClick} className={baseClasses}>
+    <button type={type} className={className}>
       {children}
     </button>
   );

@@ -5,7 +5,8 @@ import { LeadText } from "~/components/LeadText";
 import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
 import { ContentCard } from "~/components/ContentCard";
-import { Button, Link } from "~/components/themed";
+import { Link } from "~/components/themed";
+import { ThemedList } from "~/components/ThemedList";
 import {
   PaintBrushIcon,
   MusicalNoteIcon,
@@ -95,10 +96,19 @@ export default function Artists() {
               </ContentSection>
             </div>
 
-            <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Button to="/artists/apply">Apply as an Artist</Button>
+            <div className="prose prose-lg max-w-none">
+              <ContentSection title="Selection Process">
+                <p>
+                  Artists will be selected based on their proposal&apos;s
+                  creativity, feasibility, and alignment with the event&apos;s
+                  goals of creating an engaging, inclusive community experience.
+                </p>
+              </ContentSection>
+            </div>
+
+            <div className="mt-12 border-current border-t-4 pt-8 text-center">
               <Link href="mailto:artists@openstreetstempe.org">
-                Contact our artist team
+                Contact our artist team at artists@openstreetstempe.org
               </Link>
             </div>
           </div>

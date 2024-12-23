@@ -11,7 +11,7 @@ export default function Footer() {
       <Container>
         <div className="mb-12 flex flex-col items-center gap-4 border-b-4 border-current pb-12 text-center sm:flex-row sm:text-left">
           <a
-            href="https://www.biketempe.org"
+            href="https://www.biketempe.org?utm_source=openstreetstempe"
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 hover:opacity-90"
@@ -19,8 +19,16 @@ export default function Footer() {
             <BikeTempeLogo className="h-16 w-auto fill-current" />
           </a>
           <p className="text-lg">
-            A program of Tempe Bicycle Action Group, a 501(c)(3) nonprofit
-            organization
+            A program of{" "}
+            <a
+              href="https://www.biketempe.org?utm_source=openstreetstempe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 hover:opacity-90 underline underline-offset-4"
+            >
+              Tempe Bicycle Action Group,
+            </a>{" "}
+            a 501(c)(3) nonprofit organization
           </p>
         </div>
 
@@ -30,7 +38,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link to="/about" className="hover:opacity-90">
-                  Our Story
+                  Open Streets
                 </Link>
               </li>
               <li>
