@@ -4,11 +4,14 @@ FROM node:20-alpine
 # Set working directory
 WORKDIR /usr/src/app
 
+# Set NODE_ENV to production
+ENV NODE_ENV=production
+
 # Copy package files
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy application files
 COPY . .
