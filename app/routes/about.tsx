@@ -22,6 +22,7 @@ import {
   SpeakerWaveIcon,
 } from "@heroicons/react/24/outline";
 import { ContentCard } from "~/components/ContentCard";
+import { eventJsonLd } from "~/data/event";
 
 function WhyItMatters() {
   const theme = useTheme();
@@ -53,16 +54,52 @@ function WhyItMatters() {
 
 const pageTheme: ThemeColor = "eggplant";
 
+const pageData = {
+  title: "About Open Streets Tempe",
+  description:
+    "Learn about Open Streets Tempe, a car-free celebration that transforms our streets into vibrant public spaces for community connection and active transportation.",
+  keywords:
+    "about open streets, car-free event, community celebration, active transportation, public spaces, street festival, Tempe events",
+} as const;
+
 export const meta: MetaFunction = () => {
   return [
     { title: "About - Open Streets Tempe" },
-    {
-      name: "description",
-      content:
-        "Learn about Open Streets Tempe and our mission to create vibrant, healthy, and connected communities through car-free street celebrations",
-    },
+    { name: "description", content: pageData.description },
     { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
   ];
+};
+
+export const handle = {
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageData.title,
+    description: pageData.description,
+    keywords: pageData.keywords,
+    mainEntity: {
+      ...eventJsonLd,
+      description:
+        "A car-free celebration where streets transform into vibrant public spaces for walking, biking, rolling, and community connection.",
+    },
+    potentialAction: [
+      {
+        "@type": "ViewAction",
+        name: "Volunteer",
+        target: "https://openstreetstempe.org/volunteer",
+      },
+      {
+        "@type": "ViewAction",
+        name: "Artists",
+        target: "https://openstreetstempe.org/artists",
+      },
+      {
+        "@type": "ViewAction",
+        name: "Sponsor",
+        target: "https://openstreetstempe.org/sponsor",
+      },
+    ],
+  },
 };
 
 export default function About() {

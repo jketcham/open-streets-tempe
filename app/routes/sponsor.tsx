@@ -11,6 +11,7 @@ import {
   type ThemeColor,
   useTheme,
 } from "~/components/ThemeProvider";
+import { eventJsonLd } from "~/data/event";
 
 const pageTheme: ThemeColor = "eggplant";
 
@@ -69,15 +70,62 @@ function SponsorCard({
   );
 }
 
+const pageData = {
+  title: "Sponsor Open Streets Tempe",
+  description:
+    "Support Open Streets Tempe and connect with our community. Various sponsorship opportunities available for businesses and organizations.",
+  keywords:
+    "event sponsorship, community support, business sponsorship, Tempe events, street festival sponsorship, community engagement",
+} as const;
+
 export const meta: MetaFunction = () => {
   return [
     { title: "Sponsor - Open Streets Tempe" },
-    {
-      name: "description",
-      content: "Sponsorship opportunities for Open Streets Tempe",
-    },
+    { name: "description", content: pageData.description },
     { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
   ];
+};
+
+export const handle = {
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageData.title,
+    description: pageData.description,
+    keywords: pageData.keywords,
+    mainEntity: {
+      ...eventJsonLd,
+      name: "Open Streets Tempe - Sponsorship",
+      description:
+        "A unique opportunity to support and connect with the Tempe community through our car-free celebration.",
+      offers: [
+        {
+          "@type": "Offer",
+          name: "Title Sponsor",
+          description:
+            "Premier sponsorship opportunity with maximum visibility",
+        },
+        {
+          "@type": "Offer",
+          name: "Supporting Sponsor",
+          description:
+            "Key sponsorship opportunity with significant visibility",
+        },
+        {
+          "@type": "Offer",
+          name: "Activation or Booth",
+          description: "Opportunity to engage directly with event attendees",
+        },
+      ],
+    },
+    potentialAction: [
+      {
+        "@type": "ViewAction",
+        name: "Contact Sponsor Team",
+        target: "mailto:sponsor@openstreetstempe.org",
+      },
+    ],
+  },
 };
 
 export default function Sponsor() {

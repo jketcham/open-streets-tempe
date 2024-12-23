@@ -18,18 +18,53 @@ import {
   getThemeBackgroundColor,
   type ThemeColor,
 } from "~/components/ThemeProvider";
+import { eventJsonLd } from "~/data/event";
 
 const pageTheme: ThemeColor = "tachi";
+
+const pageData = {
+  title: "Volunteer at Open Streets Tempe",
+  description:
+    "Join our volunteer team and help make Open Streets Tempe a success. Various volunteer opportunities available for this community-driven event.",
+  keywords:
+    "volunteer opportunities, community service, event volunteers, Tempe volunteers, street festival volunteers, community engagement",
+} as const;
 
 export const meta: MetaFunction = () => {
   return [
     { title: "Volunteer - Open Streets Tempe" },
-    {
-      name: "description",
-      content: "Volunteer opportunities for Open Streets Tempe",
-    },
+    { name: "description", content: pageData.description },
     { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
   ];
+};
+
+export const handle = {
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageData.title,
+    description: pageData.description,
+    keywords: pageData.keywords,
+    mainEntity: {
+      "@type": "VolunteerAction",
+      name: "Volunteer at Open Streets Tempe",
+      description:
+        "Help create a vibrant car-free celebration in Downtown Tempe by volunteering at the event.",
+      event: eventJsonLd,
+    },
+    potentialAction: [
+      {
+        "@type": "ViewAction",
+        name: "Sign Up to Volunteer",
+        target: "https://volunteer.biketempe.org",
+      },
+      {
+        "@type": "ViewAction",
+        name: "Contact Volunteer Team",
+        target: "mailto:volunteer@openstreetstempe.org",
+      },
+    ],
+  },
 };
 
 export default function Volunteer() {

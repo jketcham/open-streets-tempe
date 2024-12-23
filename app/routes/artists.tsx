@@ -16,18 +16,53 @@ import {
   getThemeBackgroundColor,
   type ThemeColor,
 } from "~/components/ThemeProvider";
+import { eventJsonLd } from "~/data/event";
 
 const pageTheme: ThemeColor = "apricot";
+
+const pageData = {
+  title: "Artists at Open Streets Tempe",
+  description:
+    "Calling all artists! Help transform Downtown Tempe's streets into an interactive art experience during our Open Streets celebration.",
+  keywords:
+    "artist opportunities, street art, public art, community art, Tempe artists, street festival art, interactive art",
+} as const;
 
 export const meta: MetaFunction = () => {
   return [
     { title: "Call to Artists - Open Streets Tempe" },
-    {
-      name: "description",
-      content: "Artist opportunities for Open Streets Tempe",
-    },
+    { name: "description", content: pageData.description },
     { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
   ];
+};
+
+export const handle = {
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageData.title,
+    description: pageData.description,
+    keywords: pageData.keywords,
+    mainEntity: {
+      ...eventJsonLd,
+      name: "Open Streets Tempe - Artist Participation",
+      description:
+        "Artists will help transform the streets into vibrant spaces with performances, installations, and interactive art experiences.",
+      offers: {
+        "@type": "Offer",
+        name: "Artist Participation",
+        description:
+          "Opportunities for artists to showcase their work and engage with the community",
+      },
+    },
+    potentialAction: [
+      {
+        "@type": "ViewAction",
+        name: "Contact Artist Team",
+        target: "mailto:artists@openstreetstempe.org",
+      },
+    ],
+  },
 };
 
 export default function Artists() {

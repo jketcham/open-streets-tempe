@@ -8,6 +8,7 @@ import {
   useTheme,
 } from "~/components/ThemeProvider";
 import { Container } from "~/components/Container";
+import { eventData, eventJsonLd } from "~/data/event";
 
 const pageTheme: ThemeColor = "tachi";
 
@@ -53,7 +54,6 @@ function MainContent() {
               <p className="text-2xl font-bold sm:text-3xl">
                 Experience the city like never before.
               </p>
-              <p className="text-xl sm:text-2xl">at Open Streets Tempe</p>
               <p>
                 For one day, our streets transform into vibrant public spaces
                 where you can walk, bike, roll, dance, and connect with your
@@ -88,40 +88,7 @@ function MainContent() {
 
 export const handle = {
   jsonLd: {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    name: "Open Streets Tempe",
-    description:
-      "A car-free celebration where people can walk, bike, roll, dance, and play. Experience the city like never before as our streets transform into vibrant public spaces.",
-    keywords:
-      "open streets, car-free, cycling, walking, community event, street festival, active transportation, Tempe events, family-friendly, public spaces",
-    startDate: "2025-04-13T10:00:00-07:00",
-    endDate: "2025-04-13T15:00:00-07:00",
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    isAccessibleForFree: true,
-    location: {
-      "@type": "Place",
-      name: "Downtown Tempe",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Tempe",
-        addressRegion: "AZ",
-        addressCountry: "US",
-      },
-    },
-    organizer: {
-      "@type": "Organization",
-      name: "Tempe Bicycle Action Group",
-      url: "https://biketempe.org",
-    },
-    offers: {
-      "@type": "Offer",
-      price: 0,
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      validFrom: "2024-01-01",
-    },
+    ...eventJsonLd,
     potentialAction: [
       {
         "@type": "ViewAction",
@@ -149,11 +116,10 @@ export const handle = {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Open Streets Tempe" },
+    { title: eventData.name },
     {
       name: "description",
-      content:
-        "April 13, 2025 – Join us for a car-free celebration in Downtown Tempe where streets transform into vibrant public spaces for walking, biking, rolling, and connecting with your community.",
+      content: `April 13, 2025 – ${eventData.description}`,
     },
     {
       name: "theme-color",
