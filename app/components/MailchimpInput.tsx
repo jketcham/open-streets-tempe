@@ -1,62 +1,26 @@
-export default function MailchimpForm() {
+import { useState } from "react";
+import { Button } from "./themed";
+
+export default function MailchimpInput() {
+  const [email, setEmail] = useState("");
+
   return (
-    <div id="mc_embed_shell">
-      <div id="mc_embed_signup">
-        <form
-          action="https://biketempe.us4.list-manage.com/subscribe/post?u=e0f2197fd495ef8f42428d6a1&amp;id=d80565878a&amp;f_id=004177eaf0"
-          method="post"
-          id="mc-embedded-subscribe-form"
-          name="mc-embedded-subscribe-form"
-          target="_self"
-          noValidate
-        >
-          <div id="mc_embed_signup_scroll">
-            <div className="flex flex-col space-y-2">
-              <input
-                type="email"
-                name="EMAIL"
-                className="rounded bg-white px-3 py-2 text-black"
-                id="mce-EMAIL"
-                placeholder="Your email address"
-                required
-              />
-            </div>
-            <div hidden>
-              <input type="hidden" name="tags" value="8204178" />
-            </div>
-            <div id="mce-responses" className="clear foot">
-              <div
-                className="response"
-                id="mce-error-response"
-                style={{ display: "none" }}
-              ></div>
-              <div
-                className="response"
-                id="mce-success-response"
-                style={{ display: "none" }}
-              ></div>
-            </div>
-            <div aria-hidden="true" className="hidden">
-              <input
-                type="text"
-                name="b_e0f2197fd495ef8f42428d6a1_d80565878a"
-                tabIndex={-1}
-              />
-            </div>
-            <div className="mt-2">
-              <div className="clear foot">
-                <input
-                  type="submit"
-                  name="subscribe"
-                  id="mc-embedded-subscribe"
-                  className="w-full cursor-pointer rounded bg-apricot px-4 py-2 text-black hover:opacity-90 sm:w-auto"
-                  value="Subscribe"
-                />
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+    <form
+      action="https://openstreetstempe.us21.list-manage.com/subscribe/post?u=9067c7c3c3d3f7b7f8b1b5b1a&amp;id=9b9b9b9b9b"
+      method="post"
+      target="_blank"
+      className="flex flex-col gap-2 sm:flex-row"
+    >
+      <input
+        type="email"
+        name="EMAIL"
+        placeholder="Enter your email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="flex-1 rounded-full border border-white/20 bg-black/10 px-6 py-3 text-white placeholder:text-white/60 focus:bg-black/20 focus:outline-none"
+        required
+      />
+      <Button type="submit">Subscribe</Button>
+    </form>
   );
 }

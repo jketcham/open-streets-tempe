@@ -34,6 +34,7 @@
     "@svgr/cli": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/compression": "^1.7.5",
     "@types/express": "^4.17.20",
     "@types/morgan": "^1.9.9",

@@ -1,6 +1,10 @@
+import { useTheme } from "../ThemeProvider";
+
 export default function Footer() {
+  const theme = useTheme();
+
   return (
-    <footer className="min-h-64 bg-apricot p-6 sm:p-10">
+    <footer className={`min-h-64 ${theme.bg} text-white p-6 sm:p-10`}>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
         <div>
           <ul className="space-y-2">

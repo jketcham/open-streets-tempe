@@ -1,7 +1,86 @@
 import type { MetaFunction } from "@remix-run/node";
-
-import Riders from "~/components/svg/Riders";
+import { PageLayout } from "~/components/PageLayout";
+import { ThemedSection } from "~/components/ThemedSection";
 import MailchimpInput from "~/components/MailchimpInput";
+import {
+  getThemeBackgroundColor,
+  type ThemeColor,
+  useTheme,
+} from "~/components/ThemeProvider";
+import { Container } from "~/components/Container";
+
+const pageTheme: ThemeColor = "tachi";
+
+function EventIntro() {
+  const theme = useTheme();
+
+  return (
+    <div className={`${theme.bg} py-12 sm:py-16`}>
+      <Container>
+        <div className="flex flex-col items-center text-center">
+          <h1
+            className={`text-2xl font-bold italic sm:text-5xl ${theme.textOnLight}`}
+          >
+            Open Streets Tempe
+          </h1>
+          <div
+            className={`mt-4 space-y-2 text-lg sm:text-2xl ${theme.textOnLight}`}
+          >
+            <p>April 13th, 2025</p>
+            <p>10:00 AM - 3:00 PM</p>
+            <p>Downtown Tempe</p>
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+function MainContent() {
+  const theme = useTheme();
+
+  return (
+    <div className={`${theme.bg} py-16 sm:py-24`}>
+      <Container>
+        <div className="mx-auto flex max-w-4xl flex-col">
+          <div
+            className={`flex flex-col space-y-12 text-center text-xl sm:text-2xl ${theme.textOnLight}`}
+          >
+            <div className="space-y-4">
+              <p className="text-2xl font-bold sm:text-3xl">
+                Experience the city like never before.
+              </p>
+              <p>
+                For one day, our streets transform into vibrant public spaces
+                where you can walk, bike, roll, dance, and connect with your
+                community.
+              </p>
+              <p>
+                Without the usual traffic, we&apos;ll see just how much is
+                possible when we prioritize people over cars—creating spaces
+                that bring us closer together.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-2xl font-bold sm:text-3xl">
+                This free, family-friendly event is for everyone.
+              </p>
+              <p>
+                Whether you&apos;re biking in a parade, joining a yoga session,
+                or simply strolling with friends—come reimagine our streets as
+                places for people.
+              </p>
+              <p>
+                Experience the possibilities of a more connected, livable Tempe.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
+}
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,7 +91,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "theme-color",
-      content: "#C9CF6B",
+      content: getThemeBackgroundColor(pageTheme),
     },
     {
       name: "og:image",
@@ -31,59 +110,37 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="flex h-full min-h-screen flex-col">
-      <main className="bg-pedalpalooza-2 flex h-full min-h-96 grow flex-col items-center justify-center">
-        <div className="flex flex-col items-center justify-center text-center">
-          <Riders aria-hidden className="mb-6 w-36 sm:w-56" />
-          <h1 className="text-2xl font-bold italic sm:text-5xl">
-            Open Streets Tempe
-          </h1>
-          <h2 className="mt-5 text-lg sm:text-3xl">Coming April 13th, 2025</h2>
-        </div>
-      </main>
+    <PageLayout theme={pageTheme}>
+      <div className="flex flex-col">
+        <EventIntro />
 
-      <div className="px-6 py-6 sm:px-10 sm:py-16">
-        <div className="mx-auto flex max-w-2xl flex-col">
-          <div className="flex flex-col space-y-8 text-center text-lg">
-            <p>
-              Open Streets Tempe invites you to experience the city like never
-              before. For one day, our streets transform into vibrant public
-              spaces where you can walk, bike, roll, dance, and connect with
-              your community. Without the usual traffic, we’ll see just how much
-              is possible when we prioritize people over cars—creating spaces
-              that bring us closer together.
-            </p>
+        <main className="bg-pedalpalooza-2 flex h-96 items-center justify-center bg-cover bg-top sm:h-[30rem]" />
 
-            <p>
-              This free, family-friendly event is for everyone—whether you're
-              biking in a parade, joining a yoga session, or simply strolling
-              with friends. Come reimagine our streets as places for people and
-              experience the possibilities of a more connected, livable Tempe.
-            </p>
-          </div>
-        </div>
-      </div>
+        <MainContent />
 
-      <div className="bg-eggplant px-6 py-6 text-white sm:px-10 sm:py-16">
-        <div className="mx-auto flex max-w-6xl flex-col">
-          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
-            Sign up for updates!
-          </h2>
+        <ThemedSection inverse>
+          <Container>
+            <div className="flex flex-col">
+              <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+                Sign up for updates!
+              </h2>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8">
-            <div>
-              <p className="text-lg">
-                Be the first to hear about event updates, volunteer
-                opportunities and more.
-              </p>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8">
+                <div>
+                  <p className="text-lg">
+                    Be the first to hear about event updates, volunteer
+                    opportunities and more.
+                  </p>
+                </div>
+
+                <div>
+                  <MailchimpInput />
+                </div>
+              </div>
             </div>
-
-            <div>
-              <MailchimpInput />
-            </div>
-          </div>
-        </div>
+          </Container>
+        </ThemedSection>
       </div>
-    </div>
+    </PageLayout>
   );
 }

@@ -10,11 +10,8 @@ import {
   useLocation,
 } from "@remix-run/react";
 import { useEffect } from "react";
-
 import * as gtag from "~/utils/gtags.client";
 import { useNonce } from "~/utils/nonce-provider";
-import Navbar from "~/components/Navbar";
-import Footer from "~/components/Footer";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -34,7 +31,7 @@ export const loader = async () => {
   return json({ gaTrackingId: process.env.GA_TRACKING_ID });
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export default function App() {
   const nonce = useNonce();
   const location = useLocation();
   const { gaTrackingId } = useLoaderData<typeof loader>();
@@ -78,16 +75,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             />
           </>
         )}
-        <Navbar />
-        {children}
-        <Footer />
+        <Outlet />
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
       </body>
     </html>
   );
-}
-
-export default function App() {
-  return <Outlet />;
 }

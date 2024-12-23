@@ -1,0 +1,194 @@
+import type { MetaFunction } from "@remix-run/node";
+import { ContentSection } from "~/components/ContentSection";
+import { Container } from "~/components/Container";
+import { LeadText } from "~/components/LeadText";
+import { PageHead } from "~/components/PageHead";
+import { PageLayout } from "~/components/PageLayout";
+import { Button, Link } from "~/components/themed";
+import {
+  getThemeBackgroundColor,
+  type ThemeColor,
+  useTheme,
+} from "~/components/ThemeProvider";
+
+const pageTheme: ThemeColor = "eggplant-dark";
+
+interface SponsorCardProps {
+  title: string;
+  price: number;
+  description?: string;
+  benefits?: string[];
+  isTitle?: boolean;
+  subtitle?: string;
+  note?: string;
+}
+
+function SponsorCard({
+  title,
+  price,
+  description,
+  benefits,
+  isTitle = false,
+  subtitle,
+  note,
+}: SponsorCardProps) {
+  const theme = useTheme();
+
+  return (
+    <div
+      className={`rounded-2xl ${
+        isTitle ? `border-2 ${theme.text}` : ""
+      } bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl`}
+    >
+      <h3 className={`mb-4 text-2xl font-bold ${theme.text}`}>{title}</h3>
+      {subtitle && (
+        <p className="mb-4 text-[1.25rem] leading-relaxed">({subtitle})</p>
+      )}
+      {description && (
+        <p className="mb-4 text-[1.25rem] leading-relaxed text-gray-600">
+          {description}
+        </p>
+      )}
+      {benefits && (
+        <div className="mb-4">
+          <h4 className={`mb-2 text-lg font-semibold ${theme.text}`}>
+            Benefits Include:
+          </h4>
+          <ul className="space-y-2 text-[1.25rem] leading-relaxed text-gray-600">
+            {benefits.map((benefit) => (
+              <li key={benefit}>{benefit}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <p className={`text-xl font-bold ${theme.text}`}>
+        ${price.toLocaleString()}
+      </p>
+      {note && (
+        <p className="mt-2 text-[1.25rem] leading-relaxed text-gray-600">
+          {note}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Sponsor - Open Streets Tempe" },
+    {
+      name: "description",
+      content: "Sponsorship opportunities for Open Streets Tempe",
+    },
+    { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
+  ];
+};
+
+export default function Sponsor() {
+  return (
+    <PageLayout theme={pageTheme}>
+      <PageHead title="Sponsor Open Streets">
+        <LeadText>
+          Support Tempe&apos;s first Open Streets event and connect with our
+          community! Your sponsorship helps create a vibrant, car-free
+          celebration of active living.
+        </LeadText>
+      </PageHead>
+
+      <main className="grow py-16">
+        <Container size="md">
+          <div>
+            <div className="prose prose-lg max-w-none">
+              <ContentSection title="About the Event">
+                <p>
+                  This inaugural event will be a block party where several
+                  streets in Downtown Tempe will be closed off to cars but
+                  opened up for any other use we can imagine.
+                </p>
+                <p>
+                  An extension of the Second Sundays local market hosted by the
+                  Downtown Tempe Authority, this event takes inspiration from
+                  the Cyclovia events held in other cities around the world to
+                  encourage communities to temporarily re-purpose public streets
+                  for fun activities and chances to connect.
+                </p>
+              </ContentSection>
+            </div>
+
+            <ContentSection title="Sponsorship Opportunities">
+              <div className="space-y-12">
+                <SponsorCard
+                  title="Title Sponsor (Limit 1)"
+                  price={5000}
+                  description="Premier branding and visibility throughout the event."
+                  benefits={[
+                    'Exclusive "Presented by" status',
+                    "Premium booth location",
+                    "Logo prominently featured on all event materials",
+                    "Speaking opportunity at event",
+                    "Social media recognition",
+                  ]}
+                  isTitle
+                />
+
+                <SponsorCard
+                  title="Premium Sponsor (Limit 3)"
+                  price={5000}
+                  benefits={[
+                    "Branding on 1 bike valet site",
+                    "1 music stage sign",
+                    "1 post on @biketempe Instagram",
+                    "1 Bike Tempe newsletter thank-you ad",
+                    "1 booth",
+                  ]}
+                />
+
+                <SponsorCard
+                  title="Giveaways Sponsor"
+                  price={3000}
+                  subtitle="Limit 1 per type of item, available at information booths"
+                  benefits={[
+                    "Front bike light",
+                    "Back bike light",
+                    "Reflective bracelet",
+                  ]}
+                />
+
+                <SponsorCard
+                  title="Activation or Booth"
+                  price={1000}
+                  description="Host a table, a game, an Instagrammable photo op or another creative way to interact with your brand"
+                  note="Nonprofits participate for FREE!"
+                />
+
+                <SponsorCard
+                  title="Food Trucks (Limit 2)"
+                  price={250}
+                  description="Location: Mill Avenue Bridge"
+                />
+              </div>
+            </ContentSection>
+
+            <div className="prose prose-lg max-w-none">
+              <ContentSection title="Custom Opportunities">
+                <p>
+                  Custom sponsorship packages are also available, including
+                  sponsoring the kids&apos; bike rodeo and other interactive
+                  opportunities. Get in touch if you have ideas for how
+                  you&apos;d like to showcase your brand at Open Streets Tempe!
+                </p>
+              </ContentSection>
+            </div>
+
+            <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+              <Button to="/sponsor/apply">Become a Sponsor</Button>
+              <Link href="mailto:sponsor@openstreetstempe.org">
+                Contact our sponsor team
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </main>
+    </PageLayout>
+  );
+}
