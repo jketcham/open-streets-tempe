@@ -68,16 +68,16 @@ export function getThemeColor(className: string): string {
   // Map the base colors to their hex values
   const colorMap = {
     tachi: {
-      DEFAULT: "#4A6741",
-      900: "#2C3E27",
+      DEFAULT: "#cbd171",
+      900: "#514325",
     },
     apricot: {
-      DEFAULT: "#E8A87C",
-      900: "#B37950",
+      DEFAULT: "#ffaf74",
+      900: "#7e2210",
     },
     eggplant: {
-      DEFAULT: "#41384C",
-      900: "#2A2531",
+      DEFAULT: "#918fe0",
+      900: "#423e7a",
     },
   };
 
