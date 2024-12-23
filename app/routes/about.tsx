@@ -205,9 +205,10 @@ export default function About() {
                 <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
                   <div className="shrink-0">
                     <a
-                      href="https://www.biketempe.org"
+                      href="https://www.biketempe.org?utm_source=openstreetstempe"
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="Visit Tempe Bicycle Action Group website"
                     >
                       <img
                         src="/logo-bike-tempe.png"
@@ -219,7 +220,7 @@ export default function About() {
                   <p>
                     Open Streets Tempe is a program of{" "}
                     <a
-                      href="https://www.biketempe.org"
+                      href="https://www.biketempe.org?utm_source=openstreetstempe"
                       className="text-eggplant hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"

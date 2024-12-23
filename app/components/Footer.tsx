@@ -15,6 +15,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 hover:opacity-90"
+            aria-label="Visit Tempe Bicycle Action Group website"
           >
             <BikeTempeLogo className="h-16 w-auto fill-current" />
           </a>
