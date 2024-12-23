@@ -26,6 +26,9 @@ jobs:
         with:
           workload_identity_provider: "projects/327348661717/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider"
           service_account: "${{ vars.GCP_SERVICE_ACCOUNT }}"
+          token_format: "access_token"
+          access_token_lifetime: "3600s"
+          create_credentials_file: true
 
       # Step 3: Configure gcloud CLI
       - name: Set up gcloud CLI
@@ -33,10 +36,13 @@ jobs:
         with:
           project_id: ${{ vars.GCP_PROJECT }}
 
-      - name: GCloud Docker Auth
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      # Step 4: Docker auth
+      - name: Docker Auth
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+          echo "$(gcloud auth print-access-token)" | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
 
-      # Step 4: Build and push Docker image
+      # Step 5: Build and push Docker image
       - name: Build and push Docker image
         id: build-push
         run: |
@@ -45,7 +51,7 @@ jobs:
           docker push $IMAGE
           echo "digest=$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE | cut -d'@' -f2)" >> $GITHUB_OUTPUT
 
-      # Step 5: Generate build attestation
+      # Step 6: Generate build attestation
       - name: Generate build attestation
         uses: actions/attest-build-provenance@v2
         with:
@@ -53,7 +59,7 @@ jobs:
           subject-digest: ${{ steps.build-push.outputs.digest }}
           push-to-registry: true
 
-      # Step 6: Deploy to Cloud Run
+      # Step 7: Deploy to Cloud Run
       - name: Deploy to Cloud Run
         run: |
           IMAGE="us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/bike-tempe/open-streets-tempe:${{github.sha}}"
