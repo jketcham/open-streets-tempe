@@ -6,7 +6,6 @@ import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
 import { ContentCard } from "~/components/ContentCard";
 import { Link } from "~/components/themed";
-import { ThemedList } from "~/components/ThemedList";
 import {
   PaintBrushIcon,
   MusicalNoteIcon,
