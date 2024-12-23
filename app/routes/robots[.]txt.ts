@@ -1,7 +1,7 @@
 import { LoaderFunction } from "@remix-run/node";
 
 export const loader: LoaderFunction = async () => {
-  const robotsTxtContent = `User-agent: *\nAllow: /`;
+  const robotsTxtContent = `User-agent: *\nAllow: /\nSitemap: https://openstreetstempe.org/sitemap.xml`;
 
   return new Response(robotsTxtContent.trim(), {
     headers: {
