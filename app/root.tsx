@@ -8,10 +8,12 @@ import {
   ScrollRestoration,
   useLoaderData,
   useLocation,
+  useMatches,
 } from "@remix-run/react";
 import { useEffect } from "react";
 import * as gtag from "~/utils/gtags.client";
 import { useNonce } from "~/utils/nonce-provider";
+import type { Handle } from "~/types/handle";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -34,6 +36,7 @@ export const loader = async () => {
 export default function App() {
   const nonce = useNonce();
   const location = useLocation();
+  const matches = useMatches();
   const { gaTrackingId } = useLoaderData<typeof loader>();
 
   useEffect(() => {
@@ -42,6 +45,11 @@ export default function App() {
     }
   }, [location, gaTrackingId]);
 
+  // Get the JSON-LD data from the current route's handle if it exists
+  const jsonLd = matches.find((match) => (match.handle as Handle)?.jsonLd)
+    ?.handle as Handle | undefined;
+  const jsonLdData = jsonLd?.jsonLd;
+
   return (
     <html lang="en">
       <head>
@@ -49,6 +57,13 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {jsonLdData && (
+          <script
+            type="application/ld+json"
+            nonce={nonce}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+          />
+        )}
       </head>
       <body className="bg-white text-neutral-900">
         {process.env.NODE_ENV === "development" || !gaTrackingId ? null : (
