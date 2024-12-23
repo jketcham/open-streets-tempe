@@ -211,7 +211,7 @@ export default function About() {
                       aria-label="Visit Tempe Bicycle Action Group website"
                     >
                       <img
-                        src="/logo-bike-tempe.png"
+                        src="/images/logo-bike-tempe.png"
                         alt="Tempe Bicycle Action Group"
                         className="h-24 w-auto"
                       />
@@ -250,7 +250,7 @@ export default function About() {
                   className="flex items-center justify-center"
                 >
                   <img
-                    src="/logo-tempe.png"
+                    src="/images/logo-tempe.png"
                     alt="City of Tempe"
                     className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />
@@ -262,7 +262,7 @@ export default function About() {
                   className="flex items-center justify-center"
                 >
                   <img
-                    src="/logo-dta.png"
+                    src="/images/logo-dta.png"
                     alt="Downtown Tempe Authority"
                     className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />
@@ -274,7 +274,7 @@ export default function About() {
                   className="flex items-center justify-center"
                 >
                   <img
-                    src="/logo-chamber.png"
+                    src="/images/logo-chamber.png"
                     alt="Tempe Chamber of Commerce"
                     className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />
@@ -286,7 +286,7 @@ export default function About() {
                   className="flex items-center justify-center"
                 >
                   <img
-                    src="/logo-tourism.png"
+                    src="/images/logo-tourism.png"
                     alt="Tempe Tourism"
                     className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />

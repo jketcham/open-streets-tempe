@@ -62,6 +62,12 @@ if (viteDevServer) {
   );
 }
 
+// Serve images with 1-year cache
+app.use(
+  "/images",
+  express.static("public/images", { immutable: true, maxAge: "1y" }),
+);
+
 // Everything else (like favicon.ico) is cached for an hour. You may want to be
 // more aggressive with this caching.
 app.use(express.static("build/client", { maxAge: "1h" }));

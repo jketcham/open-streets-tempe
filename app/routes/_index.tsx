@@ -127,11 +127,11 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "og:image",
-      content: "/site-preview.png",
+      content: "/images/site-preview.png",
     },
     {
       name: "twitter:image",
-      content: "/site-preview.png",
+      content: "/images/site-preview.png",
     },
     {
       name: "twitter:card",

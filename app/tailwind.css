@@ -22,8 +22,8 @@ h6 {
 
 .bg-pedalpalooza-2 {
   background-image: image-set(
-    url("/pedalpalooza-1.webp") type("image/webp"),
-    url("/pedalpalooza-1.jpg") type("image/jpeg")
+    url("/images/pedalpalooza-1.webp") type("image/webp"),
+    url("/images/pedalpalooza-1.jpg") type("image/jpeg")
   );
   background-size: cover;
   background-position: center 25%;
