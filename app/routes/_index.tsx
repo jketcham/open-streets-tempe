@@ -92,7 +92,7 @@ function EventIntro() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} py-16 sm:py-24`}>
+    <div className={`${theme.bg} pb-8 pt-16 sm:pb-12 sm:pt-24`}>
       <Container>
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="flex-1">
@@ -140,7 +140,7 @@ function MainContent() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} py-16 sm:py-24`}>
+    <div className={`${theme.bg} pb-16 pt-8 sm:pb-24 sm:pt-12`}>
       <Container>
         <FadeIn>
           <div className="mx-auto flex max-w-4xl flex-col">
@@ -182,6 +182,63 @@ function MainContent() {
         </FadeIn>
       </Container>
     </div>
+  );
+}
+
+function HeroImage() {
+  const theme = useTheme();
+
+  return (
+    <main className="relative flex h-96 items-center justify-center sm:h-[30rem]">
+      <picture className="absolute inset-0">
+        <source
+          type="image/webp"
+          media="(min-width: 1921px)"
+          srcSet="/images/pedalpalooza-overhead-2560w.webp"
+        />
+        <source
+          type="image/webp"
+          media="(min-width: 1025px) and (max-width: 1920px)"
+          srcSet="/images/pedalpalooza-overhead-1920w.webp"
+        />
+        <source
+          type="image/webp"
+          media="(min-width: 769px) and (max-width: 1024px)"
+          srcSet="/images/pedalpalooza-overhead-1024w.webp"
+        />
+        <source
+          type="image/webp"
+          media="(min-width: 641px) and (max-width: 768px)"
+          srcSet="/images/pedalpalooza-overhead-768w.webp"
+        />
+        <source
+          type="image/webp"
+          media="(max-width: 640px)"
+          srcSet="/images/pedalpalooza-overhead-640w.webp"
+        />
+        <img
+          src="/images/pedalpalooza-overhead-640w.jpg"
+          alt="Overhead view of Open Streets event"
+          className="size-full object-cover"
+          style={{ objectPosition: "center 25%" }}
+          {...({ fetchpriority: "high" } as { fetchpriority: "high" })}
+          decoding="async"
+          loading="eager"
+        />
+      </picture>
+      <div
+        className={`absolute top-0 h-8 w-full ${theme.bg} sm:h-16`}
+        style={{
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 0)",
+        }}
+      />
+      <div
+        className={`absolute bottom-0 h-8 w-full ${theme.bg} sm:h-16`}
+        style={{
+          clipPath: "polygon(0 100%, 0 0, 100% 100%, 100% 100%)",
+        }}
+      />
+    </main>
   );
 }
 
@@ -231,44 +288,7 @@ export default function Index() {
     <PageLayout theme={pageTheme}>
       <div className="flex flex-col">
         <EventIntro />
-        <main className="relative flex h-96 items-center justify-center sm:h-[30rem]">
-          <picture className="absolute inset-0">
-            <source
-              type="image/webp"
-              media="(min-width: 1921px)"
-              srcSet="/images/pedalpalooza-overhead-2560w.webp"
-            />
-            <source
-              type="image/webp"
-              media="(min-width: 1025px) and (max-width: 1920px)"
-              srcSet="/images/pedalpalooza-overhead-1920w.webp"
-            />
-            <source
-              type="image/webp"
-              media="(min-width: 769px) and (max-width: 1024px)"
-              srcSet="/images/pedalpalooza-overhead-1024w.webp"
-            />
-            <source
-              type="image/webp"
-              media="(min-width: 641px) and (max-width: 768px)"
-              srcSet="/images/pedalpalooza-overhead-768w.webp"
-            />
-            <source
-              type="image/webp"
-              media="(max-width: 640px)"
-              srcSet="/images/pedalpalooza-overhead-640w.webp"
-            />
-            <img
-              src="/images/pedalpalooza-overhead-640w.jpg"
-              alt="Overhead view of Open Streets event"
-              className="size-full object-cover"
-              style={{ objectPosition: "center 25%" }}
-              {...({ fetchpriority: "high" } as { fetchpriority: "high" })}
-              decoding="async"
-              loading="eager"
-            />
-          </picture>
-        </main>
+        <HeroImage />
         <MainContent />
         <ThemedSection inverse>
           <Container>
