@@ -18,7 +18,7 @@ export default function MailchimpInput() {
         placeholder="Enter your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="placeholder:text-current/70 w-full rounded-md bg-black/40 px-6 py-3 text-lg focus:outline-current"
+        className={`w-full rounded-md bg-black/40 px-6 py-3 text-lg focus:outline-current ${theme.textInverse} placeholder:${theme.textInverse} placeholder:opacity-70`}
         required
       />
       <button
