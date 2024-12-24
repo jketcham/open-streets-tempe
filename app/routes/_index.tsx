@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { PageLayout } from "~/components/PageLayout";
 import { ThemedSection } from "~/components/ThemedSection";
 import MailchimpInput from "~/components/MailchimpInput";
+import { motion } from "motion/react";
 import {
   getThemeBackgroundColor,
   type ThemeColor,
@@ -19,21 +20,32 @@ function EventIntro() {
     <div className={`${theme.bg} py-12 sm:py-16`}>
       <Container>
         <div className="flex flex-col items-center text-center">
-          <h1
+          <motion.h1
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className={`text-2xl font-bold italic sm:text-5xl ${theme.textOnLight}`}
           >
             Play, Walk, Bike
-          </h1>
-          <p className={`my-2 text-xl sm:text-3xl ${theme.textOnLight}`}>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+            className={`my-2 text-xl sm:text-3xl ${theme.textOnLight}`}
+          >
             at Open Streets Tempe
-          </p>
-          <div
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
             className={`mt-4 space-y-2 text-lg sm:text-2xl ${theme.textOnLight}`}
           >
             <p>April 13th, 2025</p>
             <p>10:00 AM - 3:00 PM</p>
             <p>Downtown Tempe</p>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </div>
