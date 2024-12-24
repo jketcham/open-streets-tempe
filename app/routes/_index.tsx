@@ -2,48 +2,134 @@ import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { PageLayout } from "~/components/PageLayout";
 import { ThemedSection } from "~/components/ThemedSection";
 import MailchimpInput from "~/components/MailchimpInput";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { Container } from "~/components/Container";
 import { eventData, eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
+import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { useState, useEffect } from "react";
 
 const pageTheme: ThemeColor = "tachi";
+
+const activities = [
+  "Bike and Explore",
+  "Discover Local Art",
+  "Walk with Friends",
+  "Play and Connect",
+  "Dance with Joy",
+  "Run and Relax",
+  "Transform the Streets",
+  "Create and Imagine",
+  "Celebrate Community",
+  "Laugh and Play",
+  "Take it Easy",
+  "Ride and Roam",
+  "Share the Moment",
+  "Skate and Stroll",
+];
+
+function AnimatedText() {
+  const [index, setIndex] = useState(0);
+  const theme = useTheme();
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % activities.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.h1
+        key={activities[index]}
+        className={`mb-4 text-4xl font-bold italic sm:text-5xl ${theme.textOnLight}`}
+      >
+        {activities[index].split(" ").map((word, wordIndex, words) => (
+          <span key={wordIndex} className="whitespace-nowrap">
+            {word.split("").map((char, charIndex) => (
+              <motion.span
+                key={`${wordIndex}-${charIndex}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{
+                  duration: 0.3,
+                  delay: (wordIndex * word.length + charIndex) * 0.03,
+                  ease: "easeOut",
+                }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            ))}
+            {wordIndex < words.length - 1 && (
+              <motion.span
+                key={`${wordIndex}-space`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: (wordIndex * word.length + word.length) * 0.03,
+                  ease: "easeOut",
+                }}
+                className="inline-block"
+              >
+                {"\u00A0"}
+              </motion.span>
+            )}
+          </span>
+        ))}
+      </motion.h1>
+    </AnimatePresence>
+  );
+}
 
 function EventIntro() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} py-12 sm:py-16`}>
+    <div className={`${theme.bg} py-16 sm:py-24`}>
       <Container>
-        <div className="flex flex-col items-center text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className={`text-2xl font-bold italic sm:text-5xl ${theme.textOnLight}`}
-          >
-            Play, Walk, Bike
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-            className={`my-2 text-xl sm:text-3xl ${theme.textOnLight}`}
-          >
-            at Open Streets Tempe
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
-            className={`mt-4 space-y-2 text-lg sm:text-2xl ${theme.textOnLight}`}
-          >
-            <p>April 13th, 2025</p>
-            <p>10:00 AM - 3:00 PM</p>
-            <p>Downtown Tempe</p>
-          </motion.div>
+        <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
+          <div className="flex-1">
+            <div className="min-h-[8.5rem] pb-2 sm:min-h-40">
+              <AnimatedText />
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+                className={`text-2xl sm:text-3xl ${theme.textOnLight}`}
+              >
+                at <span className="font-semibold">Open Streets Tempe</span>
+              </motion.p>
+            </div>
+          </div>
+          <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
+              className={`${theme.bgInverse} ${theme.textInverse} space-y-2 rounded-md p-4 text-lg sm:max-w-xs sm:justify-self-end sm:p-6 sm:text-2xl`}
+            >
+              <div className="flex items-start gap-3">
+                <CalendarIcon className="mt-1 size-7 shrink-0" />
+                <div>
+                  <p>April 13th, 2025</p>
+                  <p className="-mt-1 text-base opacity-90 sm:text-xl">
+                    10 AM - 3 PM
+                  </p>
+                </div>
+              </div>
+              <div className="mt-2 flex items-start gap-3">
+                <MapPinIcon className="mt-1 size-7 shrink-0" />
+                <p>Downtown Tempe</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </Container>
     </div>
@@ -190,8 +276,8 @@ export default function Index() {
               <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
                 Sign up for updates!
               </h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8">
-                <div>
+              <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
+                <div className="flex-1">
                   <p className="text-lg">
                     Be the first to hear about event updates, volunteer
                     opportunities and more.
