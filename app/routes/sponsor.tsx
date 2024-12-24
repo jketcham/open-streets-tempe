@@ -129,12 +129,8 @@ export const handle = {
 export default function Sponsor() {
   return (
     <PageLayout theme={pageTheme}>
-      <PageHead title="Sponsor Open Streets">
-        <LeadText>
-          Support Tempe&apos;s first Open Streets event and connect with our
-          community! Your sponsorship helps create a vibrant, car-free
-          celebration of active living.
-        </LeadText>
+      <PageHead title={pageData.title}>
+        <LeadText>{pageData.description}</LeadText>
       </PageHead>
 
       <main className="grow py-16">

@@ -66,12 +66,8 @@ export const handle = {
 export default function Artists() {
   return (
     <PageLayout theme={pageTheme}>
-      <PageHead title="Artists at Open Streets">
-        <LeadText>
-          Help transform Tempe&apos;s streets into an open-air gallery and
-          performance space! We&apos;re seeking artists of all disciplines to
-          create, perform, and engage with our community.
-        </LeadText>
+      <PageHead title={pageData.title}>
+        <LeadText>{pageData.description}</LeadText>
       </PageHead>
 
       <main className="grow py-16">

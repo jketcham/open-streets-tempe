@@ -103,13 +103,8 @@ export const handle = {
 export default function About() {
   return (
     <PageLayout theme={pageTheme}>
-      <PageHead title="About Open Streets">
-        <LeadText>
-          Open Streets Tempe transforms our city&apos;s streets into a car-free
-          celebration where people can walk, bike, roll, dance, and play. For
-          one special day, we&apos;ll create a temporary linear park that
-          connects our community in new and exciting ways.
-        </LeadText>
+      <PageHead title={pageData.title}>
+        <LeadText>{pageData.description}</LeadText>
       </PageHead>
 
       <main className="grow space-y-16 py-16">

@@ -69,12 +69,8 @@ export const handle = {
 export default function Volunteer() {
   return (
     <PageLayout theme={pageTheme}>
-      <PageHead title="Volunteer With Us">
-        <LeadText>
-          Transform Tempe&apos;s streets into a vibrant community space! Every
-          volunteer plays a vital role in making our car-free event successful
-          and enjoyable for everyone.
-        </LeadText>
+      <PageHead title={pageData.title}>
+        <LeadText>{pageData.description}</LeadText>
       </PageHead>
 
       <main className="grow py-16">
