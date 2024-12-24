@@ -26,7 +26,7 @@ export function PageHead({ title, children }: PageHeadProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-          className="prose prose-lg prose-invert max-w-none"
+          className="prose prose-lg prose-invert max-w-4xl"
         >
           {children}
         </motion.div>
