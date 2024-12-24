@@ -133,11 +133,6 @@ export const meta: MetaFunction = () => {
     description: `April 13, 2025 – ${eventData.description}`,
     theme: pageTheme,
     path: "/",
-    labelData: [
-      { label: "Date", data: "April 13, 2025" },
-      { label: "Time", data: "10am-3pm" },
-      { label: "Location", data: "Downtown Tempe" },
-    ],
   });
 };
 
