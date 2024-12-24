@@ -1,11 +1,17 @@
 import type { ThemeColor } from "~/components/ThemeProvider";
 import { getThemeBackgroundColor } from "~/components/ThemeProvider";
 
+interface LabelDataPair {
+  label: string;
+  data: string;
+}
+
 interface GenerateMetaTagsOptions {
   title: string;
   description: string;
   theme: ThemeColor;
   path: string;
+  labelData?: LabelDataPair[];
 }
 
 export function generateMetaTags({
@@ -13,6 +19,7 @@ export function generateMetaTags({
   description,
   theme,
   path,
+  labelData,
 }: GenerateMetaTagsOptions) {
   const baseUrl =
     process.env.NODE_ENV === "development"
@@ -24,7 +31,7 @@ export function generateMetaTags({
   ogImageUrl.searchParams.set("description", description);
   ogImageUrl.searchParams.set("theme", theme);
 
-  return [
+  const metaTags = [
     { title },
     { name: "description", content: description },
     { name: "theme-color", content: getThemeBackgroundColor(theme) },
@@ -33,11 +40,24 @@ export function generateMetaTags({
     { property: "og:image", content: ogImageUrl.toString() },
     { property: "og:url", content: `${baseUrl}${path}` },
     { property: "og:type", content: "website" },
+    { property: "og:locale", content: "en_US" },
     { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@os_tempe" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: ogImageUrl.toString() },
   ];
+
+  if (labelData) {
+    labelData.forEach((pair, index) => {
+      metaTags.push(
+        { property: `og:label${index + 1}`, content: pair.label },
+        { property: `og:data${index + 1}`, content: pair.data },
+      );
+    });
+  }
+
+  return metaTags;
 }
 
 export function generateFaviconLinks(theme: ThemeColor) {
