@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { ContentSection } from "~/components/ContentSection";
 import { Container } from "~/components/Container";
 import { LeadText } from "~/components/LeadText";
@@ -8,7 +8,7 @@ import { ContentCard } from "~/components/ContentCard";
 import { Link } from "~/components/themed";
 import { type ThemeColor } from "~/components/ThemeProvider";
 import { eventJsonLd } from "~/data/event";
-import { generateMetaTags } from "~/utils/meta";
+import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import {
   PaintBrushIcon,
   MusicalNoteIcon,
@@ -32,6 +32,10 @@ export const meta: MetaFunction = () => {
     theme: pageTheme,
     path: "/artists",
   });
+};
+
+export const links: LinksFunction = () => {
+  return generateFaviconLinks(pageTheme);
 };
 
 export const handle = {

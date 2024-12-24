@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { ContentSection } from "~/components/ContentSection";
 import { Container } from "~/components/Container";
 import { LeadText } from "~/components/LeadText";
@@ -8,7 +8,7 @@ import { Link } from "~/components/themed";
 import { ThemedList } from "~/components/ThemedList";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { eventJsonLd } from "~/data/event";
-import { generateMetaTags } from "~/utils/meta";
+import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 
 const pageTheme: ThemeColor = "eggplant";
 
@@ -82,6 +82,10 @@ export const meta: MetaFunction = () => {
     theme: pageTheme,
     path: "/sponsor",
   });
+};
+
+export const links: LinksFunction = () => {
+  return generateFaviconLinks(pageTheme);
 };
 
 export const handle = {

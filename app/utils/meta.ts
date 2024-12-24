@@ -39,3 +39,28 @@ export function generateMetaTags({
     { name: "twitter:image", content: ogImageUrl.toString() },
   ];
 }
+
+export function generateFaviconLinks(theme: ThemeColor) {
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://openstreetstempe.org";
+
+  const svgUrl = new URL("/resource/favicon.svg", baseUrl);
+  const icoUrl = new URL("/resource/favicon.ico", baseUrl);
+  svgUrl.searchParams.set("theme", theme);
+  icoUrl.searchParams.set("theme", theme);
+
+  return [
+    {
+      rel: "icon",
+      href: icoUrl.toString(),
+      sizes: "32x32",
+    },
+    {
+      rel: "icon",
+      type: "image/svg+xml",
+      href: svgUrl.toString(),
+    },
+  ];
+}

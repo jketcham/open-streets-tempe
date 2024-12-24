@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { PageLayout } from "~/components/PageLayout";
 import { ThemedSection } from "~/components/ThemedSection";
 import MailchimpInput from "~/components/MailchimpInput";
@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { Container } from "~/components/Container";
 import { eventData, eventJsonLd } from "~/data/event";
-import { generateMetaTags } from "~/utils/meta";
+import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 
 const pageTheme: ThemeColor = "tachi";
 
@@ -130,6 +130,10 @@ export const meta: MetaFunction = () => {
     theme: pageTheme,
     path: "/",
   });
+};
+
+export const links: LinksFunction = () => {
+  return generateFaviconLinks(pageTheme);
 };
 
 export default function Index() {

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { ContentSection } from "~/components/ContentSection";
 import { Container } from "~/components/Container";
 import { LeadText } from "~/components/LeadText";
@@ -9,7 +9,7 @@ import { ThemedSection } from "~/components/ThemedSection";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { ContentCard } from "~/components/ContentCard";
 import { eventJsonLd } from "~/data/event";
-import { generateMetaTags } from "~/utils/meta";
+import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import {
   MapPinIcon,
   MusicalNoteIcon,
@@ -66,6 +66,10 @@ export const meta: MetaFunction = () => {
     theme: pageTheme,
     path: "/about",
   });
+};
+
+export const links: LinksFunction = () => {
+  return generateFaviconLinks(pageTheme);
 };
 
 export const handle = {
