@@ -3,13 +3,10 @@ import { PageLayout } from "~/components/PageLayout";
 import { ThemedSection } from "~/components/ThemedSection";
 import MailchimpInput from "~/components/MailchimpInput";
 import { motion } from "motion/react";
-import {
-  getThemeBackgroundColor,
-  type ThemeColor,
-  useTheme,
-} from "~/components/ThemeProvider";
+import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { Container } from "~/components/Container";
 import { eventData, eventJsonLd } from "~/data/event";
+import { generateMetaTags } from "~/utils/meta";
 
 const pageTheme: ThemeColor = "tachi";
 
@@ -127,29 +124,12 @@ export const handle = {
 };
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: eventData.name },
-    {
-      name: "description",
-      content: `April 13, 2025 – ${eventData.description}`,
-    },
-    {
-      name: "theme-color",
-      content: getThemeBackgroundColor(pageTheme),
-    },
-    {
-      name: "og:image",
-      content: "/images/site-preview.png",
-    },
-    {
-      name: "twitter:image",
-      content: "/images/site-preview.png",
-    },
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-  ];
+  return generateMetaTags({
+    title: eventData.name,
+    description: `April 13, 2025 – ${eventData.description}`,
+    theme: pageTheme,
+    path: "/",
+  });
 };
 
 export default function Index() {

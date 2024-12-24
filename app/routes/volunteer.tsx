@@ -7,6 +7,9 @@ import { PageLayout } from "~/components/PageLayout";
 import { ContentCard } from "~/components/ContentCard";
 import { Link } from "~/components/themed";
 import { ThemedList } from "~/components/ThemedList";
+import { type ThemeColor } from "~/components/ThemeProvider";
+import { eventJsonLd } from "~/data/event";
+import { generateMetaTags } from "~/utils/meta";
 import {
   MapPinIcon,
   ChartBarIcon,
@@ -14,11 +17,6 @@ import {
   WrenchScrewdriverIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline";
-import {
-  getThemeBackgroundColor,
-  type ThemeColor,
-} from "~/components/ThemeProvider";
-import { eventJsonLd } from "~/data/event";
 
 const pageTheme: ThemeColor = "tachi";
 
@@ -31,11 +29,12 @@ const pageData = {
 } as const;
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "Volunteer - Open Streets Tempe" },
-    { name: "description", content: pageData.description },
-    { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
-  ];
+  return generateMetaTags({
+    title: pageData.title,
+    description: pageData.description,
+    theme: pageTheme,
+    path: "/volunteer",
+  });
 };
 
 export const handle = {

@@ -6,11 +6,10 @@ import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
 import { Button, Link } from "~/components/themed";
 import { ThemedSection } from "~/components/ThemedSection";
-import {
-  getThemeBackgroundColor,
-  type ThemeColor,
-  useTheme,
-} from "~/components/ThemeProvider";
+import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
+import { ContentCard } from "~/components/ContentCard";
+import { eventJsonLd } from "~/data/event";
+import { generateMetaTags } from "~/utils/meta";
 import {
   MapPinIcon,
   MusicalNoteIcon,
@@ -21,8 +20,6 @@ import {
   ChevronDoubleRightIcon,
   SpeakerWaveIcon,
 } from "@heroicons/react/24/outline";
-import { ContentCard } from "~/components/ContentCard";
-import { eventJsonLd } from "~/data/event";
 
 function WhyItMatters() {
   const theme = useTheme();
@@ -63,11 +60,12 @@ const pageData = {
 } as const;
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "About - Open Streets Tempe" },
-    { name: "description", content: pageData.description },
-    { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
-  ];
+  return generateMetaTags({
+    title: pageData.title,
+    description: pageData.description,
+    theme: pageTheme,
+    path: "/about",
+  });
 };
 
 export const handle = {

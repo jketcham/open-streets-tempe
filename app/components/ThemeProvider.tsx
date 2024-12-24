@@ -69,14 +69,23 @@ export function getThemeColor(className: string): string {
   const colorMap = {
     tachi: {
       DEFAULT: "#cbd171",
+      200: "#dfe5ae",
+      600: "#8a802d",
+      700: "#756729",
       900: "#514325",
     },
     apricot: {
       DEFAULT: "#ffaf74",
+      200: "#ffd0a9",
+      600: "#ed4309",
+      700: "#c53009",
       900: "#7e2210",
     },
     eggplant: {
       DEFAULT: "#918fe0",
+      200: "#dde1f8",
+      600: "#7e74d2",
+      700: "#665cb7",
       900: "#423e7a",
     },
   };

@@ -6,16 +6,14 @@ import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
 import { ContentCard } from "~/components/ContentCard";
 import { Link } from "~/components/themed";
+import { type ThemeColor } from "~/components/ThemeProvider";
+import { eventJsonLd } from "~/data/event";
+import { generateMetaTags } from "~/utils/meta";
 import {
   PaintBrushIcon,
   MusicalNoteIcon,
   SpeakerWaveIcon,
 } from "@heroicons/react/24/outline";
-import {
-  getThemeBackgroundColor,
-  type ThemeColor,
-} from "~/components/ThemeProvider";
-import { eventJsonLd } from "~/data/event";
 
 const pageTheme: ThemeColor = "apricot";
 
@@ -28,11 +26,12 @@ const pageData = {
 } as const;
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "Call to Artists - Open Streets Tempe" },
-    { name: "description", content: pageData.description },
-    { name: "theme-color", content: getThemeBackgroundColor(pageTheme) },
-  ];
+  return generateMetaTags({
+    title: pageData.title,
+    description: pageData.description,
+    theme: pageTheme,
+    path: "/artists",
+  });
 };
 
 export const handle = {

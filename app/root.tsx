@@ -32,7 +32,7 @@ export const links: LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Gabarito:wght@400..900&family=Hepta+Slab:wght@1..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Hepta+Slab:wght@1..900&display=swap",
   },
 ];
 
