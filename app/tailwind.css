@@ -21,10 +21,9 @@ h6 {
 }
 
 .bg-pedalpalooza-2 {
-  background-image: image-set(
-    url("/images/pedalpalooza-1.webp") type("image/webp"),
-    url("/images/pedalpalooza-1.jpg") type("image/jpeg")
-  );
+  background-image: url("/images/pedalpalooza-1.jpg");
+  background-image: -webkit-image-set(url("/images/pedalpalooza-1.webp") 1x);
+  background-image: image-set(url("/images/pedalpalooza-1.webp") 1x);
   background-size: cover;
   background-position: center 25%;
 }
