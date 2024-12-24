@@ -9,28 +9,69 @@ export default function Footer() {
   return (
     <footer className={`${theme.bg} py-12 ${theme.textOnLight}`}>
       <Container>
-        <div className="mb-12 flex flex-col items-center gap-4 border-b-4 border-current pb-12 text-center sm:flex-row sm:text-left">
-          <a
-            href="https://www.biketempe.org?utm_source=openstreetstempe"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 hover:opacity-90"
-            aria-label="Visit Tempe Bicycle Action Group website"
-          >
-            <BikeTempeLogo className="h-16 w-auto fill-current" />
-          </a>
-          <p className="text-lg">
-            A program of{" "}
+        <div className="mb-12 grid grid-cols-1 gap-12 border-b-4 border-current pb-12 sm:grid-cols-[1.5fr,1fr] lg:grid-cols-3">
+          <div className="flex flex-row items-center gap-4 border-b-4 border-current pb-12 sm:border-b-0 sm:border-r-4 sm:pb-0 sm:pr-6 lg:col-span-2 lg:pr-12">
             <a
               href="https://www.biketempe.org?utm_source=openstreetstempe"
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 underline underline-offset-4 hover:opacity-90"
+              className="shrink-0 hover:opacity-90"
+              aria-label="Visit Tempe Bicycle Action Group website"
             >
-              Tempe Bicycle Action Group,
-            </a>{" "}
-            a 501(c)(3) nonprofit organization
-          </p>
+              <BikeTempeLogo className="h-16 w-auto fill-current" />
+            </a>
+            <p className="text-lg">
+              A program of{" "}
+              <a
+                href="https://www.biketempe.org?utm_source=openstreetstempe"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 underline underline-offset-4 hover:opacity-90"
+              >
+                Tempe Bicycle Action Group,
+              </a>{" "}
+              a 501(c)(3) nonprofit organization
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-lg">Our Partners</p>
+            <div className="flex flex-row items-center justify-center gap-6">
+              <a
+                href="https://www.tempe.gov?utm_source=openstreetstempe"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 hover:opacity-90"
+              >
+                <div className="relative">
+                  <img
+                    src="/images/logo-tempe-640w.png"
+                    alt="City of Tempe"
+                    className="relative h-16 w-auto object-contain brightness-0"
+                  />
+                  <div
+                    className={`absolute inset-0 ${theme.bg} opacity-30`}
+                  ></div>
+                </div>
+              </a>
+              <a
+                href="https://www.downtowntempe.com?utm_source=openstreetstempe"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 hover:opacity-90"
+              >
+                <div className="relative">
+                  <img
+                    src="/images/logo-dta-640w.png"
+                    alt="Downtown Tempe Authority"
+                    className="relative h-16 w-auto object-contain brightness-0"
+                  />
+                  <div
+                    className={`absolute inset-0 ${theme.bg} opacity-30`}
+                  ></div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
