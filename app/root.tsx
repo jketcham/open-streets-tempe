@@ -16,6 +16,13 @@ import { useNonce } from "~/utils/nonce-provider";
 import type { Handle } from "~/types/handle";
 import "./tailwind.css";
 
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Open Streets Tempe",
+  url: "https://openstreetstempe.org",
+};
+
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -55,6 +62,7 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:site_name" content="Open Streets Tempe" />
         <Meta />
         <Links />
         {jsonLdData && (
@@ -64,6 +72,11 @@ export default function App() {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
           />
         )}
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }}
+        />
       </head>
       <body className="bg-white text-neutral-900">
         {process.env.NODE_ENV === "development" || !gaTrackingId ? null : (
