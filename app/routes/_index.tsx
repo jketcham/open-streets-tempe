@@ -120,7 +120,7 @@ function EventIntro() {
                 <div>
                   <p>April 13th, 2025</p>
                   <p className="-mt-1 text-base opacity-90 sm:text-xl">
-                    10 AM - 3 PM
+                    10 AM – 3 PM
                   </p>
                 </div>
               </div>
@@ -145,10 +145,10 @@ function MainContent() {
         <FadeIn>
           <div className="mx-auto flex max-w-4xl flex-col">
             <div
-              className={`flex flex-col space-y-12 text-center text-xl sm:text-2xl ${theme.textOnLight}`}
+              className={`flex flex-col space-y-20 text-center text-xl sm:text-2xl ${theme.textOnLight}`}
             >
               <div className="space-y-4">
-                <p className="text-2xl font-bold sm:text-3xl">
+                <p className="font-display text-2xl font-bold sm:text-3xl">
                   Experience the city like never before.
                 </p>
                 <p>
@@ -164,7 +164,7 @@ function MainContent() {
               </div>
 
               <div className="space-y-4">
-                <p className="text-2xl font-bold sm:text-3xl">
+                <p className="font-display text-2xl font-bold sm:text-3xl">
                   This free, family-friendly event is for everyone.
                 </p>
                 <p>

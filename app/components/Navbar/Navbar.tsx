@@ -47,7 +47,7 @@ export default function Navbar() {
 
             {/* Mobile Toggle Button */}
             <button
-              className={`${theme.textOnLight} md:hidden`}
+              className={`${theme.textOnLight} -my-6 -mr-6 p-6 md:hidden`}
               onClick={() => setNavOpen(!navOpen)}
               aria-label="Toggle menu"
             >
