@@ -10,6 +10,7 @@ import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { ContentCard } from "~/components/ContentCard";
 import { eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
+import { FadeIn } from "~/components/FadeIn";
 import {
   MapPinIcon,
   MusicalNoteIcon,
@@ -25,7 +26,7 @@ function WhyItMatters() {
   const theme = useTheme();
 
   return (
-    <div className="max-w-none">
+    <FadeIn className="max-w-none">
       <div>
         <h2 className={`mb-10 text-3xl font-bold ${theme.textOnLight}`}>
           Why It Matters
@@ -45,7 +46,7 @@ function WhyItMatters() {
           </ul>
         </div>
       </div>
-    </div>
+    </FadeIn>
   );
 }
 
