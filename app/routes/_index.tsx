@@ -145,7 +145,44 @@ export default function Index() {
     <PageLayout theme={pageTheme}>
       <div className="flex flex-col">
         <EventIntro />
-        <main className="bg-pedalpalooza-2 flex h-96 items-center justify-center bg-cover bg-top sm:h-[30rem]" />
+        <main className="relative flex h-96 items-center justify-center sm:h-[30rem]">
+          <picture className="absolute inset-0">
+            <source
+              type="image/webp"
+              media="(min-width: 1921px)"
+              srcSet="/images/pedalpalooza-overhead-2560w.webp"
+            />
+            <source
+              type="image/webp"
+              media="(min-width: 1025px) and (max-width: 1920px)"
+              srcSet="/images/pedalpalooza-overhead-1920w.webp"
+            />
+            <source
+              type="image/webp"
+              media="(min-width: 769px) and (max-width: 1024px)"
+              srcSet="/images/pedalpalooza-overhead-1024w.webp"
+            />
+            <source
+              type="image/webp"
+              media="(min-width: 641px) and (max-width: 768px)"
+              srcSet="/images/pedalpalooza-overhead-768w.webp"
+            />
+            <source
+              type="image/webp"
+              media="(max-width: 640px)"
+              srcSet="/images/pedalpalooza-overhead-640w.webp"
+            />
+            <img
+              src="/images/pedalpalooza-overhead-640w.jpg"
+              alt="Overhead view of Open Streets event"
+              className="size-full object-cover"
+              style={{ objectPosition: "center 25%" }}
+              {...({ fetchpriority: "high" } as { fetchpriority: "high" })}
+              decoding="async"
+              loading="eager"
+            />
+          </picture>
+        </main>
         <MainContent />
         <ThemedSection inverse>
           <Container>
