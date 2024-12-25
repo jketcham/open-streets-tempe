@@ -10,6 +10,10 @@ import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
+import {
+  ResponsiveImage,
+  generatePreloadLinks,
+} from "~/components/ResponsiveImage";
 
 const pageTheme: ThemeColor = "tachi";
 
@@ -190,42 +194,15 @@ function HeroImage() {
 
   return (
     <main className="relative flex h-96 items-center justify-center sm:h-[30rem]">
-      <picture className="absolute inset-0">
-        <source
-          type="image/webp"
-          media="(min-width: 1921px)"
-          srcSet="/images/pedalpalooza-overhead-2560w.webp"
-        />
-        <source
-          type="image/webp"
-          media="(min-width: 1025px) and (max-width: 1920px)"
-          srcSet="/images/pedalpalooza-overhead-1920w.webp"
-        />
-        <source
-          type="image/webp"
-          media="(min-width: 769px) and (max-width: 1024px)"
-          srcSet="/images/pedalpalooza-overhead-1024w.webp"
-        />
-        <source
-          type="image/webp"
-          media="(min-width: 641px) and (max-width: 768px)"
-          srcSet="/images/pedalpalooza-overhead-768w.webp"
-        />
-        <source
-          type="image/webp"
-          media="(max-width: 640px)"
-          srcSet="/images/pedalpalooza-overhead-640w.webp"
-        />
-        <img
-          src="/images/pedalpalooza-overhead-640w.jpg"
+      <div className="absolute inset-0">
+        <ResponsiveImage
+          basePath="/images/pedalpalooza-overhead"
           alt="Overhead view of Open Streets event"
           className="size-full object-cover"
-          style={{ objectPosition: "center 25%" }}
-          {...({ fetchpriority: "high" } as { fetchpriority: "high" })}
-          decoding="async"
-          loading="eager"
+          objectPosition="center 25%"
+          priority
         />
-      </picture>
+      </div>
       <div
         className={`absolute top-0 h-8 w-full ${theme.bg} sm:h-16`}
         style={{
@@ -282,41 +259,7 @@ export const meta: MetaFunction = () => {
 export const links: LinksFunction = () => {
   return [
     ...generateFaviconLinks(pageTheme),
-    {
-      rel: "preload",
-      as: "image",
-      href: "/images/pedalpalooza-overhead-640w.webp",
-      media: "(max-width: 640px)",
-      fetchpriority: "high",
-    },
-    {
-      rel: "preload",
-      as: "image",
-      href: "/images/pedalpalooza-overhead-768w.webp",
-      media: "(min-width: 641px) and (max-width: 768px)",
-      fetchpriority: "high",
-    },
-    {
-      rel: "preload",
-      as: "image",
-      href: "/images/pedalpalooza-overhead-1024w.webp",
-      media: "(min-width: 769px) and (max-width: 1024px)",
-      fetchpriority: "high",
-    },
-    {
-      rel: "preload",
-      as: "image",
-      href: "/images/pedalpalooza-overhead-1920w.webp",
-      media: "(min-width: 1025px) and (max-width: 1920px)",
-      fetchpriority: "high",
-    },
-    {
-      rel: "preload",
-      as: "image",
-      href: "/images/pedalpalooza-overhead-2560w.webp",
-      media: "(min-width: 1921px)",
-      fetchpriority: "high",
-    },
+    ...generatePreloadLinks("/images/pedalpalooza-overhead"),
   ];
 };
 
