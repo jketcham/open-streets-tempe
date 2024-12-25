@@ -105,9 +105,9 @@ function EventIntro() {
   return (
     <div className={`${theme.bg} pb-8 pt-16 sm:pb-12 sm:pt-24`}>
       <Container>
-        <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
-          <div className="flex-1">
-            <div className="min-h-[8.5rem] pb-2 sm:min-h-40">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-5 lg:grid-cols-3">
+          <div className="md:col-span-3 lg:col-span-2">
+            <div className="min-h-[8.5rem] pb-2 md:min-h-40">
               <AnimatedText />
               <motion.p
                 initial={{ opacity: 0 }}
@@ -119,12 +119,12 @@ function EventIntro() {
               </motion.p>
             </div>
           </div>
-          <div>
+          <div className="md:col-span-2 lg:col-span-1">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
-              className={`${theme.bgInverse} ${theme.textInverse} space-y-2 rounded-md p-4 text-lg sm:max-w-xs sm:justify-self-end sm:p-6 sm:text-2xl`}
+              className={`${theme.bgInverse} ${theme.textInverse} space-y-2 rounded-md p-4 text-lg sm:p-6 sm:text-2xl`}
             >
               <div className="flex items-start gap-3">
                 <CalendarIcon className="mt-1 size-7 shrink-0" />
