@@ -64,7 +64,7 @@ function AnimatedText() {
                   delay: (wordIndex * word.length + charIndex) * 0.03,
                   ease: "easeOut",
                 }}
-                className="inline-block"
+                className="inline-block overflow-visible"
               >
                 {char}
               </motion.span>

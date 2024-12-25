@@ -18,7 +18,7 @@ export default function Footer() {
               className="shrink-0 hover:opacity-90"
               aria-label="Visit Tempe Bicycle Action Group website"
             >
-              <BikeTempeLogo className="h-16 w-auto fill-current" />
+              <BikeTempeLogo className="h-20 w-auto fill-current" />
             </a>
             <p className="text-lg">
               A program of{" "}
@@ -46,7 +46,7 @@ export default function Footer() {
                   <img
                     src="/images/logo-tempe-640w.png"
                     alt="City of Tempe"
-                    className="relative h-16 w-auto object-contain brightness-0"
+                    className="relative h-20 w-auto object-contain opacity-70 brightness-0"
                     loading="lazy"
                     decoding="async"
                   />
@@ -65,7 +65,7 @@ export default function Footer() {
                   <img
                     src="/images/logo-dta-640w.png"
                     alt="Downtown Tempe Authority"
-                    className="relative h-16 w-auto object-contain brightness-0"
+                    className="relative h-20 w-auto object-contain opacity-70 brightness-0"
                     loading="lazy"
                     decoding="async"
                   />
