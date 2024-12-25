@@ -31,8 +31,13 @@ export const links: LinksFunction = () => [
     crossOrigin: "anonymous",
   },
   {
+    rel: "preload",
+    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&family=Hepta+Slab:wght@400;500;600;700;800;900&display=swap",
+    as: "style",
+  },
+  {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Hepta+Slab:wght@1..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&family=Hepta+Slab:wght@400;500;600;700;800;900&display=swap",
   },
 ];
 

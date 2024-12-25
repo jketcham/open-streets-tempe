@@ -280,7 +280,44 @@ export const meta: MetaFunction = () => {
 };
 
 export const links: LinksFunction = () => {
-  return generateFaviconLinks(pageTheme);
+  return [
+    ...generateFaviconLinks(pageTheme),
+    {
+      rel: "preload",
+      as: "image",
+      href: "/images/pedalpalooza-overhead-640w.webp",
+      media: "(max-width: 640px)",
+      fetchpriority: "high",
+    },
+    {
+      rel: "preload",
+      as: "image",
+      href: "/images/pedalpalooza-overhead-768w.webp",
+      media: "(min-width: 641px) and (max-width: 768px)",
+      fetchpriority: "high",
+    },
+    {
+      rel: "preload",
+      as: "image",
+      href: "/images/pedalpalooza-overhead-1024w.webp",
+      media: "(min-width: 769px) and (max-width: 1024px)",
+      fetchpriority: "high",
+    },
+    {
+      rel: "preload",
+      as: "image",
+      href: "/images/pedalpalooza-overhead-1920w.webp",
+      media: "(min-width: 1025px) and (max-width: 1920px)",
+      fetchpriority: "high",
+    },
+    {
+      rel: "preload",
+      as: "image",
+      href: "/images/pedalpalooza-overhead-2560w.webp",
+      media: "(min-width: 1921px)",
+      fetchpriority: "high",
+    },
+  ];
 };
 
 export default function Index() {
