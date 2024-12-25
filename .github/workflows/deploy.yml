@@ -78,4 +78,6 @@ jobs:
 
       # Step 9: Deploy to Firebase
       - name: Deploy to Firebase
-        run: firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
+        run: |
+          firebase use ${{ vars.GCP_PROJECT }} --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
