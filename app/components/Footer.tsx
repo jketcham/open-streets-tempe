@@ -47,6 +47,8 @@ export default function Footer() {
                     src="/images/logo-tempe-640w.png"
                     alt="City of Tempe"
                     className="relative h-16 w-auto object-contain brightness-0"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div
                     className={`absolute inset-0 ${theme.bg} opacity-30`}
@@ -64,6 +66,8 @@ export default function Footer() {
                     src="/images/logo-dta-640w.png"
                     alt="Downtown Tempe Authority"
                     className="relative h-16 w-auto object-contain brightness-0"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div
                     className={`absolute inset-0 ${theme.bg} opacity-30`}
