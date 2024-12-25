@@ -1,13 +1,13 @@
-name: Deploy to Google Cloud Run
+name: Deploy to Google Cloud Run and Firebase
 
 on:
   push:
     branches:
-      - main # Deploy on pushes to the main branch
+      - main
 
 jobs:
   deploy:
-    name: Deploy to Cloud Run
+    name: Deploy to Cloud Run and Firebase
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -71,3 +71,11 @@ jobs:
             --allow-unauthenticated \
             --update-env-vars=GA_TRACKING_ID=G-VDDPT9B63T \
             --update-env-vars=NODE_ENV=production
+
+      # Step 8: Install Firebase CLI
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      # Step 9: Deploy to Firebase
+      - name: Deploy to Firebase
+        run: firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
