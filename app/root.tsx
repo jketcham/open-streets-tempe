@@ -32,12 +32,12 @@ export const links: LinksFunction = () => [
   },
   {
     rel: "preload",
-    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&family=Hepta+Slab:wght@400;500;600;700;800;900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400;600;700&family=Hepta+Slab:wght@400;700&display=swap",
     as: "style",
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&family=Hepta+Slab:wght@400;500;600;700;800;900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Gabarito:wght@400;600;700&family=Hepta+Slab:wght@400;700&display=swap",
   },
 ];
 
