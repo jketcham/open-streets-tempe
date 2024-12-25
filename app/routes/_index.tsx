@@ -49,7 +49,7 @@ function AnimatedText() {
     <AnimatePresence mode="wait">
       <motion.h1
         key={activities[index]}
-        className={`mb-4 text-4xl font-bold italic sm:text-5xl ${theme.textOnLight} overflow-visible`}
+        className={`mb-4 text-4xl font-bold italic sm:text-5xl ${theme.textOnLight} ml-[10px] overflow-visible`}
         style={{ paddingRight: "0.1em" }}
       >
         <div className="overflow-visible">
@@ -69,7 +69,7 @@ function AnimatedText() {
                     delay: (wordIndex * word.length + charIndex) * 0.03,
                     ease: "easeOut",
                   }}
-                  className="relative inline-block overflow-visible"
+                  className="relative ml-[-10px] inline-block overflow-visible pr-[10px]"
                   style={{ transform: "translateZ(0)" }}
                 >
                   {char}
