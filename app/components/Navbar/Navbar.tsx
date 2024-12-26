@@ -14,7 +14,43 @@ export default function Navbar() {
       <nav className={`relative py-6 ${theme.textOnLight}`}>
         <Container>
           <div className="flex items-center justify-between">
-            <Link to="/" className="text-xl font-bold">
+            {/* Mobile Toggle Button */}
+            <button
+              className={`${theme.textOnLight} -my-6 -ml-6 p-6 md:hidden`}
+              onClick={() => setNavOpen(!navOpen)}
+              aria-label="Toggle menu"
+            >
+              <AnimatePresence mode="wait">
+                {navOpen ? (
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.1 }}
+                    >
+                      <XMarkIcon className="size-6" />
+                    </motion.div>
+                    <div className="invisible">Menu</div>
+                  </div>
+                ) : (
+                  <motion.div
+                    key="bars"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.1 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Bars3Icon className="size-6" />
+                    Menu
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
+
+            <Link to="/" className="text-lg font-bold sm:text-xl">
               Open Streets Tempe
             </Link>
 
@@ -44,37 +80,6 @@ export default function Navbar() {
                 </Link>
               </li>
             </ul>
-
-            {/* Mobile Toggle Button */}
-            <button
-              className={`${theme.textOnLight} -my-6 -mr-6 p-6 md:hidden`}
-              onClick={() => setNavOpen(!navOpen)}
-              aria-label="Toggle menu"
-            >
-              <AnimatePresence mode="wait">
-                {navOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.1 }}
-                  >
-                    <XMarkIcon className="size-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="bars"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.1 }}
-                  >
-                    <Bars3Icon className="size-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </button>
           </div>
         </Container>
 
