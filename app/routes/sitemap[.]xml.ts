@@ -1,19 +1,28 @@
 import type { LoaderFunction } from "@remix-run/node";
 
-const baseUrl = "https://openstreetstempe.org"; // Replace with your actual domain
+const baseUrl = "https://openstreetstempe.org";
 
-export const loader: LoaderFunction = () => {
-  const pages = ["", "/about", "/artists", "/sponsor", "/volunteer"];
+// Define known routes
+const routes = [
+  "",
+  "about",
+  "artists",
+  "sponsor",
+  "volunteer",
+  "donate",
+  "newsletter",
+];
 
+export const loader: LoaderFunction = async () => {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${pages
+      ${routes
         .map(
-          (page) => `
+          (route) => `
         <url>
-          <loc>${baseUrl}${page}</loc>
+          <loc>${baseUrl}${route === "" ? "" : `/${route}`}</loc>
           <changefreq>weekly</changefreq>
-          <priority>${page === "" ? "1.0" : "0.8"}</priority>
+          <priority>${route === "" ? "1.0" : "0.8"}</priority>
         </url>
       `,
         )
