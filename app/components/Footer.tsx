@@ -117,6 +117,11 @@ export default function Footer() {
                   Sponsor
                 </Link>
               </li>
+              <li>
+                <Link to="/donate" className="hover:opacity-90">
+                  Donate
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
@@ -141,6 +146,11 @@ export default function Footer() {
                 >
                   Twitter
                 </a>
+              </li>
+              <li>
+                <Link to="/newsletter" className="hover:opacity-90">
+                  Newsletter
+                </Link>
               </li>
             </ul>
           </div>

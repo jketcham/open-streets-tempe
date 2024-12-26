@@ -19,7 +19,7 @@ interface ThemeContextValue {
 export const themeMap: Record<ThemeColor, ThemeContextValue> = {
   tachi: {
     bg: "bg-tachi",
-    bgInverse: "bg-tachi-900",
+    bgInverse: "bg-tachi-800",
     text: "text-tachi-600",
     textOnLight: "text-tachi-700",
     textInverse: "text-tachi-200",
@@ -33,7 +33,7 @@ export const themeMap: Record<ThemeColor, ThemeContextValue> = {
   },
   apricot: {
     bg: "bg-apricot",
-    bgInverse: "bg-apricot-900",
+    bgInverse: "bg-apricot-700",
     text: "text-apricot-600",
     textOnLight: "text-apricot-700",
     textInverse: "text-apricot-200",

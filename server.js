@@ -36,14 +36,21 @@ app.use(
         "script-src": [
           "'self'",
           "https://www.googletagmanager.com/",
+          "https://js.stripe.com/",
           (req, res) => `'nonce-${res.locals.cspNonce}'`,
+        ],
+        "frame-src": ["'self'", "https://js.stripe.com/"],
+        "img-src": [
+          "'self'",
+          "data:",
+          "https://widgets.guidestar.org/",
+          "https://www.googletagmanager.com",
         ],
         "connect-src": [
           "'self'",
           "https://www.google-analytics.com/",
           () => (isProduction ? "" : "ws://localhost:24678"),
         ],
-        "img-src": ["'self'", "data:", "https://www.googletagmanager.com"],
       },
     },
     crossOriginEmbedderPolicy: false,

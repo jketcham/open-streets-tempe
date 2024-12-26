@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  EnvelopeIcon,
+} from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "motion/react";
-import { useTheme } from "../ThemeProvider";
-import { Container } from "../Container";
+import { useTheme } from "~/components/ThemeProvider";
+import { Container } from "~/components/Container";
+import InstagramIcon from "~/components/svg/Instagram";
+import XIcon from "~/components/svg/X";
 
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
@@ -87,6 +93,14 @@ export default function Navbar() {
                   Sponsor
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/donate"
+                  className={`rounded-md ${theme.bgInverse} ${theme.textInverse} px-4 py-2 transition-colors hover:opacity-90`}
+                >
+                  Donate
+                </Link>
+              </li>
             </ul>
           </div>
         </Container>
@@ -142,32 +156,42 @@ export default function Navbar() {
               </ul>
 
               {/* Social Links and Donate Button */}
-              <div className="mb-12 flex flex-col items-center space-y-6">
-                <div className="flex space-x-6">
+              <div className="mb-12 flex flex-col items-center space-y-12">
+                <div className="flex items-center space-x-8">
                   <a
                     href="https://instagram.com/openstreetstempe"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-lg hover:underline"
+                    className="hover:opacity-70"
                   >
-                    Instagram
+                    <InstagramIcon className="size-7 fill-current" />
+                    <span className="sr-only">Instagram</span>
                   </a>
                   <a
                     href="https://twitter.com/os_tempe"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-lg hover:underline"
+                    className="hover:opacity-70"
                   >
-                    Twitter
+                    <XIcon className="size-6 fill-current" />
+                    <span className="sr-only">X (Twitter)</span>
                   </a>
-                  {/* <Link
+                  <Link
                     to="/newsletter"
-                    className="text-lg hover:underline"
+                    className="hover:opacity-70"
                     onClick={() => setNavOpen(false)}
                   >
-                    Newsletter
-                  </Link> */}
+                    <EnvelopeIcon className="size-7" />
+                    <span className="sr-only">Newsletter</span>
+                  </Link>
                 </div>
+                <Link
+                  to="/donate"
+                  className={`rounded-md ${theme.bgInverse} ${theme.textInverse} px-6 py-3 text-xl transition-colors hover:opacity-90`}
+                  onClick={() => setNavOpen(false)}
+                >
+                  Donate
+                </Link>
               </div>
             </motion.div>
           )}
