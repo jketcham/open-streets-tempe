@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@remix-run/react";
 import {
   Bars3Icon,
@@ -14,6 +14,19 @@ import XIcon from "~/components/svg/X";
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
   const theme = useTheme();
+
+  // Disable scrolling when the menu is open
+  useEffect(() => {
+    if (navOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [navOpen]);
 
   return (
     <header className={`${theme.bg} sticky top-0 z-50`}>
