@@ -67,6 +67,7 @@ jobs:
             --image=$IMAGE \
             --platform=managed \
             --region=${{ vars.GCP_REGION }} \
+            --min-instances=1 \
             --memory=256Mi \
             --allow-unauthenticated \
             --update-env-vars=GA_TRACKING_ID=G-VDDPT9B63T \
