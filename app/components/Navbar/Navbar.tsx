@@ -32,7 +32,15 @@ export default function Navbar() {
                     >
                       <XMarkIcon className="size-6" />
                     </motion.div>
-                    <div className="invisible">Menu</div>
+                    <motion.div
+                      key="close-text"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.1 }}
+                    >
+                      Close
+                    </motion.div>
                   </div>
                 ) : (
                   <motion.div
@@ -83,54 +91,85 @@ export default function Navbar() {
           </div>
         </Container>
 
-        {/* Mobile Dropdown Menu with Animation */}
+        {/* Mobile Fullscreen Menu with Animation */}
         <AnimatePresence>
           {navOpen && (
-            <motion.ul
+            <motion.div
               key="mobile-menu"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className={`absolute left-0 top-full z-50 flex w-full flex-col overflow-hidden border-t border-current text-lg ${theme.bg} py-2 shadow-md md:hidden`}
+              className={`fixed inset-0 top-[75px] z-50 flex flex-col ${theme.bg}`}
             >
-              <li>
-                <Link
-                  to="/about"
-                  className="block cursor-pointer px-4 py-2 hover:underline"
-                  onClick={() => setNavOpen(false)}
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/volunteer"
-                  className="block cursor-pointer px-4 py-2 hover:underline"
-                  onClick={() => setNavOpen(false)}
-                >
-                  Volunteer
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/artists"
-                  className="block cursor-pointer px-4 py-2 hover:underline"
-                  onClick={() => setNavOpen(false)}
-                >
-                  Call to Artists
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/sponsor"
-                  className="block cursor-pointer px-4 py-2 hover:underline"
-                  onClick={() => setNavOpen(false)}
-                >
-                  Sponsor
-                </Link>
-              </li>
-            </motion.ul>
+              <ul className="flex h-full flex-col items-center justify-center space-y-8 text-2xl">
+                <li>
+                  <Link
+                    to="/about"
+                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    onClick={() => setNavOpen(false)}
+                  >
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/volunteer"
+                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    onClick={() => setNavOpen(false)}
+                  >
+                    Volunteer
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/artists"
+                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    onClick={() => setNavOpen(false)}
+                  >
+                    Call to Artists
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/sponsor"
+                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    onClick={() => setNavOpen(false)}
+                  >
+                    Sponsor
+                  </Link>
+                </li>
+              </ul>
+
+              {/* Social Links and Donate Button */}
+              <div className="mb-12 flex flex-col items-center space-y-6">
+                <div className="flex space-x-6">
+                  <a
+                    href="https://instagram.com/openstreetstempe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg hover:underline"
+                  >
+                    Instagram
+                  </a>
+                  <a
+                    href="https://twitter.com/os_tempe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg hover:underline"
+                  >
+                    Twitter
+                  </a>
+                  {/* <Link
+                    to="/newsletter"
+                    className="text-lg hover:underline"
+                    onClick={() => setNavOpen(false)}
+                  >
+                    Newsletter
+                  </Link> */}
+                </div>
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>
       </nav>
