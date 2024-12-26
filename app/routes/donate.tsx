@@ -73,7 +73,7 @@ export default function Donate() {
         <Container size="md">
           <div className="mx-auto max-w-3xl">
             <div className="mb-16 grid grid-cols-1 items-start gap-8 sm:grid-cols-[1fr,auto]">
-              <div className="-ml-2 sm:ml-0">
+              <div className="flex justify-center sm:justify-start">
                 {/* @ts-expect-error - Stripe custom element */}
                 <stripe-buy-button
                   buy-button-id="buy_btn_1QaBc6I6T2Tglv3e5PNAKkSr"
