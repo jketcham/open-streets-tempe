@@ -9,6 +9,7 @@ import { ThemedList } from "~/components/ThemedList";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
+import { Button } from "~/components/themed/Button";
 
 const pageTheme: ThemeColor = "eggplant";
 
@@ -223,10 +224,16 @@ export default function Sponsor() {
               </ContentSection>
             </div>
 
-            <div className="mt-12 border-t-4 border-current pt-8 text-center">
-              <Link href="mailto:sponsor@openstreetstempe.org">
-                Contact our sponsor team at sponsor@openstreetstempe.org
-              </Link>
+            <div className="mt-12 space-y-8 border-t-4 border-current pt-8 text-center">
+              <div>
+                <Button to="/sponsor/signup">Sponsor Signup</Button>
+              </div>
+
+              <div>
+                <Link href="mailto:sponsor@openstreetstempe.org">
+                  Contact our sponsor team at sponsor@openstreetstempe.org
+                </Link>
+              </div>
             </div>
           </div>
         </Container>

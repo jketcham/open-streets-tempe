@@ -39,7 +39,11 @@ app.use(
           "https://js.stripe.com/",
           (req, res) => `'nonce-${res.locals.cspNonce}'`,
         ],
-        "frame-src": ["'self'", "https://js.stripe.com/"],
+        "frame-src": [
+          "'self'",
+          "https://js.stripe.com/",
+          "https://airtable.com/",
+        ],
         "img-src": [
           "'self'",
           "data:",

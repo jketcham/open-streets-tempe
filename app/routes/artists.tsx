@@ -6,6 +6,7 @@ import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
 import { ContentCard } from "~/components/ContentCard";
 import { Link } from "~/components/themed";
+import { Button } from "~/components/themed/Button";
 import { type ThemeColor } from "~/components/ThemeProvider";
 import { eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
@@ -139,10 +140,16 @@ export default function Artists() {
               </ContentSection>
             </div>
 
-            <div className="mt-12 border-t-4 border-current pt-8 text-center">
-              <Link href="mailto:artists@openstreetstempe.org">
-                Contact our artist team at artists@openstreetstempe.org
-              </Link>
+            <div className="mt-12 space-y-8 border-t-4 border-current pt-8 text-center">
+              <div>
+                <Button to="/artists/signup">Artist Signup</Button>
+              </div>
+
+              <div>
+                <Link href="mailto:artists@openstreetstempe.org">
+                  Contact our artist team at artists@openstreetstempe.org
+                </Link>
+              </div>
             </div>
           </div>
         </Container>
