@@ -6,11 +6,20 @@ interface LabelDataPair {
   data: string;
 }
 
+type MetaTag = {
+  title?: string;
+  name?: string;
+  content?: string;
+  property?: string;
+  rel?: string;
+  href?: string;
+};
+
 interface GenerateMetaTagsOptions {
   title: string;
   description: string;
   theme: ThemeColor;
-  path: string;
+  path?: string;
   labelData?: LabelDataPair[];
 }
 
@@ -31,14 +40,19 @@ export function generateMetaTags({
   ogImageUrl.searchParams.set("description", description);
   ogImageUrl.searchParams.set("theme", theme);
 
-  const metaTags = [
+  const fullUrl = path
+    ? path === "/"
+      ? baseUrl
+      : `${baseUrl}${path}`
+    : undefined;
+
+  const metaTags: MetaTag[] = [
     { title },
     { name: "description", content: description },
     { name: "theme-color", content: getThemeBackgroundColor(theme) },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:image", content: ogImageUrl.toString() },
-    { property: "og:url", content: `${baseUrl}${path}` },
     { property: "og:type", content: "website" },
     { property: "og:locale", content: "en_US" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -47,6 +61,13 @@ export function generateMetaTags({
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: ogImageUrl.toString() },
   ];
+
+  if (fullUrl) {
+    metaTags.push(
+      { rel: "canonical", href: fullUrl },
+      { property: "og:url", content: fullUrl },
+    );
+  }
 
   if (labelData) {
     labelData.forEach((pair, index) => {
