@@ -43,6 +43,7 @@ export default function SponsorSignup() {
                 title="Sponsor Signup Form"
                 src="https://airtable.com/embed/appTU8SJ3COPcDzOj/pag1x38dhWdAbAZl8/form"
                 height={900}
+                skeletonLoader="form"
               />
             </ContentSection>
           </div>

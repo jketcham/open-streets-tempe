@@ -43,6 +43,7 @@ export default function ArtistSignup() {
               <IframeEmbed
                 title="Artist Submission Form"
                 src="https://airtable.com/embed/appTU8SJ3COPcDzOj/paghn1Yox3HBQ0SYn/form"
+                skeletonLoader="form"
               />
             </ContentSection>
           </div>
