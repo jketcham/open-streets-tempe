@@ -1,10 +1,6 @@
 import type { CSSProperties } from "react";
 
-interface ImageSize {
-  minWidth?: number;
-  maxWidth?: number;
-  src: string;
-}
+type ImageMaxSize = 640 | 768 | 1024 | 1920 | 2560;
 
 interface ResponsiveImageProps {
   basePath: string;
@@ -13,56 +9,104 @@ interface ResponsiveImageProps {
   style?: CSSProperties;
   objectPosition?: string;
   priority?: boolean;
+  maxSize?: ImageMaxSize;
 }
 
 // Utility function to generate source elements for a picture tag
-function generateImageSources(basePath: string) {
-  const sizes: ImageSize[] = [
-    { minWidth: 1921, src: `${basePath}-2560w.webp` },
-    { minWidth: 1025, maxWidth: 1920, src: `${basePath}-1920w.webp` },
-    { minWidth: 769, maxWidth: 1024, src: `${basePath}-1024w.webp` },
-    { minWidth: 641, maxWidth: 768, src: `${basePath}-768w.webp` },
-    { maxWidth: 640, src: `${basePath}-640w.webp` },
+function generateImageSources(basePath: string, maxSize: ImageMaxSize) {
+  const allSizes: {
+    size: ImageMaxSize;
+    minWidth?: number;
+    maxWidth?: number;
+  }[] = [
+    { size: 2560, minWidth: 1921 },
+    { size: 1920, minWidth: 1025, maxWidth: 1920 },
+    { size: 1024, minWidth: 769, maxWidth: 1024 },
+    { size: 768, minWidth: 641, maxWidth: 768 },
+    { size: 640, maxWidth: 640 },
   ];
 
-  return sizes.map(({ minWidth, maxWidth, src }) => (
-    <source
-      key={src}
-      type="image/webp"
-      media={
-        minWidth && maxWidth
-          ? `(min-width: ${minWidth}px) and (max-width: ${maxWidth}px)`
-          : minWidth
-            ? `(min-width: ${minWidth}px)`
-            : `(max-width: ${maxWidth}px)`
-      }
-      srcSet={src}
-    />
-  ));
-}
+  // Filter sizes based on maxSize
+  const sizes = allSizes
+    .filter(({ size }) => size <= maxSize)
+    .map(({ size, minWidth, maxWidth }) => ({
+      minWidth,
+      maxWidth,
+      src: `${basePath}-${size}w`,
+    }));
 
-// Utility function to generate preload link objects
-export function generatePreloadLinks(basePath: string) {
-  const sizes: ImageSize[] = [
-    { minWidth: 1921, src: `${basePath}-2560w.webp` },
-    { minWidth: 1025, maxWidth: 1920, src: `${basePath}-1920w.webp` },
-    { minWidth: 769, maxWidth: 1024, src: `${basePath}-1024w.webp` },
-    { minWidth: 641, maxWidth: 768, src: `${basePath}-768w.webp` },
-    { maxWidth: 640, src: `${basePath}-640w.webp` },
-  ];
-
-  return sizes.map(({ minWidth, maxWidth, src }) => ({
-    rel: "preload",
-    as: "image",
-    href: src,
-    media:
-      minWidth && maxWidth
+  return sizes.map(({ minWidth, maxWidth, src }, index) => {
+    // For the largest size in our filtered array, we want to handle all sizes above it
+    const isLargestSize = index === 0;
+    const mediaQuery = isLargestSize
+      ? minWidth
+        ? `(min-width: ${minWidth}px)`
+        : undefined // No media query needed for the largest size
+      : minWidth && maxWidth
         ? `(min-width: ${minWidth}px) and (max-width: ${maxWidth}px)`
         : minWidth
           ? `(min-width: ${minWidth}px)`
-          : `(max-width: ${maxWidth}px)`,
-    fetchpriority: "high",
-  }));
+          : `(max-width: ${maxWidth}px)`;
+
+    return (
+      <source
+        key={src + "-webp"}
+        type="image/webp"
+        media={mediaQuery}
+        srcSet={`${src}.webp`}
+      />
+    );
+  });
+}
+
+// Utility function to generate preload link objects
+export function generatePreloadLinks(
+  basePath: string,
+  maxSize: ImageMaxSize = 2560,
+) {
+  const allSizes: {
+    size: ImageMaxSize;
+    minWidth?: number;
+    maxWidth?: number;
+  }[] = [
+    { size: 2560, minWidth: 1921 },
+    { size: 1920, minWidth: 1025, maxWidth: 1920 },
+    { size: 1024, minWidth: 769, maxWidth: 1024 },
+    { size: 768, minWidth: 641, maxWidth: 768 },
+    { size: 640, maxWidth: 640 },
+  ];
+
+  // Filter sizes based on maxSize
+  const sizes = allSizes
+    .filter(({ size }) => size <= maxSize)
+    .map(({ size, minWidth, maxWidth }) => ({
+      minWidth,
+      maxWidth,
+      src: `${basePath}-${size}w`,
+    }));
+
+  return sizes.map(({ minWidth, maxWidth, src }, index) => {
+    // For the largest size in our filtered array, we want to handle all sizes above it
+    const isLargestSize = index === 0;
+    const mediaQuery = isLargestSize
+      ? minWidth
+        ? `(min-width: ${minWidth}px)`
+        : undefined // No media query needed for the largest size
+      : minWidth && maxWidth
+        ? `(min-width: ${minWidth}px) and (max-width: ${maxWidth}px)`
+        : minWidth
+          ? `(min-width: ${minWidth}px)`
+          : `(max-width: ${maxWidth}px)`;
+
+    return {
+      rel: "preload",
+      as: "image",
+      href: `${src}.webp`,
+      type: "image/webp",
+      ...(mediaQuery && { media: mediaQuery }),
+      fetchpriority: "high",
+    };
+  });
 }
 
 export function ResponsiveImage({
@@ -72,6 +116,7 @@ export function ResponsiveImage({
   style,
   objectPosition,
   priority = false,
+  maxSize = 2560,
 }: ResponsiveImageProps) {
   const imgProps = priority
     ? {
@@ -86,7 +131,7 @@ export function ResponsiveImage({
 
   return (
     <picture>
-      {generateImageSources(basePath)}
+      {generateImageSources(basePath, maxSize)}
       <img
         src={`${basePath}-640w.jpg`}
         alt={alt}

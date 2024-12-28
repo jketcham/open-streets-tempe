@@ -75,11 +75,11 @@ async function processImage(filePath, outputDir) {
       // Use higher quality only for 640w version
       const quality = width === 640 ? SMALL_QUALITY : BASE_QUALITY;
 
-      // Create resized JPG
+      // Always output as .jpg
       await image
         .resize(width, null, { withoutEnlargement: true })
         .jpeg({ quality: quality.jpeg })
-        .toFile(join(outputDir, `${fileName}-${width}w${ext}`));
+        .toFile(join(outputDir, `${fileName}-${width}w.jpg`));
 
       // Create WebP version
       await image
@@ -91,10 +91,10 @@ async function processImage(filePath, outputDir) {
     // If the original is smaller than our smallest breakpoint,
     // create a copy with the width suffix
     if (metadata.width < PHOTO_BREAKPOINTS[0]) {
-      await fs.copyFile(
-        filePath,
-        join(outputDir, `${fileName}-${metadata.width}w${ext}`),
-      );
+      // Always output as .jpg
+      await image
+        .jpeg({ quality: BASE_QUALITY.jpeg })
+        .toFile(join(outputDir, `${fileName}-${metadata.width}w.jpg`));
       // Also create a WebP version of the original size
       await image
         .webp({ quality: BASE_QUALITY.webp })
