@@ -82,34 +82,43 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Menu */}
-            <ul className="hidden space-x-4 text-lg md:flex">
+            <ul className="hidden text-lg md:flex">
               <li>
-                <Link to="/about" className="cursor-pointer hover:underline">
+                <Link
+                  to="/about"
+                  className="cursor-pointer p-2 transition-all hover:underline"
+                >
                   About
                 </Link>
               </li>
               <li>
                 <Link
                   to="/volunteer"
-                  className="cursor-pointer hover:underline"
+                  className="cursor-pointer p-2 transition-all hover:underline"
                 >
                   Volunteer
                 </Link>
               </li>
               <li>
-                <Link to="/artists" className="cursor-pointer hover:underline">
+                <Link
+                  to="/artists"
+                  className="cursor-pointer p-2 transition-all hover:underline"
+                >
                   Call to Artists
                 </Link>
               </li>
               <li>
-                <Link to="/sponsor" className="cursor-pointer hover:underline">
+                <Link
+                  to="/sponsor"
+                  className="cursor-pointer p-2 transition-all hover:underline"
+                >
                   Sponsor
                 </Link>
               </li>
               <li>
                 <Link
                   to="/donate"
-                  className={`rounded-md ${theme.bgInverse} ${theme.textInverse} px-4 py-2 transition-colors hover:opacity-90`}
+                  className={`ml-1.5 rounded-md ${theme.bgInverse} ${theme.textInverse} px-4 py-2 transition-colors hover:opacity-90`}
                 >
                   Donate
                 </Link>
