@@ -291,7 +291,7 @@ export default function Index() {
                   </p>
                 </div>
                 <div>
-                  <MailchimpInput />
+                  <MailchimpInput variant="dark" />
                 </div>
               </div>
             </div>
