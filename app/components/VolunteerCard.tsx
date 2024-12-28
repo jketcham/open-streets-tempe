@@ -32,7 +32,7 @@ export function VolunteerCard({
           {responsibilities.map((responsibility, index) => (
             <li key={index} className="flex items-start gap-2">
               <span
-                className={`mt-2 size-1.5 shrink-0 rounded-full ${theme.text}`}
+                className={`mt-2 size-1.5 shrink-0 rounded-full ${theme.bgInverse}`}
               />
               <span>{responsibility}</span>
             </li>
