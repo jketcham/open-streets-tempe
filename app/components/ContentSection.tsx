@@ -13,7 +13,7 @@ export function ContentSection({ title, id, children }: ContentSectionProps) {
 
   return (
     <FadeIn>
-      <section className="mt-12 space-y-4" id={id}>
+      <section className="mt-12 space-y-6" id={id}>
         <h2 className={`text-3xl font-bold ${theme.text}`}>{title}</h2>
         {children}
       </section>

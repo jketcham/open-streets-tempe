@@ -19,6 +19,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button } from "~/components/themed/Button";
 import { ResponsiveImage } from "~/components/ResponsiveImage";
+import { Accordion } from "~/components/Accordion";
 
 const pageTheme: ThemeColor = "tachi";
 
@@ -37,6 +38,153 @@ const roleIcons = {
   "bike-valet": <WrenchScrewdriverIcon className="size-8" />,
   "activations-facilitator": <WrenchScrewdriverIcon className="size-8" />,
 } as const;
+
+const faqItems = [
+  {
+    title: "What is the time commitment?",
+    content: (
+      <>
+        <p>
+          Volunteers can choose between two shifts: Morning (9:30 AM - 12:30 PM)
+          or Afternoon (12:00 PM - 3:00 PM). We ask that you arrive 15 minutes
+          before your shift for check-in and a brief orientation.
+        </p>
+        <p>
+          The 30-minute overlap between shifts ensures a smooth transition and
+          allows time for shift handover. After your shift, you&apos;re free to
+          enjoy the event!
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Is there a minimum age to volunteer?",
+    content: (
+      <>
+        <p>
+          To ensure everyone&apos;s safety and the smooth operation of the
+          event, volunteers need to be at least 14 years of age to participate.
+        </p>
+        <p>
+          For youth volunteer groups (ages 14-17), we require adult supervision
+          with a ratio of one adult for every 15 young volunteers.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Can I bring my pets, kids, or friends with me?",
+    content: (
+      <>
+        <p>For safety reasons, we cannot allow pets during volunteer shifts.</p>
+        <p>
+          Parents who are volunteering may bring children under 14 with them,
+          provided the children stay under their direct supervision throughout
+          the shift.
+        </p>
+        <p>
+          We love when volunteers bring friends! If you&apos;d like to volunteer
+          with friends, we encourage it - just let us know by emailing{" "}
+          <Link href="mailto:volunteer@openstreetstempe.org">
+            volunteer@openstreetstempe.org
+          </Link>{" "}
+          beforehand so we can prepare enough t-shirts and make sure you&apos;re
+          assigned to the same area.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "How do I find out about future volunteer opportunities?",
+    content: (
+      <p>
+        The best way to stay informed of upcoming volunteer opportunities is to
+        join our Volunteer Mailing List.{" "}
+        <Link to="/newsletter">Sign up for our newsletter here</Link> to receive
+        updates about future events and volunteer opportunities.
+      </p>
+    ),
+  },
+  {
+    title: "Do I need any special skills or experience?",
+    content: (
+      <p>
+        No special skills are required! We welcome volunteers of all backgrounds
+        and abilities. We&apos;ll provide all necessary training and support to
+        help you succeed in your role. The most important qualities are
+        enthusiasm, reliability, and a desire to help create a great community
+        event.
+      </p>
+    ),
+  },
+  {
+    title: "What should I bring with me?",
+    content: (
+      <>
+        <p>We recommend bringing:</p>
+        <ul>
+          <li>Water bottle (we&apos;ll have refill stations)</li>
+          <li>Sunscreen and hat</li>
+          <li>Comfortable walking shoes</li>
+          <li>Weather-appropriate clothing</li>
+        </ul>
+        <p>
+          We&apos;ll provide your volunteer t-shirt, any necessary equipment,
+          and light refreshments during your shift.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Can I volunteer with friends or as a group?",
+    content: (
+      <p>
+        Yes! We welcome both individual volunteers and groups. When you sign up,
+        you can indicate if you&apos;re part of a group, and we&apos;ll do our
+        best to assign you to the same area. It&apos;s a great way to make the
+        experience even more fun while serving your community together.
+      </p>
+    ),
+  },
+  {
+    title: "What happens if it rains?",
+    content: (
+      <p>
+        Open Streets Tempe is a rain or shine event! We&apos;ll provide
+        weather-appropriate gear if needed, and we&apos;ll adjust activities as
+        necessary to ensure everyone&apos;s safety and comfort. In case of
+        severe weather, we&apos;ll communicate any changes or cancellations
+        directly to all volunteers.
+      </p>
+    ),
+  },
+  {
+    title: "Will there be parking available for volunteers?",
+    content: (
+      <p>
+        Yes, we&apos;ll provide information about designated volunteer parking
+        areas in your confirmation email. We encourage volunteers to bike, walk,
+        or use public transit if possible, as it aligns with our event&apos;s
+        mission of promoting sustainable transportation. We&apos;ll also have
+        secure bike parking available.
+      </p>
+    ),
+  },
+  {
+    title: "What if I need to cancel my volunteer shift?",
+    content: (
+      <p>
+        We understand that plans can change. If you need to cancel your shift,
+        please email us at{" "}
+        <Link href="mailto:volunteer@openstreetstempe.org">
+          volunteer@openstreetstempe.org
+        </Link>{" "}
+        as soon as possible so we can find a replacement. We appreciate at least
+        48 hours notice when possible.
+      </p>
+    ),
+  },
+];
 
 export const meta: MetaFunction = () => {
   return generateMetaTags({
@@ -191,7 +339,7 @@ export default function Volunteer() {
 
             <div className="space-y-8 border-t-4 border-current pt-8 text-center">
               <div>
-                <Button to="/volunteer/signup">Volunteer Signup</Button>
+                <Button to="/volunteer/signup">Sign Up to Volunteer</Button>
               </div>
 
               <div>
@@ -200,6 +348,10 @@ export default function Volunteer() {
                 </Link>
               </div>
             </div>
+
+            <ContentSection title="Frequently Asked Questions">
+              <Accordion items={faqItems} />
+            </ContentSection>
           </div>
         </Container>
       </main>
