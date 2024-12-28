@@ -11,7 +11,7 @@ interface LinkProps {
 export function Link({ children, to, href, className = "" }: LinkProps) {
   const theme = useTheme();
 
-  const baseClasses = `inline-block text-lg ${theme.text} hover:underline ${className}`;
+  const baseClasses = `inline-block ${theme.text} hover:underline ${className}`;
 
   if (to) {
     return (
