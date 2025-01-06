@@ -27,6 +27,10 @@ const app = express();
 
 app.use((req, res, next) => {
   res.locals.cspNonce = crypto.randomBytes(16).toString("hex");
+  res.setHeader(
+    "Permissions-Policy",
+    "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()",
+  );
   next();
 });
 app.use(
@@ -58,16 +62,6 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
-    permissionsPolicy: {
-      accelerometer: [],
-      camera: [],
-      geolocation: [],
-      gyroscope: [],
-      magnetometer: [],
-      microphone: [],
-      payment: [],
-      usb: [],
-    },
   }),
 );
 app.use(compression());
