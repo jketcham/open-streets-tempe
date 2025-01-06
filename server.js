@@ -58,6 +58,16 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
+    permissionsPolicy: {
+      accelerometer: [],
+      camera: [],
+      geolocation: [],
+      gyroscope: [],
+      magnetometer: [],
+      microphone: [],
+      payment: [],
+      usb: [],
+    },
   }),
 );
 app.use(compression());
