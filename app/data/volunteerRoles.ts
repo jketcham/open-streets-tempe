@@ -71,4 +71,16 @@ export const volunteerRoles: VolunteerRole[] = [
       "Promote the event's mission by connecting activities to its broader goals.",
     ],
   },
+  {
+    id: "set-up-and-tear-down-crew",
+    title: "Set-Up and Tear-Down Crew",
+    description:
+      "Set-Up and Tear-Down volunteers are the backbone of the event, helping to transform the streets into a welcoming, car-free community space and ensuring everything is packed up smoothly afterward. From placing barricades and setting up activity zones to dismantling booths and clearing the route, this role is perfect for hands-on volunteers who love seeing a project come to life.",
+    responsibilities: [
+      "Assist with setting up tents, tables, signage, and activity stations before the event begins.",
+      "Help place barricades and traffic control equipment to ensure a safe route.",
+      "Dismantle and pack up event infrastructure after the event concludes.",
+      "Maintain an organized and efficient workflow during set-up and tear-down.",
+    ],
+  },
 ];
