@@ -138,38 +138,38 @@ export default function Navbar() {
               transition={{ duration: 0.2 }}
               className={`fixed inset-0 top-[75px] z-50 flex flex-col ${theme.bg}`}
             >
-              <ul className="flex h-full flex-col items-center justify-center space-y-8 text-2xl">
-                <li>
+              <ul className="flex size-full flex-col items-center justify-center text-2xl">
+                <li className="w-full text-center">
                   <Link
                     to="/about"
-                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    className="block w-full cursor-pointer px-4 py-6 hover:underline"
                     onClick={() => setNavOpen(false)}
                   >
                     About
                   </Link>
                 </li>
-                <li>
+                <li className="w-full text-center">
                   <Link
                     to="/volunteer"
-                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    className="block w-full cursor-pointer px-4 py-6 hover:underline"
                     onClick={() => setNavOpen(false)}
                   >
                     Volunteer
                   </Link>
                 </li>
-                <li>
+                <li className="w-full text-center">
                   <Link
                     to="/artists"
-                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    className="block w-full cursor-pointer px-4 py-6 hover:underline"
                     onClick={() => setNavOpen(false)}
                   >
                     Call to Artists
                   </Link>
                 </li>
-                <li>
+                <li className="w-full text-center">
                   <Link
                     to="/sponsor"
-                    className="block cursor-pointer px-4 py-2 hover:underline"
+                    className="block w-full cursor-pointer px-4 py-6 hover:underline"
                     onClick={() => setNavOpen(false)}
                   >
                     Sponsor
