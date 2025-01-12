@@ -176,7 +176,6 @@ export default function Sponsor() {
 
                 <SponsorCard
                   title="Premium Sponsor"
-                  subtitle="Limited to 3"
                   price={3000}
                   benefits={[
                     "Branding on 1 bike valet or seating area site",
@@ -199,7 +198,7 @@ export default function Sponsor() {
                 />
 
                 <SponsorCard
-                  title="Activation or Booth"
+                  title="Activation and/or Booth"
                   price={500}
                   description="Host a table, a game, an Instagrammable photo op or another creative way to interact with your brand"
                   note="Nonprofits participate for FREE!"
