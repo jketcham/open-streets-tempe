@@ -71,7 +71,7 @@ export function getThemeColor(className: string): string {
       DEFAULT: "#cbd171",
       200: "#dfe5ae",
       600: "#8a802d",
-      700: "#756729",
+      700: "#5e5220",
       900: "#514325",
     },
     apricot: {
