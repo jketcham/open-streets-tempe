@@ -34,6 +34,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     headers: {
       "Content-Type": "image/svg+xml",
       "Cache-Control": "public, max-age=31536000, immutable",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET",
+      "Access-Control-Allow-Headers": "Content-Type",
     },
   });
 };
