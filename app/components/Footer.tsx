@@ -174,8 +174,8 @@ export default function Footer() {
         </div>
         <div className="mt-20 text-center text-sm">
           <p>
-            <span className="align-text-top">&copy;</span> 2024 Tempe Bicycle
-            Action Group
+            <span className="align-text-top">&copy;</span>{" "}
+            {new Date().getFullYear()} Tempe Bicycle Action Group
             <span className="hidden sm:inline"> · </span>
             <br className="sm:hidden" />
             All rights reserved
