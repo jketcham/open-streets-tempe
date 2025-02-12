@@ -18,6 +18,7 @@ interface SponsorCardProps {
   price: number;
   description?: string;
   benefits?: string[];
+  options?: string[];
   subtitle?: string;
   note?: string;
 }
@@ -27,6 +28,7 @@ function SponsorCard({
   price,
   description,
   benefits,
+  options,
   subtitle,
   note,
 }: SponsorCardProps) {
@@ -52,6 +54,17 @@ function SponsorCard({
           </h4>
           <ThemedList
             items={benefits}
+            className="text-[1.25rem] leading-relaxed text-gray-600"
+          />
+        </div>
+      )}
+      {options && (
+        <div className="mb-4">
+          <h4 className={`mb-2 text-lg font-semibold ${theme.text}`}>
+            Available Opportunities:
+          </h4>
+          <ThemedList
+            items={options}
             className="text-[1.25rem] leading-relaxed text-gray-600"
           />
         </div>
@@ -187,27 +200,45 @@ export default function Sponsor() {
                 />
 
                 <SponsorCard
-                  title="Giveaways Sponsor"
-                  price={1000}
-                  subtitle="Limit 1 per type of item, available at information booths"
+                  title="Activation Sponsor"
+                  price={1500}
+                  subtitle="Sponsor one of our activation areas and get a 10x10 booth"
                   benefits={[
-                    "Front bike light",
-                    "Back bike light",
-                    "Reflective bracelet",
+                    "Logo featured on activation area signage and event materials",
+                    "Logo featured on website",
+                    "1 10x10 Booth",
+                  ]}
+                  options={[
+                    "Bike Rodeo",
+                    "Active Play Zone (Giant Jenga, Hula Hoops, Hopscotch, etc.)",
+                    "Parklet",
+                    "DIY Art Zone",
+                    "And more!",
                   ]}
                 />
 
                 <SponsorCard
-                  title="Activation and/or Booth"
-                  price={500}
-                  description="Host a table, a game, an Instagrammable photo op or another creative way to interact with your brand"
-                  note="Nonprofits participate for FREE!"
+                  title="Giveaway Sponsor"
+                  price={1000}
+                  description="Limit 1 per type of item, available at information booths"
+                  benefits={[
+                    "Logo featured on giveaway item",
+                    "Logo featured on website",
+                    "1 10x10 booth",
+                  ]}
+                  options={[
+                    "Front bike light",
+                    "Rear bike light",
+                    "Reflective bracelet",
+                    "And more!",
+                  ]}
                 />
 
                 <SponsorCard
-                  title="Food Trucks (Limit 2)"
-                  price={250}
-                  description="Location: Mill Avenue Bridge"
+                  title="Booth Sponsor"
+                  price={500}
+                  description="Setup your own booth and host a creative way to interact with your brand"
+                  note="Nonprofits participate for FREE!"
                 />
               </div>
             </ContentSection>
