@@ -158,7 +158,7 @@ export default function About() {
                 <ContentCard
                   icon={<BuildingStorefrontIcon className="size-12" />}
                   title="Food & Vendors"
-                  description="Local food trucks and artisan vendors line the route"
+                  description="Local restaurants and artisan vendors line the route"
                 />
                 <ContentCard
                   icon={<UserGroupIcon className="size-12" />}
