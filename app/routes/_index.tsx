@@ -34,6 +34,21 @@ const activities = [
   "Skate and Stroll",
 ];
 
+const sponsorsData = {
+  data: [
+    {
+      name: "Pedal Haus Brewery",
+      website: "https://www.pedalhausbrewery.com",
+      logoPath: "/images/logo-pedal-haus-640w.png",
+    },
+    {
+      name: "Tempe Tourism Office",
+      website: "https://www.tempetourism.com",
+      logoPath: "/images/logo-tourism-640w.png",
+    },
+  ],
+};
+
 function AnimatedText() {
   const [index, setIndex] = useState(0);
   const theme = useTheme();
@@ -196,6 +211,59 @@ function MainContent() {
   );
 }
 
+function SponsorsSection() {
+  const theme = useTheme();
+
+  return (
+    <div className={`${theme.bg} pb-16 pt-8 sm:pb-24`}>
+      <Container>
+        <FadeIn>
+          <div className="mx-auto max-w-4xl text-center">
+            <h2
+              className={`mb-8 font-display text-2xl font-bold sm:text-3xl ${theme.textOnLight}`}
+            >
+              Our Sponsors
+            </h2>
+            <p className={`mb-12 text-xl ${theme.textOnLight}`}>
+              Thank you to our community partners who make Open Streets Tempe
+              possible.
+            </p>
+
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-12">
+              {sponsorsData.data.map((sponsor) => (
+                <div key={sponsor.name} className="flex flex-col items-center">
+                  <a
+                    href={`${sponsor.website}?utm_source=openstreetstempe&utm_medium=sponsor`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center"
+                    aria-label={`Visit ${sponsor.name} website`}
+                  >
+                    <img
+                      src={sponsor.logoPath}
+                      alt={sponsor.name}
+                      className="h-24 w-auto object-contain transition-all hover:opacity-80"
+                    />
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12">
+              <a
+                href="/sponsor"
+                className={`inline-block rounded-md ${theme.bgInverse} ${theme.textInverse} px-6 py-3 font-medium transition hover:opacity-90`}
+              >
+                Become a Sponsor
+              </a>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
 function HeroImage() {
   const theme = useTheme();
 
@@ -277,6 +345,7 @@ export default function Index() {
         <EventIntro />
         <HeroImage />
         <MainContent />
+        <SponsorsSection />
         <ThemedSection inverse>
           <Container>
             <div className="flex flex-col">
