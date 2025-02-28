@@ -83,4 +83,17 @@ export const volunteerRoles: VolunteerRole[] = [
       "Maintain an organized and efficient workflow during set-up and tear-down.",
     ],
   },
+  {
+    id: "bike-rodeo-volunteer",
+    title: "Bike Rodeo Volunteer",
+    description:
+      "Bike Rodeo Volunteers create a fun, supportive environment where young cyclists can develop essential riding skills and confidence. Following the League of American Bicyclists' Youth Cycling curriculum, these volunteers guide children through interactive stations in a safe, closed course setting. This role is perfect for those who enjoy working with kids and have a passion for promoting lifelong cycling habits and road safety.",
+    responsibilities: [
+      "Guide young riders through skill-building stations (starting, stopping, turning, etc.) in a closed parking lot course.",
+      "Demonstrate proper cycling techniques and provide encouraging feedback to build confidence.",
+      "Ensure safety protocols are followed and assist with helmet fittings and basic bike adjustments.",
+      "Create an engaging, positive atmosphere that makes learning bike skills fun and memorable.",
+      "Help set up and maintain the various skill stations throughout the event.",
+    ],
+  },
 ];

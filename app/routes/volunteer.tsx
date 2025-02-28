@@ -16,6 +16,9 @@ import {
   ChartBarIcon,
   UserGroupIcon,
   WrenchScrewdriverIcon,
+  FaceSmileIcon,
+  BoltIcon,
+  KeyIcon,
 } from "@heroicons/react/24/outline";
 import { Button } from "~/components/themed/Button";
 import { ResponsiveImage } from "~/components/ResponsiveImage";
@@ -35,8 +38,10 @@ const roleIcons = {
   "route-coordinator": <MapPinIcon className="size-8" />,
   "community-ambassador": <UserGroupIcon className="size-8" />,
   "census-volunteer": <ChartBarIcon className="size-8" />,
-  "bike-valet": <WrenchScrewdriverIcon className="size-8" />,
-  "activations-facilitator": <WrenchScrewdriverIcon className="size-8" />,
+  "bike-valet": <KeyIcon className="size-8" />,
+  "activations-facilitator": <BoltIcon className="size-8" />,
+  "bike-rodeo-volunteer": <FaceSmileIcon className="size-8" />,
+  "set-up-and-tear-down-crew": <WrenchScrewdriverIcon className="size-8" />,
 } as const;
 
 const faqItems = [
