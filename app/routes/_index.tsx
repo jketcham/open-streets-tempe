@@ -145,14 +145,19 @@ function EventIntro() {
                 <CalendarIcon className="mt-1 size-7 shrink-0" />
                 <div>
                   <p>April 13th, 2025</p>
-                  <p className="-mt-1 text-base opacity-90 sm:text-xl">
+                  <p className="-mt-1 text-base italic opacity-90 sm:text-xl">
                     10 AM – 3 PM
                   </p>
                 </div>
               </div>
               <div className="mt-2 flex items-start gap-3">
                 <MapPinIcon className="mt-1 size-7 shrink-0" />
-                <p>Downtown Tempe</p>
+                <div>
+                  <p>Downtown Tempe</p>
+                  <p className="-mt-1 text-base italic opacity-90 sm:text-xl">
+                    7th St & Mill Ave
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
