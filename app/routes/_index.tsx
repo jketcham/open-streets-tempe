@@ -39,12 +39,37 @@ const sponsorsData = {
     {
       name: "Pedal Haus Brewery",
       website: "https://www.pedalhausbrewery.com",
-      logoPath: "/images/logo-pedal-haus-640w.png",
+      logoPath: "/images/logo-edit-pedal-haus-640w.png",
+    },
+    {
+      name: "Landings Credit Union",
+      website: "https://www.landingscu.org",
+      logoPath: "/images/logo-edit-landings-580w.png",
+    },
+  ],
+};
+
+const partnersData = {
+  data: [
+    {
+      name: "City of Tempe",
+      website: "https://www.tempe.gov?utm_source=openstreetstempe",
+      logoPath: "/images/logo-edit-tempe-640w.png",
+    },
+    {
+      name: "Downtown Tempe Authority",
+      website: "https://www.downtowntempe.com?utm_source=openstreetstempe",
+      logoPath: "/images/logo-edit-dta-640w.png",
+    },
+    {
+      name: "Tempe Chamber of Commerce",
+      website: "https://www.tempechamber.org?utm_source=openstreetstempe",
+      logoPath: "/images/logo-edit-chamber-640w.png",
     },
     {
       name: "Tempe Tourism Office",
       website: "https://www.tempetourism.com",
-      logoPath: "/images/logo-tourism-640w.png",
+      logoPath: "/images/logo-edit-tourism-640w.png",
     },
   ],
 };
@@ -171,7 +196,7 @@ function MainContent() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} pb-16 pt-8 sm:pb-24 sm:pt-12`}>
+    <div className={`${theme.bg} pb-16 pt-8 sm:pt-12`}>
       <Container>
         <FadeIn>
           <div className="mx-auto flex max-w-4xl flex-col">
@@ -208,6 +233,70 @@ function MainContent() {
                   Tempe.
                 </p>
               </div>
+
+              <div className="space-y-4">
+                <p className="font-display text-2xl font-bold sm:text-3xl">
+                  Part of Tempe Bike Month
+                </p>
+                <p>
+                  Open Streets Tempe is an official City of Tempe supported
+                  event. For more information, visit the City of Tempe&apos;s
+                  Tempe Bike Month page.
+                </p>
+                <a
+                  href="http://www.tempe.gov/OpenStreets"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-block rounded-md ${theme.bgInverse} ${theme.textInverse} px-4 py-2 font-medium transition hover:opacity-90`}
+                >
+                  Tempe Bike Month
+                </a>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
+function PartnersSection() {
+  const theme = useTheme();
+
+  return (
+    <div className={`${theme.bg} pb-12 pt-8`}>
+      <Container>
+        <FadeIn>
+          <div className="mx-auto max-w-4xl text-center">
+            <hr className="mb-12 border-gray-900" />
+            <h2
+              className={`mb-8 font-display text-2xl font-bold sm:text-3xl ${theme.textOnLight}`}
+            >
+              Our Partners
+            </h2>
+            <p className={`mb-12 text-xl ${theme.textOnLight}`}>
+              We&apos;re proud to partner with these organizations to make Open
+              Streets Tempe possible:
+            </p>
+
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+              {partnersData.data.map((partner) => (
+                <div key={partner.name} className="flex flex-col items-center">
+                  <a
+                    href={`${partner.website}?utm_source=openstreetstempe&utm_medium=partner`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center"
+                    aria-label={`Visit ${partner.name} website`}
+                  >
+                    <img
+                      src={partner.logoPath}
+                      alt={partner.name}
+                      className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
+                    />
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </FadeIn>
@@ -229,10 +318,6 @@ function SponsorsSection() {
             >
               Our Sponsors
             </h2>
-            <p className={`mb-12 text-xl ${theme.textOnLight}`}>
-              Thank you to our community partners who make Open Streets Tempe
-              possible.
-            </p>
 
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-12">
               {sponsorsData.data.map((sponsor) => (
@@ -241,13 +326,13 @@ function SponsorsSection() {
                     href={`${sponsor.website}?utm_source=openstreetstempe&utm_medium=sponsor`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center"
+                    className="flex h-48 w-48 items-center justify-center bg-white p-6 shadow-md transition-all hover:shadow-lg"
                     aria-label={`Visit ${sponsor.name} website`}
                   >
                     <img
                       src={sponsor.logoPath}
                       alt={sponsor.name}
-                      className="h-24 w-auto object-contain transition-all hover:opacity-80"
+                      className="max-h-full max-w-[7rem] object-contain transition-all"
                     />
                   </a>
                 </div>
@@ -350,6 +435,7 @@ export default function Index() {
         <EventIntro />
         <HeroImage />
         <MainContent />
+        <PartnersSection />
         <SponsorsSection />
         <ThemedSection inverse>
           <Container>

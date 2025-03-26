@@ -250,7 +250,7 @@ export default function About() {
                   <img
                     src="/images/logo-tempe-640w.png"
                     alt="City of Tempe"
-                    className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
+                    className="h-16 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />
                 </a>
                 <a
@@ -262,7 +262,7 @@ export default function About() {
                   <img
                     src="/images/logo-dta-640w.png"
                     alt="Downtown Tempe Authority"
-                    className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
+                    className="h-16 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />
                 </a>
                 <a
@@ -274,7 +274,7 @@ export default function About() {
                   <img
                     src="/images/logo-chamber-640w.png"
                     alt="Tempe Chamber of Commerce"
-                    className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
+                    className="h-16 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />
                 </a>
                 <a
@@ -286,7 +286,7 @@ export default function About() {
                   <img
                     src="/images/logo-tourism-640w.png"
                     alt="Tempe Tourism"
-                    className="h-24 w-auto object-contain grayscale transition-all hover:grayscale-0"
+                    className="h-16 w-auto object-contain grayscale transition-all hover:grayscale-0"
                   />
                 </a>
               </div>

@@ -44,9 +44,9 @@ export default function Footer() {
               >
                 <div className="relative">
                   <img
-                    src="/images/logo-tempe-640w.png"
+                    src="/images/logo-edit-tempe-640w.png"
                     alt="City of Tempe"
-                    className="relative h-20 w-auto object-contain opacity-70 brightness-0"
+                    className="relative h-16 w-auto object-contain brightness-0"
                     loading="lazy"
                     decoding="async"
                   />
@@ -63,9 +63,9 @@ export default function Footer() {
               >
                 <div className="relative">
                   <img
-                    src="/images/logo-dta-640w.png"
+                    src="/images/logo-edit-dta-640w.png"
                     alt="Downtown Tempe Authority"
-                    className="relative h-20 w-auto object-contain opacity-70 brightness-0"
+                    className="relative h-16 w-auto object-contain brightness-0"
                     loading="lazy"
                     decoding="async"
                   />
