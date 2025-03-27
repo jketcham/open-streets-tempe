@@ -59,6 +59,10 @@ app.use(
           "https://www.google-analytics.com/",
           () => (isProduction ? "" : "ws://localhost:24678"),
         ],
+        "form-action": [
+          "'self'",
+          "https://openstreetstempe.us21.list-manage.com",
+        ],
       },
     },
     crossOriginEmbedderPolicy: false,
