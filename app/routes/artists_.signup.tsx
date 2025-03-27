@@ -40,11 +40,11 @@ export default function ArtistSignup() {
         <Container size="md">
           <div className="prose prose-lg max-w-none">
             <ContentSection title="Form">
-              <IframeEmbed
-                title="Artist Submission Form"
-                src="https://airtable.com/embed/appTU8SJ3COPcDzOj/paghn1Yox3HBQ0SYn/form"
-                skeletonLoader="form"
-              />
+              <p>
+                Thank you for your interest in Open Streets Tempe! Artist
+                signups have ended for this year's event. Check back next year
+                for new opportunities.
+              </p>
             </ContentSection>
           </div>
         </Container>

@@ -6,7 +6,6 @@ import { PageHead } from "~/components/PageHead";
 import { PageLayout } from "~/components/PageLayout";
 import { ContentCard } from "~/components/ContentCard";
 import { Link } from "~/components/themed";
-import { Button } from "~/components/themed/Button";
 import { type ThemeColor } from "~/components/ThemeProvider";
 import { eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
@@ -141,8 +140,9 @@ export default function Artists() {
             </div>
 
             <div className="mt-12 space-y-8 border-t-4 border-current pt-8 text-center">
-              <div>
-                <Button to="/artists/signup">Artist Signup</Button>
+              <div className="text-xl font-medium">
+                Artist signups have ended for this year&apos;s event. Check back
+                next year for new opportunities!
               </div>
 
               <div>
