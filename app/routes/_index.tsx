@@ -199,58 +199,68 @@ function MainContent() {
     <div className={`${theme.bg} pb-16 pt-8 sm:pt-12`}>
       <Container>
         <FadeIn>
-          <div className="mx-auto flex max-w-4xl flex-col">
-            <div
-              className={`flex flex-col space-y-20 text-center text-xl sm:text-2xl ${theme.textOnLight}`}
-            >
-              <div className="space-y-4">
-                <p className="font-display text-2xl font-bold sm:text-3xl">
-                  Experience the city like never before.
-                </p>
-                <p>
-                  For one day, our streets transform into vibrant public spaces
-                  where you can walk, bike, roll, dance, and connect with your
-                  community.
-                </p>
-                <p>
-                  Without the usual traffic, we&apos;ll see just how much is
-                  possible when we prioritize people over cars—creating spaces
-                  that bring us closer together.
-                </p>
+          <div className="mx-auto flex max-w-6xl flex-col">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+              <div
+                className={`flex flex-col space-y-20 text-center text-xl sm:text-2xl ${theme.textOnLight}`}
+              >
+                <div className="space-y-4">
+                  <p className="font-display text-2xl font-bold">
+                    Experience the city like never before.
+                  </p>
+                  <p>
+                    For one day, our streets transform into vibrant public
+                    spaces where you can walk, bike, roll, dance, and connect
+                    with your community.
+                  </p>
+                  <p>
+                    Without the usual traffic, we&apos;ll see just how much is
+                    possible when we prioritize people over cars—creating spaces
+                    that bring us closer together.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="font-display text-2xl font-bold">
+                    This free, family-friendly event is for everyone.
+                  </p>
+                  <p>
+                    Whether you&apos;re biking in a parade, joining a yoga
+                    session, or simply strolling with friends—come reimagine our
+                    streets as places for people.
+                  </p>
+                  <p>
+                    Experience the possibilities of a more connected, livable
+                    Tempe.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="font-display text-2xl font-bold">
+                    Part of Tempe Bike Month
+                  </p>
+                  <p>
+                    Open Streets Tempe is an official City of Tempe supported
+                    event. For more information, visit the City of Tempe&apos;s
+                    Tempe Bike Month page.
+                  </p>
+                  <a
+                    href="http://www.tempe.gov/OpenStreets"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-block rounded-md ${theme.bgInverse} ${theme.textInverse} px-4 py-2 font-medium transition hover:opacity-90`}
+                  >
+                    Tempe Bike Month
+                  </a>
+                </div>
               </div>
 
-              <div className="space-y-4">
-                <p className="font-display text-2xl font-bold sm:text-3xl">
-                  This free, family-friendly event is for everyone.
-                </p>
-                <p>
-                  Whether you&apos;re biking in a parade, joining a yoga
-                  session, or simply strolling with friends—come reimagine our
-                  streets as places for people.
-                </p>
-                <p>
-                  Experience the possibilities of a more connected, livable
-                  Tempe.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <p className="font-display text-2xl font-bold sm:text-3xl">
-                  Part of Tempe Bike Month
-                </p>
-                <p>
-                  Open Streets Tempe is an official City of Tempe supported
-                  event. For more information, visit the City of Tempe&apos;s
-                  Tempe Bike Month page.
-                </p>
-                <a
-                  href="http://www.tempe.gov/OpenStreets"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-block rounded-md ${theme.bgInverse} ${theme.textInverse} px-4 py-2 font-medium transition hover:opacity-90`}
-                >
-                  Tempe Bike Month
-                </a>
+              <div className="flex items-center justify-center">
+                <img
+                  src="/images/route-map-640w.png"
+                  alt="Open Streets Tempe Route Map"
+                  className="w-full rounded-lg shadow-lg"
+                />
               </div>
             </div>
           </div>
