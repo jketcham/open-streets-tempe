@@ -62,6 +62,7 @@ app.use(
         "form-action": [
           "'self'",
           "https://openstreetstempe.us21.list-manage.com",
+          "https://biketempe.us4.list-manage.com/",
         ],
       },
     },

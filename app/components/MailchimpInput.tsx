@@ -23,7 +23,7 @@ export default function MailchimpInput({
 
   return (
     <form
-      action="https://openstreetstempe.us21.list-manage.com/subscribe/post?u=0a1c24e61a2559da9f118dbc7&amp;id=5be0e96bba&amp;f_id=00f0a3e1f0"
+      action="https://biketempe.us4.list-manage.com/subscribe/post?u=e0f2197fd495ef8f42428d6a1&amp;id=e6a7afbd33&amp;f_id=000277eaf0"
       method="post"
       target="_blank"
       className="flex flex-col gap-4 sm:flex-row"
