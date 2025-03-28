@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react";
 import { useTheme } from "./ThemeProvider";
 import { Container } from "./Container";
 import BikeTempeLogo from "./svg/BikeTempeLogo";
+import { LogoCityOfTempe, LogoDowntownTempe } from "./svg";
 
 export default function Footer() {
   const theme = useTheme();
@@ -42,18 +43,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="shrink-0 hover:opacity-90"
               >
-                <div className="relative">
-                  <img
-                    src="/images/logo-edit-tempe-640w.png"
-                    alt="City of Tempe"
-                    className="relative h-16 w-auto object-contain brightness-0"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div
-                    className={`absolute inset-0 ${theme.bg} opacity-30`}
-                  ></div>
-                </div>
+                <LogoCityOfTempe className="h-16 w-auto fill-current" />
               </a>
               <a
                 href="https://www.downtowntempe.com?utm_source=openstreetstempe"
@@ -61,18 +51,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="shrink-0 hover:opacity-90"
               >
-                <div className="relative">
-                  <img
-                    src="/images/logo-edit-dta-640w.png"
-                    alt="Downtown Tempe Authority"
-                    className="relative h-16 w-auto object-contain brightness-0"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div
-                    className={`absolute inset-0 ${theme.bg} opacity-30`}
-                  ></div>
-                </div>
+                <LogoDowntownTempe className="h-16 w-auto fill-current" />
               </a>
             </div>
           </div>
