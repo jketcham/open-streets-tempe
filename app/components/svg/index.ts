@@ -5,4 +5,5 @@ export { default as LogoCityOfTempe } from "./LogoCityOfTempe";
 export { default as LogoDowntownTempe } from "./LogoDowntownTempe";
 export { default as RiderTricycle } from "./RiderTricycle";
 export { default as Riders } from "./Riders";
+export { default as RouteMap } from "./RouteMap";
 export { default as X } from "./X";

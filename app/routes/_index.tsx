@@ -8,13 +8,18 @@ import { Container } from "~/components/Container";
 import { eventData, eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
-import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import {
+  CalendarIcon,
+  MapPinIcon,
+  TrophyIcon,
+} from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import {
   ResponsiveImage,
   generatePreloadLinks,
 } from "~/components/ResponsiveImage";
-
+import { Link } from "@remix-run/react";
+import { RouteMap } from "~/components/svg";
 const pageTheme: ThemeColor = "tachi";
 
 const activities = [
@@ -201,19 +206,17 @@ function MainContent() {
         <FadeIn>
           <div className="mx-auto flex max-w-6xl flex-col">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-              <div
-                className={`flex flex-col space-y-20 text-center text-xl sm:text-2xl ${theme.textOnLight}`}
-              >
+              <div className={`flex flex-col space-y-20 ${theme.textOnLight}`}>
                 <div className="space-y-4">
-                  <p className="font-display text-2xl font-bold">
+                  <h2 className="font-display text-2xl font-bold">
                     Experience the city like never before.
-                  </p>
-                  <p>
+                  </h2>
+                  <p className="text-lg">
                     For one day, our streets transform into vibrant public
                     spaces where you can walk, bike, roll, dance, and connect
                     with your community.
                   </p>
-                  <p>
+                  <p className="text-lg">
                     Without the usual traffic, we&apos;ll see just how much is
                     possible when we prioritize people over cars—creating spaces
                     that bring us closer together.
@@ -221,34 +224,37 @@ function MainContent() {
                 </div>
 
                 <div className="space-y-4">
-                  <p className="font-display text-2xl font-bold">
+                  <h2 className="font-display text-2xl font-bold">
                     This free, family-friendly event is for everyone.
-                  </p>
-                  <p>
+                  </h2>
+                  <p className="text-lg">
                     Whether you&apos;re biking in a parade, joining a yoga
                     session, or simply strolling with friends—come reimagine our
                     streets as places for people.
                   </p>
-                  <p>
+                  <p className="text-lg">
                     Experience the possibilities of a more connected, livable
                     Tempe.
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <p className="font-display text-2xl font-bold">
+                  <h2 className="font-display text-2xl font-bold">
                     Part of Tempe Bike Month
-                  </p>
-                  <p>
+                  </h2>
+                  <p className="text-lg">
                     Open Streets Tempe is an official City of Tempe supported
-                    event. For more information, visit the City of Tempe&apos;s
-                    Tempe Bike Month page.
+                    event.
+                  </p>
+                  <p className="text-lg">
+                    For more information, visit the City of Tempe&apos;s Tempe
+                    Bike Month page.
                   </p>
                   <a
                     href="http://www.tempe.gov/OpenStreets"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-block rounded-md ${theme.bgInverse} ${theme.textInverse} px-4 py-2 font-medium transition hover:opacity-90`}
+                    className={`inline-block rounded-md ${theme.bgInverse} ${theme.textInverse} px-6 py-3 text-base font-medium transition hover:opacity-90`}
                   >
                     Tempe Bike Month
                   </a>
@@ -256,11 +262,74 @@ function MainContent() {
               </div>
 
               <div className="flex items-center justify-center">
-                <img
-                  src="/images/route-map-640w.png"
-                  alt="Open Streets Tempe Route Map"
+                <RouteMap
                   className="w-full rounded-lg shadow-lg"
+                  aria-label="Open Streets Tempe Route Map"
                 />
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
+function RaffleSection() {
+  const theme = useTheme();
+
+  return (
+    <div className={`${theme.bgInverse} ${theme.textInverse} py-12`}>
+      <Container>
+        <FadeIn>
+          <div className="mx-auto max-w-4xl">
+            <div className="flex flex-col overflow-hidden rounded-lg bg-white shadow-lg md:flex-row">
+              <div className="flex items-center justify-center bg-apricot p-8 md:w-1/3">
+                <div className="flex flex-col items-center text-center">
+                  <TrophyIcon className="mb-4 h-16 w-16 text-apricot-900" />
+                  <h2 className="mb-2 text-2xl font-bold text-apricot-900">
+                    Win a Lectric{" "}
+                    <span className="whitespace-nowrap">E-Bike!</span>
+                  </h2>
+                  <p className="font-bold text-apricot-900">
+                    Drawing on April 13th{" "}
+                    <span className="whitespace-nowrap">at the event</span>
+                  </p>
+                </div>
+              </div>
+              <div className="p-8 md:w-2/3">
+                <div className="flex h-full flex-col justify-between">
+                  <div className="flex flex-col gap-4 md:flex-row">
+                    <div className="md:w-2/3">
+                      <h3 className="mb-4 text-xl font-bold text-gray-900">
+                        Every Raffle Ticket Helps
+                      </h3>
+                      <p className="mb-4 text-gray-700">
+                        Buy raffle tickets for your chance to win a brand new
+                        Lectric e-bike — and support Open Streets Tempe while
+                        you’re at it.
+                      </p>
+                    </div>
+                    <div className="flex justify-center md:w-1/3">
+                      <div className="w-auto overflow-hidden rounded-md shadow-md sm:h-32 md:h-auto">
+                        <ResponsiveImage
+                          basePath="/images/raffle-ebike"
+                          alt="Lectric E-Bike"
+                          className="h-full w-full object-cover"
+                          maxSize={1024}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <Link
+                      to="/raffle"
+                      className={`inline-block rounded-md bg-apricot px-6 py-3 font-bold text-apricot-900 transition hover:opacity-90`}
+                    >
+                      Get Raffle Tickets
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -274,11 +343,10 @@ function PartnersSection() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} pb-12 pt-8`}>
+    <div className={`${theme.bg} pb-12 pt-16`}>
       <Container>
         <FadeIn>
           <div className="mx-auto max-w-4xl text-center">
-            <hr className="mb-12 border-gray-900" />
             <h2
               className={`mb-8 font-display text-2xl font-bold sm:text-3xl ${theme.textOnLight}`}
             >
@@ -329,7 +397,7 @@ function SponsorsSection() {
               Our Sponsors
             </h2>
 
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-12">
+            <div className="grid grid-cols-1 gap-8 xs:grid-cols-2 sm:grid-cols-3 md:gap-12">
               {sponsorsData.data.map((sponsor) => (
                 <div key={sponsor.name} className="flex flex-col items-center">
                   <a
@@ -435,6 +503,7 @@ export const links: LinksFunction = () => {
   return [
     ...generateFaviconLinks(pageTheme),
     ...generatePreloadLinks("/images/pedalpalooza-overhead"),
+    ...generatePreloadLinks("/images/raffle-ebike", 1024),
   ];
 };
 
@@ -445,6 +514,7 @@ export default function Index() {
         <EventIntro />
         <HeroImage />
         <MainContent />
+        <RaffleSection />
         <PartnersSection />
         <SponsorsSection />
         <ThemedSection inverse>
