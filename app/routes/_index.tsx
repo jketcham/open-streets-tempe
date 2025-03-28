@@ -58,17 +58,17 @@ const partnersData = {
   data: [
     {
       name: "City of Tempe",
-      website: "https://www.tempe.gov?utm_source=openstreetstempe",
+      website: "https://www.tempe.gov",
       logoPath: "/images/logo-edit-tempe-640w.png",
     },
     {
       name: "Downtown Tempe Authority",
-      website: "https://www.downtowntempe.com?utm_source=openstreetstempe",
+      website: "https://www.downtowntempe.com",
       logoPath: "/images/logo-edit-dta-640w.png",
     },
     {
       name: "Tempe Chamber of Commerce",
-      website: "https://www.tempechamber.org?utm_source=openstreetstempe",
+      website: "https://www.tempechamber.org",
       logoPath: "/images/logo-edit-chamber-640w.png",
     },
     {
