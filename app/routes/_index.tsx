@@ -42,6 +42,11 @@ const activities = [
 const sponsorsData = {
   data: [
     {
+      name: "Cousins Properties",
+      website: "https://www.cousins.com",
+      logoPath: "/images/logo-cousins-640w.png",
+    },
+    {
       name: "Pedal Haus Brewery",
       website: "https://www.pedalhausbrewery.com",
       logoPath: "/images/logo-edit-pedal-haus-640w.png",
