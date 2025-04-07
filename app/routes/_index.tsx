@@ -52,6 +52,11 @@ const sponsorsData = {
       logoPath: "/images/logo-edit-pedal-haus-640w.png",
     },
     {
+      name: "People for Bikes",
+      website: "https://peopleforbikes.org",
+      logoPath: "/images/logo-people-for-bikes-640w.png",
+    },
+    {
       name: "Landings Credit Union",
       website: "https://www.landingscu.org",
       logoPath: "/images/logo-edit-landings-580w.png",
@@ -402,14 +407,14 @@ function SponsorsSection() {
               Our Sponsors
             </h2>
 
-            <div className="grid grid-cols-1 gap-8 xs:grid-cols-2 sm:grid-cols-3 md:gap-12">
+            <div className="grid grid-cols-1 justify-center gap-8 xs:grid-cols-2 sm:grid-cols-3 md:gap-12">
               {sponsorsData.data.map((sponsor) => (
                 <div key={sponsor.name} className="flex flex-col items-center">
                   <a
                     href={`${sponsor.website}?utm_source=openstreetstempe&utm_medium=sponsor`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-48 w-48 items-center justify-center bg-white p-6 shadow-md transition-all hover:shadow-lg"
+                    className="flex size-48 items-center justify-center bg-white p-6 shadow-md transition-all hover:shadow-lg"
                     aria-label={`Visit ${sponsor.name} website`}
                   >
                     <img
