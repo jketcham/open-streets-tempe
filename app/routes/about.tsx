@@ -11,6 +11,7 @@ import { ContentCard } from "~/components/ContentCard";
 import { eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
+import EventArtwork2025 from "~/components/svg/EventArtwork2025";
 import {
   MapPinIcon,
   MusicalNoteIcon,
@@ -198,6 +199,57 @@ export default function About() {
 
         <Container size="md">
           <div>
+            <div className="prose prose-lg max-w-none">
+              <ContentSection title="2025 Event Artwork">
+                <div className="flex flex-col items-center gap-8">
+                  <div className="w-full max-w-md">
+                    <EventArtwork2025 />
+                  </div>
+                  <div className="prose prose-lg max-w-none text-center">
+                    <p>
+                      Our 2025 event artwork was created by{" "}
+                      <a
+                        href="https://www.nnuzzo.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-eggplant hover:underline"
+                      >
+                        Nicole Poppell (NNUZZO)
+                      </a>
+                      , a multidisciplinary designer and artist based in
+                      Phoenix.
+                    </p>
+                    <p>
+                      Nicole&apos;s work is inspired by the strange and
+                      imperfect forms found in natural elements, and her
+                      approach is bold, strategic, and conceptual. She recently
+                      completed a pair of public art projects for neighborhood
+                      associations in Tempe, including an{" "}
+                      <a
+                        href="https://www.tempe.gov/government/transportation-and-sustainability/transportation/streetscape-projects/adaptive-streets"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-eggplant hover:underline"
+                      >
+                        Adaptive Streets
+                      </a>{" "}
+                      painted bike lane in Holdeman and a mural in University
+                      Park. Follow Nicole&apos;s work on{" "}
+                      <a
+                        href="https://www.instagram.com/nn_zzo/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-eggplant hover:underline"
+                      >
+                        Instagram
+                      </a>
+                      .
+                    </p>
+                  </div>
+                </div>
+              </ContentSection>
+            </div>
+
             <div className="prose prose-lg max-w-none">
               <ContentSection title="Who We Are">
                 <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
