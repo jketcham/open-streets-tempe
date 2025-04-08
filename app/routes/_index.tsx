@@ -61,6 +61,11 @@ const sponsorsData = {
       website: "https://www.landingscu.org",
       logoPath: "/images/logo-edit-landings-580w.png",
     },
+    {
+      name: "Pride Group",
+      website: "https://pridegroup.us",
+      logoPath: "/images/logo-pride-group-123w.png",
+    },
   ],
 };
 
