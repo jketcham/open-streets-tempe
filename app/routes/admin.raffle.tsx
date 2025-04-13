@@ -4,7 +4,7 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node";
-import { json, redirect, createCookieSessionStorage } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import {
   Form,
   useActionData,
@@ -14,6 +14,7 @@ import {
 import { PageLayout } from "~/components/PageLayout";
 import { Container } from "~/components/Container";
 import Stripe from "stripe";
+import { createCookie } from "@remix-run/node";
 
 interface ParticipantEntry {
   email: string;
@@ -47,7 +48,16 @@ interface WinnerInfo {
 }
 
 const WINNER_HISTORY_KEY = "raffleWinnerHistory";
-const COOKIE_NAME = "__raffle_admin_session";
+
+// Create a simple auth cookie
+const authCookie = createCookie("__raffle_admin", {
+  path: "/",
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  maxAge: 60 * 60 * 24, // 24 hours
+  sameSite: "lax",
+  secrets: [process.env.SESSION_SECRET || "default-secret-for-dev-only"],
+});
 
 export const meta: MetaFunction = () => {
   return [
@@ -55,25 +65,6 @@ export const meta: MetaFunction = () => {
     { name: "robots", content: "noindex" }, // Prevent search engine indexing
   ];
 };
-
-function createSessionStorage() {
-  const sessionSecret = process.env.SESSION_SECRET;
-  if (!sessionSecret) {
-    throw new Error("SESSION_SECRET must be set");
-  }
-
-  return createCookieSessionStorage({
-    cookie: {
-      name: COOKIE_NAME,
-      secrets: [sessionSecret],
-      path: "/",
-      maxAge: 60 * 60 * 24, // 24 hours
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-    },
-  });
-}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   console.log("[LOADER] Starting loader function");
@@ -92,15 +83,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   try {
-    const sessionStorage = createSessionStorage();
     const cookieHeader = request.headers.get("Cookie");
     console.log("[LOADER] Cookie header:", cookieHeader);
 
-    const session = await sessionStorage.getSession(cookieHeader);
-    const isAdmin = session.get("isAdmin");
-    console.log("[LOADER] Session isAdmin value:", isAdmin);
+    const cookieValue = await authCookie.parse(cookieHeader || "");
+    console.log("[LOADER] Cookie value:", cookieValue);
 
-    const isAuthenticated = isAdmin === true;
+    const isAuthenticated = cookieValue === "authenticated";
     console.log("[LOADER] isAuthenticated:", isAuthenticated);
 
     return json<LoaderData>({ isAuthenticated });
@@ -108,7 +97,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     console.error("[LOADER] Error in loader:", error);
     return json<LoaderData>({
       isAuthenticated: false,
-      error: "Error in session handling",
+      error: "Error in authentication",
     });
   }
 };
@@ -129,11 +118,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 
   try {
-    const sessionStorage = createSessionStorage();
-    const cookieHeader = request.headers.get("Cookie");
-    console.log("[ACTION] Cookie header:", cookieHeader);
-
-    const session = await sessionStorage.getSession(cookieHeader);
     const formData = await request.formData();
     const intent = formData.get("intent");
     console.log("[ACTION] Intent:", intent);
@@ -146,15 +130,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       );
 
       if (password === adminPassword) {
-        session.set("isAdmin", true);
-        console.log("[ACTION] Login successful, setting isAdmin to true");
+        console.log("[ACTION] Login successful");
 
-        const cookie = await sessionStorage.commitSession(session);
-        console.log("[ACTION] Set-Cookie:", cookie);
+        // Set cookie with authenticated value
+        const cookieValue = await authCookie.serialize("authenticated");
+        console.log("[ACTION] Cookie value set:", cookieValue);
 
         return redirect("/admin/raffle", {
           headers: {
-            "Set-Cookie": cookie,
+            "Set-Cookie": cookieValue,
           },
         });
       } else {
@@ -167,10 +151,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     }
 
     // Check authentication for all other actions
-    const isAdmin = session.get("isAdmin");
-    console.log("[ACTION] Current session isAdmin value:", isAdmin);
+    const cookieHeader = request.headers.get("Cookie");
+    const cookieValue = await authCookie.parse(cookieHeader || "");
+    const isAuthenticated = cookieValue === "authenticated";
+    console.log("[ACTION] Current authenticated status:", isAuthenticated);
 
-    if (isAdmin !== true) {
+    if (!isAuthenticated) {
       console.log("[ACTION] Not authenticated for action:", intent);
       return json<ActionData>({ error: "Not authenticated." }, { status: 403 });
     }
