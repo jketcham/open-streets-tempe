@@ -10,11 +10,11 @@ import {
   useActionData,
   useLoaderData,
   useNavigation,
+  useSearchParams,
 } from "@remix-run/react";
 import { PageLayout } from "~/components/PageLayout";
 import { Container } from "~/components/Container";
 import Stripe from "stripe";
-import { createCookie } from "@remix-run/node";
 
 interface ParticipantEntry {
   email: string;
@@ -49,16 +49,6 @@ interface WinnerInfo {
 
 const WINNER_HISTORY_KEY = "raffleWinnerHistory";
 
-// Create a simple auth cookie
-const authCookie = createCookie("__raffle_admin", {
-  path: "/",
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  maxAge: 60 * 60 * 24, // 24 hours
-  sameSite: "lax",
-  secrets: [process.env.SESSION_SECRET || "default-secret-for-dev-only"],
-});
-
 export const meta: MetaFunction = () => {
   return [
     { title: "Raffle Admin" },
@@ -67,191 +57,141 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  console.log("[LOADER] Starting loader function");
-
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   const rafflePriceId = process.env.RAFFLE_PRICE_ID;
   const adminPassword = process.env.RAFFLE_ADMIN_PASSWORD;
 
   if (!stripeSecretKey || !rafflePriceId || !adminPassword) {
-    console.error("[LOADER] Missing required environment variables");
     return json<LoaderData>({
       isAuthenticated: false,
-      error:
-        "Server configuration missing (Stripe Key, Price ID, or Admin Password).",
+      error: "Server configuration missing",
     });
   }
 
-  try {
-    const cookieHeader = request.headers.get("Cookie");
-    console.log("[LOADER] Cookie header:", cookieHeader);
+  // Simple URL parameter auth
+  const url = new URL(request.url);
+  const authParam = url.searchParams.get("auth");
+  const isAuthenticated = authParam === adminPassword;
 
-    const cookieValue = await authCookie.parse(cookieHeader || "");
-    console.log("[LOADER] Cookie value:", cookieValue);
-
-    const isAuthenticated = cookieValue === "authenticated";
-    console.log("[LOADER] isAuthenticated:", isAuthenticated);
-
-    return json<LoaderData>({ isAuthenticated });
-  } catch (error) {
-    console.error("[LOADER] Error in loader:", error);
-    return json<LoaderData>({
-      isAuthenticated: false,
-      error: "Error in authentication",
-    });
-  }
+  return json<LoaderData>({ isAuthenticated });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  console.log("[ACTION] Starting action function");
-
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   const rafflePriceId = process.env.RAFFLE_PRICE_ID;
   const adminPassword = process.env.RAFFLE_ADMIN_PASSWORD;
 
   if (!stripeSecretKey || !rafflePriceId || !adminPassword) {
-    console.error("[ACTION] Missing required environment variables");
     return json<ActionData>(
       { error: "Server configuration missing." },
       { status: 500 },
     );
   }
 
-  try {
-    const formData = await request.formData();
-    const intent = formData.get("intent");
-    console.log("[ACTION] Intent:", intent);
+  // Parse formData
+  const formData = await request.formData();
+  const intent = formData.get("intent");
 
-    if (intent === "login") {
-      const password = formData.get("password");
-      console.log(
-        "[ACTION] Login attempt with password:",
-        password ? "provided" : "missing",
-      );
+  if (intent === "login") {
+    const password = formData.get("password");
 
-      if (password === adminPassword) {
-        console.log("[ACTION] Login successful");
-
-        // Set cookie with authenticated value
-        const cookieValue = await authCookie.serialize("authenticated");
-        console.log("[ACTION] Cookie value set:", cookieValue);
-
-        return redirect("/admin/raffle", {
-          headers: {
-            "Set-Cookie": cookieValue,
-          },
-        });
-      } else {
-        console.log("[ACTION] Invalid password provided");
-        return json<ActionData>(
-          { error: "Invalid password." },
-          { status: 401 },
-        );
-      }
+    if (password === adminPassword) {
+      // Redirect with auth parameter
+      return redirect(`/admin/raffle?auth=${adminPassword}`);
+    } else {
+      return json<ActionData>({ error: "Invalid password." }, { status: 401 });
     }
+  }
 
-    // Check authentication for all other actions
-    const cookieHeader = request.headers.get("Cookie");
-    const cookieValue = await authCookie.parse(cookieHeader || "");
-    const isAuthenticated = cookieValue === "authenticated";
-    console.log("[ACTION] Current authenticated status:", isAuthenticated);
+  // Check auth parameter for all other intents
+  const url = new URL(request.url);
+  const authParam = url.searchParams.get("auth");
 
-    if (!isAuthenticated) {
-      console.log("[ACTION] Not authenticated for action:", intent);
-      return json<ActionData>({ error: "Not authenticated." }, { status: 403 });
-    }
+  if (authParam !== adminPassword) {
+    return json<ActionData>({ error: "Not authenticated." }, { status: 403 });
+  }
 
-    if (intent === "draw") {
-      try {
-        const stripe = new Stripe(stripeSecretKey, {
-          apiVersion: "2025-03-31.basil",
-        });
+  if (intent === "draw") {
+    try {
+      const stripe = new Stripe(stripeSecretKey, {
+        apiVersion: "2025-03-31.basil",
+      });
 
-        const participants: ParticipantEntry[] = [];
-        // Map to store ticket count per unique email
-        const participantTickets = new Map<string, number>();
-        let totalTicketCount = 0;
+      const participants: ParticipantEntry[] = [];
+      // Map to store ticket count per unique email
+      const participantTickets = new Map<string, number>();
+      let totalTicketCount = 0;
 
-        // Fetching sessions for price ID is implicitly logged by Stripe SDK in debug mode if needed
-        for await (const session of stripe.checkout.sessions.list({
-          limit: 100, // Adjust limit as needed, auto-paging handles > 100
-          expand: ["data.line_items"],
-          status: "complete", // Only fetch completed sessions
-        })) {
-          if (session.payment_status === "paid" && session.line_items) {
-            for (const item of session.line_items.data) {
-              // Check if the line item price matches the raffle ticket price ID
-              if (
-                item.price?.id === rafflePriceId &&
-                session.customer_details?.email
-              ) {
-                const quantity = item.quantity ?? 1; // Default to 1 if quantity is null/undefined
-                const email = session.customer_details.email;
-                const name = session.customer_details.name;
-                const phone = session.customer_details.phone;
+      // Fetching sessions for price ID is implicitly logged by Stripe SDK in debug mode if needed
+      for await (const session of stripe.checkout.sessions.list({
+        limit: 100, // Adjust limit as needed, auto-paging handles > 100
+        expand: ["data.line_items"],
+        status: "complete", // Only fetch completed sessions
+      })) {
+        if (session.payment_status === "paid" && session.line_items) {
+          for (const item of session.line_items.data) {
+            // Check if the line item price matches the raffle ticket price ID
+            if (
+              item.price?.id === rafflePriceId &&
+              session.customer_details?.email
+            ) {
+              const quantity = item.quantity ?? 1; // Default to 1 if quantity is null/undefined
+              const email = session.customer_details.email;
+              const name = session.customer_details.name;
+              const phone = session.customer_details.phone;
 
-                // Update total ticket count for this participant
-                const currentTickets = participantTickets.get(email) || 0;
-                participantTickets.set(email, currentTickets + quantity);
+              // Update total ticket count for this participant
+              const currentTickets = participantTickets.get(email) || 0;
+              participantTickets.set(email, currentTickets + quantity);
 
-                totalTicketCount += quantity;
+              totalTicketCount += quantity;
 
-                // Add entry for each ticket
-                for (let i = 0; i < quantity; i++) {
-                  participants.push({ email, name, phone });
-                }
+              // Add entry for each ticket
+              for (let i = 0; i < quantity; i++) {
+                participants.push({ email, name, phone });
               }
             }
           }
         }
-
-        // --- Raffle Logic ---
-        if (participants.length === 0) {
-          return json<ActionData>({
-            error: "No paid raffle tickets found for the specified product ID.",
-          });
-        }
-
-        const winnerIndex = Math.floor(Math.random() * participants.length);
-        const winnerEntry = participants[winnerIndex];
-        const winnerEmail = winnerEntry.email;
-        const winnerTicketCount = participantTickets.get(winnerEmail) || 0; // Should always exist if they won
-        const winPercentage =
-          totalTicketCount > 0
-            ? (winnerTicketCount / totalTicketCount) * 100
-            : 0;
-
-        return json<ActionData>({
-          winnerEmail: winnerEmail,
-          winnerName: winnerEntry.name,
-          winnerPhone: winnerEntry.phone,
-          winnerTicketCount: winnerTicketCount,
-          participantCount: participantTickets.size, // Use map size for unique participants
-          totalTicketCount: totalTicketCount,
-          winPercentage: winPercentage,
-        });
-      } catch (error) {
-        // Explicitly type error
-        // Log the detailed error for server-side debugging
-        console.error("Stripe API or Raffle Error:", error);
-        // Provide a more generic error message to the client
-        const errorMessage =
-          error instanceof Error ? error.message : "An unknown error occurred";
-        return json<ActionData>(
-          { error: `Failed to draw winner: ${errorMessage}` },
-          { status: 500 },
-        );
       }
-    }
 
-    return json<ActionData>({ error: "Invalid intent." }, { status: 400 });
-  } catch (error) {
-    console.error("[ACTION] Error in action function:", error);
-    return json<ActionData>(
-      { error: "An error occurred processing your request." },
-      { status: 500 },
-    );
+      // --- Raffle Logic ---
+      if (participants.length === 0) {
+        return json<ActionData>({
+          error: "No paid raffle tickets found for the specified product ID.",
+        });
+      }
+
+      const winnerIndex = Math.floor(Math.random() * participants.length);
+      const winnerEntry = participants[winnerIndex];
+      const winnerEmail = winnerEntry.email;
+      const winnerTicketCount = participantTickets.get(winnerEmail) || 0; // Should always exist if they won
+      const winPercentage =
+        totalTicketCount > 0 ? (winnerTicketCount / totalTicketCount) * 100 : 0;
+
+      return json<ActionData>({
+        winnerEmail: winnerEmail,
+        winnerName: winnerEntry.name,
+        winnerPhone: winnerEntry.phone,
+        winnerTicketCount: winnerTicketCount,
+        participantCount: participantTickets.size, // Use map size for unique participants
+        totalTicketCount: totalTicketCount,
+        winPercentage: winPercentage,
+      });
+    } catch (error) {
+      // Log the detailed error for server-side debugging
+      console.error("Stripe API or Raffle Error:", error);
+      // Provide a more generic error message to the client
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      return json<ActionData>(
+        { error: `Failed to draw winner: ${errorMessage}` },
+        { status: 500 },
+      );
+    }
   }
+
+  return json<ActionData>({ error: "Invalid intent." }, { status: 400 });
 };
 
 export default function RaffleAdmin() {
@@ -260,10 +200,14 @@ export default function RaffleAdmin() {
   const navigation = useNavigation();
   const [showPassword, setShowPassword] = useState(false);
   const [winnerHistory, setWinnerHistory] = useState<WinnerInfo[]>([]);
+  const [searchParams] = useSearchParams();
 
   const isDrawing =
     navigation.state === "submitting" &&
     navigation.formData?.get("intent") === "draw";
+
+  // Preserve the auth parameter when submitting the draw form
+  const authParam = searchParams.get("auth");
 
   // Load history from localStorage on component mount (client-side only)
   useEffect(() => {
@@ -402,6 +346,10 @@ export default function RaffleAdmin() {
               </p>
               <Form method="post" className="mb-6">
                 <input type="hidden" name="intent" value="draw" />
+                {/* Preserve the auth parameter */}
+                {authParam && (
+                  <input type="hidden" name="auth" value={authParam} />
+                )}
                 <button
                   type="submit"
                   className="inline-flex items-center justify-center rounded bg-tachi-600 px-6 py-3 text-lg font-semibold text-white shadow transition-opacity hover:bg-tachi-700 disabled:cursor-not-allowed disabled:opacity-50"
