@@ -4,7 +4,7 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect, createCookieSessionStorage } from "@remix-run/node";
 import {
   Form,
   useActionData,
@@ -14,11 +14,6 @@ import {
 import { PageLayout } from "~/components/PageLayout";
 import { Container } from "~/components/Container";
 import Stripe from "stripe";
-
-// Ensure these environment variables are set!
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-const rafflePriceId = process.env.RAFFLE_PRICE_ID;
-const adminPassword = process.env.RAFFLE_ADMIN_PASSWORD;
 
 interface ParticipantEntry {
   email: string;
@@ -42,11 +37,6 @@ interface LoaderData {
   error?: string;
 }
 
-// Simple session storage (replace with a more robust solution if needed)
-// This is illustrative and insecure for production without proper session management
-let isAuthenticated = false; // In-memory flag, resets on server restart
-
-// --- New Interface and Constant for History ---
 interface WinnerInfo {
   email: string;
   name: string | null;
@@ -57,7 +47,6 @@ interface WinnerInfo {
 }
 
 const WINNER_HISTORY_KEY = "raffleWinnerHistory";
-// --- End New Interface and Constant ---
 
 export const meta: MetaFunction = () => {
   return [
@@ -66,11 +55,26 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-// Tell ESLint to ignore the unused 'args' variable for this specific line
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const loader = async (args: LoaderFunctionArgs) => {
-  // Basic check if the 'session' is authenticated.
-  // In a real app, use Remix sessions or another auth mechanism.
+  const sessionSecret = process.env.SESSION_SECRET;
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  const rafflePriceId = process.env.RAFFLE_PRICE_ID;
+  const adminPassword = process.env.RAFFLE_ADMIN_PASSWORD;
+
+  if (!sessionSecret) {
+    throw new Error("SESSION_SECRET must be set");
+  }
+
+  const { getSession } = createCookieSessionStorage({
+    cookie: {
+      name: "__raffle_admin_session",
+      secrets: [sessionSecret],
+      path: "/",
+      maxAge: 60 * 60 * 1, // 1 hour
+    },
+  });
+
   if (!stripeSecretKey || !rafflePriceId || !adminPassword) {
     return json<LoaderData>({
       isAuthenticated: false,
@@ -78,10 +82,32 @@ export const loader = async (args: LoaderFunctionArgs) => {
         "Server configuration missing (Stripe Key, Price ID, or Admin Password).",
     });
   }
+
+  const session = await getSession(args.request.headers.get("Cookie"));
+  const isAuthenticated = session.get("isAdmin") === true;
+
   return json<LoaderData>({ isAuthenticated });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
+  const sessionSecret = process.env.SESSION_SECRET;
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  const rafflePriceId = process.env.RAFFLE_PRICE_ID;
+  const adminPassword = process.env.RAFFLE_ADMIN_PASSWORD;
+
+  if (!sessionSecret) {
+    throw new Error("SESSION_SECRET must be set");
+  }
+
+  const { getSession, commitSession } = createCookieSessionStorage({
+    cookie: {
+      name: "__raffle_admin_session",
+      secrets: [sessionSecret],
+      path: "/",
+      maxAge: 60 * 60 * 1, // 1 hour
+    },
+  });
+
   if (!stripeSecretKey || !rafflePriceId || !adminPassword) {
     return json<ActionData>(
       { error: "Server configuration missing." },
@@ -89,22 +115,34 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     );
   }
 
+  const session = await getSession(request.headers.get("Cookie"));
+
   const formData = await request.formData();
   const intent = formData.get("intent");
 
   if (intent === "login") {
     const password = formData.get("password");
     if (password === adminPassword) {
-      isAuthenticated = true; // Set flag for this server instance
-      return json<ActionData>({}); // Indicate success, loader will reflect change on refresh/navigation
+      session.set("isAdmin", true);
+      return redirect("/admin/raffle", {
+        // Redirect to force loader re-run
+        headers: { "Set-Cookie": await commitSession(session) },
+      });
     } else {
-      isAuthenticated = false;
-      return json<ActionData>({ error: "Invalid password." }, { status: 401 });
+      // Optionally destroy session on failed login attempt?
+      // session.unset("isAdmin");
+      return json<ActionData>(
+        { error: "Invalid password." },
+        {
+          status: 401,
+          // headers: { "Set-Cookie": await commitSession(session) } // Commit if destroying
+        },
+      );
     }
   }
 
   if (intent === "draw") {
-    if (!isAuthenticated) {
+    if (session.get("isAdmin") !== true) {
       return json<ActionData>({ error: "Not authenticated." }, { status: 403 });
     }
 
@@ -118,7 +156,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       const participantTickets = new Map<string, number>();
       let totalTicketCount = 0;
 
-      // --- Stripe Fetching Logic ---
       // Fetching sessions for price ID is implicitly logged by Stripe SDK in debug mode if needed
       for await (const session of stripe.checkout.sessions.list({
         limit: 100, // Adjust limit as needed, auto-paging handles > 100
@@ -151,7 +188,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
           }
         }
       }
-      // --- End Stripe Fetching ---
 
       // --- Raffle Logic ---
       if (participants.length === 0) {
@@ -198,15 +234,12 @@ export default function RaffleAdmin() {
   const { isAuthenticated, error: loaderError } = useLoaderData<LoaderData>();
   const navigation = useNavigation();
   const [showPassword, setShowPassword] = useState(false);
-  // --- New State for History ---
   const [winnerHistory, setWinnerHistory] = useState<WinnerInfo[]>([]);
-  // --- End New State ---
 
   const isDrawing =
     navigation.state === "submitting" &&
     navigation.formData?.get("intent") === "draw";
 
-  // --- New useEffect Hooks for History ---
   // Load history from localStorage on component mount (client-side only)
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -215,8 +248,6 @@ export default function RaffleAdmin() {
         try {
           setWinnerHistory(JSON.parse(storedHistory));
         } catch (e) {
-          console.error("Failed to parse winner history from localStorage:", e);
-          // Optionally clear corrupted data
           // localStorage.removeItem(WINNER_HISTORY_KEY);
         }
       }
@@ -225,7 +256,11 @@ export default function RaffleAdmin() {
 
   // Save new winner to history and localStorage when actionData updates
   useEffect(() => {
-    if (actionData?.winnerEmail && typeof window !== "undefined") {
+    // Only run on client
+    if (typeof window === "undefined") return;
+
+    // Check if the latest action result has a winner
+    if (actionData?.winnerEmail) {
       const newWinner: WinnerInfo = {
         email: actionData.winnerEmail,
         name: actionData.winnerName || null,
@@ -235,28 +270,43 @@ export default function RaffleAdmin() {
         winPercentage: actionData.winPercentage,
       };
 
-      // Check if this winner (based on timestamp perhaps, or just add always)
-      // is already the last one in the history to avoid duplicates on refresh
-      const isDuplicate =
-        winnerHistory.length > 0 &&
-        winnerHistory[winnerHistory.length - 1].email === newWinner.email &&
-        Math.abs(
-          new Date(
-            winnerHistory[winnerHistory.length - 1].timestamp,
-          ).getTime() - new Date(newWinner.timestamp).getTime(),
-        ) < 1000; // Avoid adding within 1 sec
+      // Use functional update to ensure we have the latest state
+      setWinnerHistory((prevHistory) => {
+        // Simple duplicate check based on timestamp of the new winner vs the absolute last item in previous history
+        const lastEntryTimestamp =
+          prevHistory.length > 0
+            ? new Date(prevHistory[prevHistory.length - 1].timestamp).getTime()
+            : 0;
+        const newEntryTimestamp = new Date(newWinner.timestamp).getTime();
 
-      if (!isDuplicate) {
-        const updatedHistory = [...winnerHistory, newWinner];
-        setWinnerHistory(updatedHistory);
-        localStorage.setItem(
-          WINNER_HISTORY_KEY,
-          JSON.stringify(updatedHistory),
-        );
-      }
+        // Avoid adding if the timestamp is identical or extremely close to the last one (prevents double add on quick refresh/clicks)
+        if (
+          prevHistory.length > 0 &&
+          Math.abs(newEntryTimestamp - lastEntryTimestamp) < 500
+        ) {
+          // 500ms threshold
+          return prevHistory; // Return previous state if duplicate detected
+        }
+
+        // Construct the new history array
+        const updatedHistory = [...prevHistory, newWinner];
+
+        // Save the updated array to localStorage
+        try {
+          localStorage.setItem(
+            WINNER_HISTORY_KEY,
+            JSON.stringify(updatedHistory),
+          );
+        } catch (e) {
+          console.error("Failed to save winner history to localStorage:", e);
+        }
+
+        // Return the new state for React
+        return updatedHistory;
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionData]); // Dependency array includes actionData
+  }, [actionData]); // Re-run whenever actionData changes
 
   const handleClearHistory = () => {
     if (typeof window !== "undefined") {
@@ -264,7 +314,6 @@ export default function RaffleAdmin() {
       setWinnerHistory([]); // Clear state as well
     }
   };
-  // --- End New useEffect Hooks ---
 
   return (
     <PageLayout theme="apricot">
@@ -288,14 +337,19 @@ export default function RaffleAdmin() {
               )}
               <input type="hidden" name="intent" value="login" />
               <div>
-                <label htmlFor="password">Password:</label>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password:
+                </label>
                 <div className="relative">
                   <input
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
                     required
-                    className="mt-1 block w-full rounded border border-gray-300 p-2 pr-10"
+                    className="mt-1 block w-full rounded border border-gray-300 bg-white p-2 pr-10 text-gray-900"
                   />
                   <button
                     type="button"
@@ -331,7 +385,7 @@ export default function RaffleAdmin() {
                   {isDrawing ? (
                     <>
                       <svg
-                        className="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
+                        className="-ml-1 mr-3 size-5 animate-spin text-white"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -358,11 +412,13 @@ export default function RaffleAdmin() {
                 </button>
               </Form>
 
-              {actionData?.error && (
-                <p className="mt-4 rounded bg-red-100 p-3 text-red-700">
-                  {actionData.error}
-                </p>
-              )}
+              {/* Only show non-login errors when authenticated */}
+              {actionData?.error &&
+                actionData.error !== "Invalid password." && (
+                  <p className="mt-4 rounded bg-red-100 p-3 text-red-700">
+                    {actionData.error}
+                  </p>
+                )}
 
               {actionData?.winnerEmail && !isDrawing && (
                 <div className="mt-6 rounded border border-gray-300 bg-white p-6 shadow">
@@ -408,7 +464,6 @@ export default function RaffleAdmin() {
                 </div>
               )}
 
-              {/* --- New Winner History Section --- */}
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-semibold">Winner History</h2>
@@ -448,7 +503,6 @@ export default function RaffleAdmin() {
                   </ul>
                 )}
               </div>
-              {/* --- End New Winner History Section --- */}
             </div>
           )}
         </div>

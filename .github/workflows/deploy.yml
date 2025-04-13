@@ -74,7 +74,8 @@ jobs:
             --update-env-vars=NODE_ENV=production \
             --update-env-vars=RAFFLE_PRICE_ID=price_1R7R02I6T2Tglv3e483ELpYK \
             --update-secrets=RAFFLE_ADMIN_PASSWORD=open-streets-raffle-password:latest \
-            --update-secrets=STRIPE_SECRET_KEY=stripe-secret-key-open-streets-raffle:latest
+            --update-secrets=STRIPE_SECRET_KEY=stripe-secret-key-open-streets-raffle:latest \
+            --update-secrets=SESSION_SECRET=open-streets-session-secret:latest
 
       # Step 8: Install Firebase CLI
       - name: Install Firebase CLI
