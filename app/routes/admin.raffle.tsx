@@ -3,6 +3,7 @@ import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
   MetaFunction,
+  LinksFunction,
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import {
@@ -15,6 +16,35 @@ import {
 import { PageLayout } from "~/components/PageLayout";
 import { Container } from "~/components/Container";
 import Stripe from "stripe";
+import { type ThemeColor } from "~/components/ThemeProvider";
+import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
+
+// Helper function to format phone numbers
+function formatPhoneNumber(phoneNumber: string | null): string {
+  if (!phoneNumber) return "N/A";
+
+  // Remove all non-numeric characters
+  const cleaned = phoneNumber.replace(/\D/g, "");
+
+  // Format for US numbers (10 digits)
+  if (cleaned.length === 10) {
+    return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+  }
+
+  // Format for US numbers with country code (11 digits starting with 1)
+  if (cleaned.length === 11 && cleaned.startsWith("1")) {
+    return `+1 (${cleaned.slice(1, 4)}) ${cleaned.slice(4, 7)}-${cleaned.slice(7)}`;
+  }
+
+  // Format international numbers with + if they're long enough
+  if (cleaned.length > 7) {
+    // Try to group logically but fall back to original if we can't determine format
+    return `+${cleaned.slice(0, cleaned.length - 7)} ${cleaned.slice(-7, -4)}-${cleaned.slice(-4)}`;
+  }
+
+  // If we can't determine the format, at least add spaces for readability
+  return phoneNumber;
+}
 
 interface ParticipantEntry {
   email: string;
@@ -49,11 +79,28 @@ interface WinnerInfo {
 
 const WINNER_HISTORY_KEY = "raffleWinnerHistory";
 
+const pageTheme: ThemeColor = "apricot";
+
+const pageData = {
+  title: "Raffle Administration",
+  description:
+    "Admin interface for managing Open Streets Tempe raffle drawings.",
+} as const;
+
 export const meta: MetaFunction = () => {
   return [
-    { title: "Raffle Admin" },
+    ...generateMetaTags({
+      title: pageData.title,
+      description: pageData.description,
+      theme: pageTheme,
+      path: "/admin/raffle",
+    }),
     { name: "robots", content: "noindex" }, // Prevent search engine indexing
   ];
+};
+
+export const links: LinksFunction = () => {
+  return generateFaviconLinks(pageTheme);
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -285,7 +332,7 @@ export default function RaffleAdmin() {
   };
 
   return (
-    <PageLayout theme="apricot">
+    <PageLayout theme={pageTheme}>
       <Container>
         <div className="py-12">
           <h1 className="mb-6 text-3xl font-bold">Raffle Administration</h1>
@@ -402,7 +449,12 @@ export default function RaffleAdmin() {
                     <p>
                       Email:{" "}
                       <strong className="font-semibold">
-                        {actionData.winnerEmail}
+                        <a
+                          href={`mailto:${actionData.winnerEmail}`}
+                          className="text-blue-600 hover:underline"
+                        >
+                          {actionData.winnerEmail}
+                        </a>
                       </strong>
                     </p>
                     <p>
@@ -414,7 +466,16 @@ export default function RaffleAdmin() {
                     <p>
                       Phone:{" "}
                       <strong className="font-semibold">
-                        {actionData.winnerPhone || "N/A"}
+                        {actionData.winnerPhone ? (
+                          <a
+                            href={`tel:${actionData.winnerPhone}`}
+                            className="text-blue-600 hover:underline"
+                          >
+                            {formatPhoneNumber(actionData.winnerPhone)}
+                          </a>
+                        ) : (
+                          "N/A"
+                        )}
                       </strong>
                     </p>
                     <p>
@@ -462,9 +523,29 @@ export default function RaffleAdmin() {
                           Draw #{index + 1} (
                           {new Date(winner.timestamp).toLocaleString()})
                         </p>
-                        <p>Email: {winner.email}</p>
+                        <p>
+                          Email:{" "}
+                          <a
+                            href={`mailto:${winner.email}`}
+                            className="text-blue-600 hover:underline"
+                          >
+                            {winner.email}
+                          </a>
+                        </p>
                         <p>Name: {winner.name || "N/A"}</p>
-                        <p>Phone: {winner.phone || "N/A"}</p>
+                        <p>
+                          Phone:{" "}
+                          {winner.phone ? (
+                            <a
+                              href={`tel:${winner.phone}`}
+                              className="text-blue-600 hover:underline"
+                            >
+                              {formatPhoneNumber(winner.phone)}
+                            </a>
+                          ) : (
+                            "N/A"
+                          )}
+                        </p>
                         {winner.ticketCount !== undefined && (
                           <p>Tickets: {winner.ticketCount}</p>
                         )}
