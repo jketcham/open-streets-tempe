@@ -71,7 +71,10 @@ jobs:
             --memory=256Mi \
             --allow-unauthenticated \
             --update-env-vars=GA_TRACKING_ID=G-VDDPT9B63T \
-            --update-env-vars=NODE_ENV=production
+            --update-env-vars=NODE_ENV=production \
+            --update-env-vars=RAFFLE_PRICE_ID=price_1R7R02I6T2Tglv3e483ELpYK \
+            --update-secrets=RAFFLE_ADMIN_PASSWORD=open-streets-raffle-password:latest \
+            --update-secrets=STRIPE_SECRET_KEY=stripe-secret-key-open-streets-raffle:latest
 
       # Step 8: Install Firebase CLI
       - name: Install Firebase CLI

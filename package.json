@@ -31,7 +31,8 @@
     "motion": "^11.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "satori": "^0.12.0"
+    "satori": "^0.12.0",
+    "stripe": "^18.0.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.15.0",
@@ -44,6 +45,7 @@
     "@types/morgan": "^1.9.9",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/stripe": "^8.0.416",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.19",
