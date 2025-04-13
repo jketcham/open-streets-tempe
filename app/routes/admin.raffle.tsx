@@ -66,12 +66,18 @@ export const loader = async (args: LoaderFunctionArgs) => {
     throw new Error("SESSION_SECRET must be set");
   }
 
+  const isProduction = process.env.NODE_ENV === "production";
+
   const { getSession } = createCookieSessionStorage({
     cookie: {
       name: "__raffle_admin_session",
       secrets: [sessionSecret],
       path: "/",
       maxAge: 60 * 60 * 1, // 1 hour
+      httpOnly: true,
+      secure: isProduction, // Only send over HTTPS in production
+      sameSite: "lax", // CSRF protection
+      domain: undefined, // Let browser determine domain automatically
     },
   });
 
@@ -99,12 +105,18 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     throw new Error("SESSION_SECRET must be set");
   }
 
+  const isProduction = process.env.NODE_ENV === "production";
+
   const { getSession, commitSession } = createCookieSessionStorage({
     cookie: {
       name: "__raffle_admin_session",
       secrets: [sessionSecret],
       path: "/",
       maxAge: 60 * 60 * 1, // 1 hour
+      httpOnly: true,
+      secure: isProduction, // Only send over HTTPS in production
+      sameSite: "lax", // CSRF protection
+      domain: undefined, // Let browser determine domain automatically
     },
   });
 
@@ -124,20 +136,20 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const password = formData.get("password");
     if (password === adminPassword) {
       session.set("isAdmin", true);
+
+      // Debug log to ensure we're setting the session correctly in production
+      console.log("Login successful, setting isAdmin session");
+
+      // Try using 302 redirect status for better browser compatibility
       return redirect("/admin/raffle", {
-        // Redirect to force loader re-run
-        headers: { "Set-Cookie": await commitSession(session) },
+        status: 302,
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
       });
     } else {
-      // Optionally destroy session on failed login attempt?
-      // session.unset("isAdmin");
-      return json<ActionData>(
-        { error: "Invalid password." },
-        {
-          status: 401,
-          // headers: { "Set-Cookie": await commitSession(session) } // Commit if destroying
-        },
-      );
+      // Provide error for invalid password but don't change session state
+      return json<ActionData>({ error: "Invalid password." }, { status: 401 });
     }
   }
 
