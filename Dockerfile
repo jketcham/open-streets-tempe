@@ -36,8 +36,11 @@ COPY server.js ./
 COPY --from=builder /usr/src/app/build ./build
 COPY --from=builder /usr/src/app/public ./public
 
-# Expose Remix's port
-EXPOSE 3000
+# Set the port
+ENV PORT=3100
 
-# Start the Remix app
+# Expose port
+EXPOSE 3100
+
+# Start the server
 CMD ["npm", "start"]
