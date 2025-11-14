@@ -48,12 +48,28 @@ jobs:
         run: |
           IMAGE="us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/bike-tempe/open-streets-tempe:${{github.sha}}"
           docker build -t $IMAGE .
-          docker push $IMAGE
-          echo "digest=$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE | cut -d'@' -f2)" >> $GITHUB_OUTPUT
+
+          # Push and capture the output to extract the digest
+          docker push $IMAGE > push_output.txt 2>&1
+          cat push_output.txt
+
+          # Extract digest from push output (format: "digest: sha256:xxx size: yyy")
+          # Using awk to extract just the sha256 part
+          DIGEST=$(grep "digest:" push_output.txt | awk '{print $3}' | head -1)
+
+          if [ -z "$DIGEST" ]; then
+            echo "Error: Failed to extract digest from push output"
+            cat push_output.txt
+            exit 1
+          fi
+
+          echo "digest=$DIGEST" >> $GITHUB_OUTPUT
+          echo "Extracted digest: $DIGEST"
 
       # Step 6: Generate build attestation
       - name: Generate build attestation
-        uses: actions/attest-build-provenance@v2
+        continue-on-error: true
+        uses: actions/attest-build-provenance@v3
         with:
           subject-name: "us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/bike-tempe/open-streets-tempe"
           subject-digest: ${{ steps.build-push.outputs.digest }}
@@ -84,5 +100,5 @@ jobs:
       # Step 9: Deploy to Firebase
       - name: Deploy to Firebase
         run: |
-          firebase use ${{ vars.GCP_PROJECT }} --token "${{ secrets.FIREBASE_TOKEN }}"
-          firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase use ${{ vars.GCP_PROJECT }}
+          firebase deploy --only hosting
