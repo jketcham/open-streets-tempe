@@ -1,7 +1,7 @@
 export const eventData = {
   name: "Open Streets Tempe",
-  startDate: "2025-04-13T10:00:00-07:00",
-  endDate: "2025-04-13T15:00:00-07:00",
+  startDate: "2026-04-12T10:00:00-07:00",
+  endDate: "2026-04-12T15:00:00-07:00",
   description:
     "A car-free celebration where people can walk, bike, roll, dance, and play. Experience the city like never before as our streets transform into vibrant public spaces.",
   eventStatus: "https://schema.org/EventScheduled",
@@ -27,7 +27,7 @@ export const eventData = {
     price: 0,
     priceCurrency: "USD",
     availability: "https://schema.org/InStock",
-    validFrom: "2024-01-01",
+    validFrom: "2025-01-01",
   },
   keywords:
     "open streets, car-free, cycling, walking, community event, street festival, active transportation, Tempe events, family-friendly, public spaces",

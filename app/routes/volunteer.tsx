@@ -296,8 +296,8 @@ export default function Volunteer() {
             <ContentSection title="Volunteer Shifts">
               <div className="rounded-2xl bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08)]">
                 <p className="text-lg text-gray-600">
-                  All volunteer positions are available in two shifts on Sunday,
-                  April 13:
+                  All volunteer positions are available in two shifts on
+                  Saturday, April 12, 2026:
                 </p>
                 <div className="mt-4 space-y-2 text-lg">
                   <p className="font-medium">

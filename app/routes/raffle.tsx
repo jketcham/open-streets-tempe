@@ -1,4 +1,8 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LinksFunction,
+  MetaFunction,
+  LoaderFunctionArgs,
+} from "@remix-run/node";
 import { ContentSection } from "~/components/ContentSection";
 import { Container } from "~/components/Container";
 import { LeadText } from "~/components/LeadText";
@@ -31,7 +35,7 @@ const pageTheme: ThemeColor = "apricot";
 const pageData = {
   title: "Win a Lectric E-Bike Raffle - Open Streets Tempe",
   description:
-    "Support Open Streets Tempe and get a chance to win a Lectric e-bike! Winner will be announced at the event on April 13th.",
+    "Support Open Streets Tempe and get a chance to win a Lectric e-bike! Winner will be announced at the event on April 12th.",
   keywords:
     "raffle, Lectric e-bike, win e-bike, Open Streets Tempe raffle, fundraiser, community event, e-bike giveaway",
 } as const;
@@ -50,6 +54,15 @@ export const links: LinksFunction = () => {
     ...generateFaviconLinks(pageTheme),
     ...generatePreloadLinks("/images/raffle-ebike", 1024),
   ];
+};
+
+// Temporarily disable the raffle page - return 404
+// Remove this loader when ready to enable the raffle again
+export const loader = async ({ request: _request }: LoaderFunctionArgs) => {
+  throw new Response(null, {
+    status: 404,
+    statusText: "Not Found",
+  });
 };
 
 export const handle = {
@@ -123,7 +136,7 @@ export default function Raffle() {
                 <div className="not-prose flex items-center justify-center space-x-2 text-center">
                   <CalendarIcon className="mt-0.5 h-6 w-6 flex-shrink-0 text-apricot-600" />
                   <p className="font-semibold">
-                    Winner will be announced at 2pm on April 13th at the event
+                    Winner will be announced at 2pm on April 12th at the event
                   </p>
                 </div>
               </div>
@@ -173,7 +186,7 @@ export default function Raffle() {
                 </p>
                 <p>
                   <strong>Drawing:</strong> The winner will be selected by
-                  random drawing at 2:00 PM on April 13th during the Open
+                  random drawing at 2:00 PM on April 12th during the Open
                   Streets Tempe event. Winner must be present to claim their
                   prize or respond within 48 hours if contacted.
                 </p>
