@@ -14,7 +14,6 @@ import {
   ResponsiveImage,
   generatePreloadLinks,
 } from "~/components/ResponsiveImage";
-import { RouteMap } from "~/components/svg";
 const pageTheme: ThemeColor = "tachi";
 
 const activities = [
@@ -242,10 +241,21 @@ function MainContent() {
               </div>
 
               <div className="flex items-center justify-center">
-                <RouteMap
-                  className="w-full rounded-lg shadow-lg"
-                  aria-label="Open Streets Tempe Route Map"
-                />
+                <div
+                  className={`flex w-full flex-col items-center justify-center rounded-lg ${theme.bgInverse} p-12 shadow-lg`}
+                >
+                  <MapPinIcon className={`mb-4 size-16 ${theme.textInverse}`} />
+                  <h3
+                    className={`text-center font-display text-3xl font-bold ${theme.textInverse}`}
+                  >
+                    Route Coming Soon
+                  </h3>
+                  <p
+                    className={`mt-4 text-center text-lg ${theme.textInverse} opacity-90`}
+                  >
+                    We&apos;re finalizing the details for this year&apos;s route
+                  </p>
+                </div>
               </div>
             </div>
           </div>
