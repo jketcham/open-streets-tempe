@@ -153,7 +153,7 @@ function EventIntro() {
               <div className="flex items-start gap-3">
                 <CalendarIcon className="mt-1 size-7 shrink-0" />
                 <div>
-                  <p>Saturday, April 12, 2026</p>
+                  <p>Sunday, April 12, 2026</p>
                   <p className="-mt-1 text-base italic opacity-90 sm:text-xl">
                     10 AM – 3 PM
                   </p>
