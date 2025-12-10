@@ -55,6 +55,11 @@ const partnersData = {
       website: "https://www.tempetourism.com",
       logoPath: "/images/logo-edit-tourism-640w.png",
     },
+    {
+      name: "Tempe Arts & Music Coalition",
+      website: "https://www.tempeartsandmusic.org/",
+      logoPath: "/images/logo-edit-tamc-640w.png"
+    }
   ],
 };
 
@@ -283,7 +288,7 @@ function PartnersSection() {
               Streets Tempe possible:
             </p>
 
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
               {partnersData.data.map((partner) => (
                 <div key={partner.name} className="flex flex-col items-center">
                   <a
