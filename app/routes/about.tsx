@@ -8,6 +8,7 @@ import { Button, Link } from "~/components/themed";
 import { ThemedSection } from "~/components/ThemedSection";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { ContentCard } from "~/components/ContentCard";
+import { EventArtwork2026 } from "~/components/svg";
 import { eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
@@ -201,30 +202,20 @@ export default function About() {
             <div className="prose prose-lg max-w-none">
               <ContentSection title="2026 Event Artwork">
                 <div className="flex flex-col items-center gap-8">
-                  <div className="flex aspect-square w-full max-w-sm items-center justify-center rounded-2xl border-4 border-eggplant bg-gradient-to-br from-eggplant-50 to-eggplant-100 p-8 shadow-lg">
-                    <div className="text-center">
-                      <span className="block text-9xl font-bold italic text-eggplant opacity-90">
-                        ?
-                      </span>
-                    </div>
+                  <div className="w-full max-w-lg">
+                    <EventArtwork2026 className="h-auto w-full" />
                   </div>
                   <div className="prose prose-lg max-w-none text-center">
-                    <p className="text-xl font-semibold">
-                      2026 event artwork coming soon!
-                    </p>
-                    <p className="text-lg font-medium text-eggplant">
-                      Please get in touch!
-                    </p>
                     <p>
-                      We&apos;re looking for an artist to create our 2026 event
-                      artwork. Contact us at{" "}
+                      Artwork by our talented 2026 event artist,{" "}
                       <a
-                        href="mailto:artists@openstreetstempe.org"
-                        className="text-eggplant hover:underline"
+                        href="https://instagram.com/tanner.than.me"
+                        rel="noopener noreferrer"
+                        target="_blank"
                       >
-                        artists@openstreetstempe.org
-                      </a>{" "}
-                      to learn more about this opportunity.
+                        Tanner Christensen
+                      </a>
+                      !
                     </p>
                   </div>
                 </div>

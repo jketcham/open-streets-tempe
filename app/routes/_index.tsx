@@ -14,7 +14,8 @@ import {
   ResponsiveImage,
   generatePreloadLinks,
 } from "~/components/ResponsiveImage";
-const pageTheme: ThemeColor = "tachi";
+import { EventArtwork2026 } from "~/components/svg";
+const pageTheme: ThemeColor = "white";
 
 const activities = [
   "Bike and Explore",
@@ -58,8 +59,8 @@ const partnersData = {
     {
       name: "Tempe Arts & Music Coalition",
       website: "https://www.tempeartsandmusic.org/",
-      logoPath: "/images/logo-edit-tamc-640w.png"
-    }
+      logoPath: "/images/logo-edit-tamc-640w.png",
+    },
   ],
 };
 
@@ -132,10 +133,23 @@ function EventIntro() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} pb-8 pt-16 sm:pb-12 sm:pt-24`}>
+    <div className="bg-white pb-8 pt-16 sm:pb-12 sm:pt-24">
       <Container>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-5 lg:grid-cols-3">
-          <div className="md:col-span-3 lg:col-span-2">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {/* Artwork - shows first on mobile, center on desktop */}
+          <div className="flex items-center justify-center md:order-last lg:order-none">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+              className="w-full max-w-sm lg:max-w-none"
+            >
+              <EventArtwork2026 className="h-auto w-full" />
+            </motion.div>
+          </div>
+
+          {/* Animated text */}
+          <div className="md:order-first">
             <div className="min-h-[8.5rem] pb-2 md:min-h-40">
               <AnimatedText />
               <motion.p
@@ -148,7 +162,9 @@ function EventIntro() {
               </motion.p>
             </div>
           </div>
-          <div className="md:col-span-2 lg:col-span-1">
+
+          {/* Date/time info box */}
+          <div className="md:order-last">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -185,7 +201,7 @@ function MainContent() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} pb-16 pt-8 sm:pt-12`}>
+    <div className="bg-white pb-16 pt-8 sm:pt-12">
       <Container>
         <FadeIn>
           <div className="mx-auto flex max-w-6xl flex-col">
@@ -246,21 +262,50 @@ function MainContent() {
               </div>
 
               <div className="flex items-center justify-center">
-                <div
-                  className={`flex w-full flex-col items-center justify-center rounded-lg ${theme.bgInverse} p-12 shadow-lg`}
-                >
-                  <MapPinIcon className={`mb-4 size-16 ${theme.textInverse}`} />
-                  <h3
-                    className={`text-center font-display text-3xl font-bold ${theme.textInverse}`}
-                  >
-                    Route Coming Soon
-                  </h3>
-                  <p
-                    className={`mt-4 text-center text-lg ${theme.textInverse} opacity-90`}
-                  >
-                    We&apos;re finalizing the details for this year&apos;s route
-                  </p>
+                <div className="overflow-hidden rounded-xl shadow-lg">
+                  <ResponsiveImage
+                    basePath="/images/2026-event-map"
+                    alt="2026 Open Streets Tempe event route map"
+                  />
                 </div>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
+function BikeParadeSection() {
+  const theme = useTheme();
+
+  return (
+    <div className="bg-white pb-16 pt-8">
+      <Container>
+        <FadeIn>
+          <div className="mx-auto max-w-6xl">
+            <h2
+              className={`mb-4 font-display text-2xl font-bold sm:text-3xl ${theme.textOnLight}`}
+            >
+              Bike Parade
+            </h2>
+            <p className={`mb-8 text-lg ${theme.textOnLight}`}>
+              Kick off Open Streets Tempe with a community bike parade! Check
+              out the route and schedule below.
+            </p>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              <div className="overflow-hidden rounded-xl shadow-lg">
+                <ResponsiveImage
+                  basePath="/images/2026-bike-parade-map"
+                  alt="2026 Open Streets Tempe bike parade route map"
+                />
+              </div>
+              <div className="overflow-hidden rounded-xl shadow-lg">
+                <ResponsiveImage
+                  basePath="/images/2026-bike-parade-schedule"
+                  alt="2026 Open Streets Tempe bike parade schedule"
+                />
               </div>
             </div>
           </div>
@@ -274,7 +319,7 @@ function PartnersSection() {
   const theme = useTheme();
 
   return (
-    <div className={`${theme.bg} pb-24 pt-16`}>
+    <div className="bg-white pb-24 pt-16">
       <Container>
         <FadeIn>
           <div className="mx-auto max-w-4xl text-center">
@@ -329,7 +374,7 @@ function HeroImage() {
         />
       </div>
       <div
-        className={`absolute top-0 h-8 w-full ${theme.bg} sm:h-16`}
+        className={`absolute top-0 -mt-1 h-8 w-full ${theme.bg} sm:h-16`}
         style={{
           clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 0)",
         }}
@@ -395,6 +440,7 @@ export default function Index() {
         <EventIntro />
         <HeroImage />
         <MainContent />
+        <BikeParadeSection />
         <PartnersSection />
         <ThemedSection inverse>
           <Container>

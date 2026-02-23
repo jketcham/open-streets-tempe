@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 
 export type ThemeColor =
+  | "white"
   | "tachi"
   | "tachi-dark"
   | "apricot"
@@ -17,6 +18,13 @@ interface ThemeContextValue {
 }
 
 export const themeMap: Record<ThemeColor, ThemeContextValue> = {
+  white: {
+    bg: "bg-white",
+    bgInverse: "bg-apricot-700",
+    text: "text-gray-700",
+    textOnLight: "text-gray-800",
+    textInverse: "text-apricot-200",
+  },
   tachi: {
     bg: "bg-tachi",
     bgInverse: "bg-tachi-800",
@@ -62,6 +70,8 @@ export const themeMap: Record<ThemeColor, ThemeContextValue> = {
 };
 
 export function getThemeColor(className: string): string {
+  if (className === "bg-white" || className === "text-white") return "#ffffff";
+
   // Extract the base color and shade from the Tailwind class
   const [, color, shade] = className.split(/[--]/);
 
@@ -87,6 +97,14 @@ export function getThemeColor(className: string): string {
       600: "#7e74d2",
       700: "#665cb7",
       900: "#423e7a",
+    },
+    gray: {
+      DEFAULT: "#6b7280",
+      200: "#e5e7eb",
+      600: "#4b5563",
+      700: "#374151",
+      800: "#1f2937",
+      900: "#111827",
     },
   };
 
