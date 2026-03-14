@@ -12,13 +12,9 @@ import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { volunteerRoles } from "~/data/volunteerRoles";
 import { VolunteerCard } from "~/components/VolunteerCard";
 import {
-  MapPinIcon,
-  ChartBarIcon,
-  UserGroupIcon,
   WrenchScrewdriverIcon,
-  FaceSmileIcon,
-  BoltIcon,
   KeyIcon,
+  FlagIcon,
 } from "@heroicons/react/24/outline";
 import { Button } from "~/components/themed/Button";
 import { ResponsiveImage } from "~/components/ResponsiveImage";
@@ -35,13 +31,10 @@ const pageData = {
 } as const;
 
 const roleIcons = {
-  "route-coordinator": <MapPinIcon className="size-8" />,
-  "community-ambassador": <UserGroupIcon className="size-8" />,
-  "census-volunteer": <ChartBarIcon className="size-8" />,
-  "bike-valet": <KeyIcon className="size-8" />,
-  "activations-facilitator": <BoltIcon className="size-8" />,
-  "bike-rodeo-volunteer": <FaceSmileIcon className="size-8" />,
-  "set-up-and-tear-down-crew": <WrenchScrewdriverIcon className="size-8" />,
+  "set-up": <WrenchScrewdriverIcon className="size-12" />,
+  "tear-down": <WrenchScrewdriverIcon className="size-12" />,
+  "bike-valet": <KeyIcon className="size-12" />,
+  "bike-parade-marshal": <FlagIcon className="size-12" />,
 } as const;
 
 const faqItems = [
@@ -50,14 +43,12 @@ const faqItems = [
     content: (
       <>
         <p>
-          Volunteers can choose between two shifts: Morning (9:30 AM - 12:30 PM)
-          or Afternoon (12:00 PM - 3:00 PM). We ask that you arrive 15 minutes
-          before your shift for check-in and a brief orientation.
+          Shift times vary by role, ranging from 1.5 to 3 hours. Check each
+          volunteer position for its specific schedule. We ask that you arrive
+          15 minutes before your shift for check-in and a brief orientation.
         </p>
         <p>
-          The 30-minute overlap between shifts ensures a smooth transition and
-          allows time for shift handover. After your shift, you&apos;re free to
-          enjoy the event!
+          After your shift, you&apos;re free to enjoy the event!
         </p>
       </>
     ),
@@ -283,7 +274,7 @@ export default function Volunteer() {
               <ContentSection title="Why Volunteer?">
                 <ThemedList
                   items={[
-                    "Be part of Tempe's first Open Streets celebration",
+                    "Be part of Tempe's Open Streets celebration",
                     "Meet neighbors and make new friends",
                     "Get a free event t-shirt",
                     "Help create a more sustainable and connected community",
@@ -293,29 +284,6 @@ export default function Volunteer() {
               </ContentSection>
             </div>
 
-            <ContentSection title="Volunteer Shifts">
-              <div className="rounded-2xl bg-white p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08)]">
-                <p className="text-lg text-gray-600">
-                  All volunteer positions are available in two shifts on
-                  Saturday, April 12, 2026:
-                </p>
-                <div className="mt-4 space-y-2 text-lg">
-                  <p className="font-medium">
-                    Morning Shift:{" "}
-                    <span className="text-gray-600">9:30 AM - 12:30 PM</span>
-                  </p>
-                  <p className="font-medium">
-                    Afternoon Shift:{" "}
-                    <span className="text-gray-600">12:00 PM - 3:00 PM</span>
-                  </p>
-                </div>
-                <p className="mt-4 text-gray-600">
-                  The 30-minute overlap allows for smooth transitions between
-                  shifts. Choose the time that works best for you!
-                </p>
-              </div>
-            </ContentSection>
-
             <ContentSection title="Volunteer Opportunities">
               <div className="space-y-8">
                 {volunteerRoles.map((role) => (
@@ -324,6 +292,8 @@ export default function Volunteer() {
                     title={role.title}
                     description={role.description}
                     responsibilities={role.responsibilities}
+                    shifts={role.shifts}
+                    note={role.note}
                     icon={roleIcons[role.id as keyof typeof roleIcons]}
                   />
                 ))}
