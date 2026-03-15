@@ -9,7 +9,7 @@
         "run": {
           "serviceId": "open-streets-tempe",
           "region": "us-central1",
-          "pinTag": true
+          "pinTag": false
         }
       }
     ],
