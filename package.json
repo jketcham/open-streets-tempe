@@ -7,7 +7,7 @@
     "build": "react-router build",
     "icons": "npx @svgr/cli --out-dir app/components/svg -- app/svg",
     "icons:watch": "npm-watch icons",
-    "dev:remix": "node ./server.js",
+    "dev:server": "node ./server.js",
     "dev:svg": "run-s icons icons:watch",
     "dev": "run-p dev:*",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
