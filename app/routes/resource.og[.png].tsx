@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "react-router";
 import satori from "satori";
 import { join } from "path";
 import { readFileSync } from "fs";

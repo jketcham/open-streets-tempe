@@ -4,15 +4,15 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
   LinksFunction,
-} from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+} from "react-router";
 import {
   Form,
+  redirect,
   useActionData,
   useLoaderData,
   useNavigation,
   useSearchParams,
-} from "@remix-run/react";
+} from "react-router";
 import { PageLayout } from "~/components/PageLayout";
 import { Container } from "~/components/Container";
 import Stripe from "stripe";
@@ -109,10 +109,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const adminPassword = process.env.RAFFLE_ADMIN_PASSWORD;
 
   if (!stripeSecretKey || !rafflePriceId || !adminPassword) {
-    return json<LoaderData>({
+    return {
       isAuthenticated: false,
       error: "Server configuration missing",
-    });
+    } satisfies LoaderData;
   }
 
   // Simple URL parameter auth
@@ -120,7 +120,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const authParam = url.searchParams.get("auth");
   const isAuthenticated = authParam === adminPassword;
 
-  return json<LoaderData>({ isAuthenticated });
+  return { isAuthenticated } satisfies LoaderData;
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -129,8 +129,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const adminPassword = process.env.RAFFLE_ADMIN_PASSWORD;
 
   if (!stripeSecretKey || !rafflePriceId || !adminPassword) {
-    return json<ActionData>(
-      { error: "Server configuration missing." },
+    return Response.json(
+      { error: "Server configuration missing." } satisfies ActionData,
       { status: 500 },
     );
   }
@@ -146,7 +146,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       // Redirect with auth parameter
       return redirect(`/admin/raffle?auth=${adminPassword}`);
     } else {
-      return json<ActionData>({ error: "Invalid password." }, { status: 401 });
+      return Response.json(
+        { error: "Invalid password." } satisfies ActionData,
+        { status: 401 },
+      );
     }
   }
 
@@ -155,7 +158,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const authParam = url.searchParams.get("auth");
 
   if (authParam !== adminPassword) {
-    return json<ActionData>({ error: "Not authenticated." }, { status: 403 });
+    return Response.json(
+      { error: "Not authenticated." } satisfies ActionData,
+      { status: 403 },
+    );
   }
 
   if (intent === "draw") {
@@ -204,9 +210,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
       // --- Raffle Logic ---
       if (participants.length === 0) {
-        return json<ActionData>({
+        return {
           error: "No paid raffle tickets found for the specified product ID.",
-        });
+        } satisfies ActionData;
       }
 
       const winnerIndex = Math.floor(Math.random() * participants.length);
@@ -216,7 +222,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       const winPercentage =
         totalTicketCount > 0 ? (winnerTicketCount / totalTicketCount) * 100 : 0;
 
-      return json<ActionData>({
+      return {
         winnerEmail: winnerEmail,
         winnerName: winnerEntry.name,
         winnerPhone: winnerEntry.phone,
@@ -224,21 +230,24 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         participantCount: participantTickets.size, // Use map size for unique participants
         totalTicketCount: totalTicketCount,
         winPercentage: winPercentage,
-      });
+      } satisfies ActionData;
     } catch (error) {
       // Log the detailed error for server-side debugging
       console.error("Stripe API or Raffle Error:", error);
       // Provide a more generic error message to the client
       const errorMessage =
         error instanceof Error ? error.message : "An unknown error occurred";
-      return json<ActionData>(
-        { error: `Failed to draw winner: ${errorMessage}` },
+      return Response.json(
+        { error: `Failed to draw winner: ${errorMessage}` } satisfies ActionData,
         { status: 500 },
       );
     }
   }
 
-  return json<ActionData>({ error: "Invalid intent." }, { status: 400 });
+  return Response.json(
+    { error: "Invalid intent." } satisfies ActionData,
+    { status: 400 },
+  );
 };
 
 export default function RaffleAdmin() {

@@ -1,7 +1,5 @@
-import { json } from "@remix-run/node";
-
 export function notFound(message: string) {
-  return json(
+  return Response.json(
     {
       message,
       gaTrackingId: process.env.GA_TRACKING_ID,
@@ -14,7 +12,7 @@ export function notFound(message: string) {
 }
 
 export function serverError(message: string) {
-  return json(
+  return Response.json(
     {
       message,
       gaTrackingId: process.env.GA_TRACKING_ID,

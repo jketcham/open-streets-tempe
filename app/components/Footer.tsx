@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { useTheme } from "./ThemeProvider";
 import { Container } from "./Container";
 import BikeTempeLogo from "./svg/BikeTempeLogo";
