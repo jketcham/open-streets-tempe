@@ -117,14 +117,14 @@ export default function Raffle() {
                   <ResponsiveImage
                     basePath="/images/raffle-ebike"
                     alt="Lectric E-Bike"
-                    className="h-full w-full object-contain"
+                    className="size-full object-contain"
                     maxSize={1024}
                   />
                 </div>
 
                 <div className="mt-8 space-y-4 text-center">
                   <div className="not-prose mb-6 flex items-center justify-center space-x-2">
-                    <TrophyIcon className="h-6 w-6 flex-shrink-0 text-apricot-600" />
+                    <TrophyIcon className="size-6 shrink-0 text-apricot-600" />
                     <h3 className="text-xl font-bold">Grand Prize</h3>
                   </div>
                   <p className="text-2xl font-bold">1 Lectric E-Bike</p>
@@ -134,7 +134,7 @@ export default function Raffle() {
                 </div>
 
                 <div className="not-prose flex items-center justify-center space-x-2 text-center">
-                  <CalendarIcon className="mt-0.5 h-6 w-6 flex-shrink-0 text-apricot-600" />
+                  <CalendarIcon className="mt-0.5 size-6 shrink-0 text-apricot-600" />
                   <p className="font-semibold">
                     Winner will be announced at 2pm on April 12th at the event
                   </p>

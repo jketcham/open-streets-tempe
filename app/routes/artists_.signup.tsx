@@ -6,8 +6,6 @@ import { LeadText } from "~/components/LeadText";
 import { ContentSection } from "~/components/ContentSection";
 import { type ThemeColor } from "~/components/ThemeProvider";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
-import { IframeEmbed } from "~/components/IframeEmbed";
-
 const pageTheme: ThemeColor = "apricot";
 
 const pageData = {
@@ -42,7 +40,7 @@ export default function ArtistSignup() {
             <ContentSection title="Form">
               <p>
                 Thank you for your interest in Open Streets Tempe! Artist
-                signups have ended for this year's event. Check back next year
+                signups have ended for this year&apos;s event. Check back next year
                 for new opportunities.
               </p>
             </ContentSection>
