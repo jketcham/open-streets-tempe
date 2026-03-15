@@ -9,6 +9,7 @@ import { eventData, eventJsonLd } from "~/data/event";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { AddToCalendar } from "~/components/AddToCalendar";
 import { useState, useEffect } from "react";
 import {
   ResponsiveImage,
@@ -182,14 +183,25 @@ function EventIntro() {
               </div>
               <div className="mt-2 flex items-start gap-3">
                 <MapPinIcon className="mt-1 size-7 shrink-0" />
-                <div>
-                  <p>Downtown Tempe</p>
-                  <p className="-mt-1 text-base italic opacity-90 sm:text-xl">
-                    7th St & Mill Ave
-                  </p>
+                <div className="space-y-1">
+                  <div>
+                    <p>Bike Parade</p>
+                    <p className="-mt-1 text-base italic opacity-90 sm:text-xl">
+                      7th St & Mill Ave
+                    </p>
+                  </div>
+                  <div>
+                    <p>Open Streets</p>
+                    <p className="-mt-1 text-base italic opacity-90 sm:text-xl">
+                      Hardy Dr & Rio Salado Pkwy
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
+            <div className="mt-3 flex sm:justify-end">
+              <AddToCalendar />
+            </div>
           </div>
         </div>
       </Container>

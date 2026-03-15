@@ -12,8 +12,10 @@ export const eventData = {
     name: "Downtown Tempe",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "1 W Rio Salado Pkwy",
       addressLocality: "Tempe",
       addressRegion: "AZ",
+      postalCode: "85281",
       addressCountry: "US",
     },
   },
