@@ -38,9 +38,7 @@ export function VolunteerCard({
             </p>
           )}
           <p className="mt-4 text-lg text-gray-600">{description}</p>
-          {note && (
-            <p className="mt-2 text-sm italic text-gray-500">{note}</p>
-          )}
+          {note && <p className="mt-2 text-sm italic text-gray-500">{note}</p>}
         </div>
       </div>
 
