@@ -1,4 +1,4 @@
-import { Link as RemixLink } from "react-router";
+import { Link as RouterLink } from "react-router";
 import { useTheme } from "~/components/ThemeProvider";
 
 interface LinkProps {
@@ -15,9 +15,9 @@ export function Link({ children, to, href, className = "" }: LinkProps) {
 
   if (to) {
     return (
-      <RemixLink to={to} className={baseClasses}>
+      <RouterLink to={to} className={baseClasses}>
         {children}
-      </RemixLink>
+      </RouterLink>
     );
   }
 

@@ -14,7 +14,7 @@ const viteDevServer = isProduction
       }),
     );
 
-const remixHandler = createRequestHandler({
+const requestHandler = createRequestHandler({
   getLoadContext: (req, res) => ({
     cspNonce: res.locals.cspNonce,
   }),
@@ -95,7 +95,7 @@ app.use(express.static("build/client", { maxAge: "1h" }));
 app.use(morgan("tiny"));
 
 // handle SSR requests
-app.all("*", remixHandler);
+app.all("*", requestHandler);
 
 const port = process.env.PORT || 3100;
 app.listen(port, () =>

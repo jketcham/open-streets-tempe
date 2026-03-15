@@ -14,7 +14,7 @@ export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  routerContext: EntryContext,
   loadContext: AppLoadContext,
 ) {
   return isbot(request.headers.get("user-agent") || "")
@@ -22,14 +22,14 @@ export default function handleRequest(
         request,
         responseStatusCode,
         responseHeaders,
-        remixContext,
+        routerContext,
         loadContext,
       )
     : handleBrowserRequest(
         request,
         responseStatusCode,
         responseHeaders,
-        remixContext,
+        routerContext,
         loadContext,
       );
 }
@@ -38,7 +38,7 @@ function handleBotRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  routerContext: EntryContext,
   loadContext: AppLoadContext,
 ) {
   const nonce = loadContext.cspNonce?.toString() ?? "";
@@ -47,7 +47,7 @@ function handleBotRequest(
     const { pipe, abort } = renderToPipeableStream(
       <NonceProvider value={nonce}>
         <ServerRouter
-          context={remixContext}
+          context={routerContext}
           url={request.url}
           nonce={nonce}
         />
@@ -93,7 +93,7 @@ function handleBrowserRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  routerContext: EntryContext,
   loadContext: AppLoadContext,
 ) {
   const nonce = loadContext.cspNonce?.toString() ?? "";
@@ -102,7 +102,7 @@ function handleBrowserRequest(
     const { pipe, abort } = renderToPipeableStream(
       <NonceProvider value={nonce}>
         <ServerRouter
-          context={remixContext}
+          context={routerContext}
           url={request.url}
           nonce={nonce}
         />
