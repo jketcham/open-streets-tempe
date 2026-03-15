@@ -272,7 +272,7 @@ export default function RaffleAdmin() {
       if (storedHistory) {
         try {
           setWinnerHistory(JSON.parse(storedHistory));
-        } catch (e) {
+        } catch (_e) {
           // localStorage.removeItem(WINNER_HISTORY_KEY);
         }
       }
@@ -330,7 +330,6 @@ export default function RaffleAdmin() {
         return updatedHistory;
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData]); // Re-run whenever actionData changes
 
   const handleClearHistory = () => {
