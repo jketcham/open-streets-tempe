@@ -167,7 +167,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   if (intent === "draw") {
     try {
       const stripe = new Stripe(stripeSecretKey, {
-        apiVersion: "2025-03-31.basil",
+        apiVersion: "2025-08-27.basil",
       });
 
       const participants: ParticipantEntry[] = [];
