@@ -56,7 +56,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   // Convert PNGs to ICO format
   const icoBuffer = icoEndec.encode(pngBuffers);
 
-  return new Response(icoBuffer, {
+  return new Response(new Uint8Array(icoBuffer), {
     headers: {
       "Content-Type": "image/x-icon",
       "Cache-Control": "public, max-age=31536000, immutable",
