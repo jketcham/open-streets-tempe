@@ -165,11 +165,13 @@ function EventIntro() {
           </div>
 
           {/* Date/time info box */}
-          <div className="md:order-last">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
+            className="md:order-last"
+          >
+            <div
               className={`${theme.bgInverse} ${theme.textInverse} space-y-2 rounded-md p-4 text-lg sm:p-6 sm:text-2xl`}
             >
               <div className="flex items-start gap-3">
@@ -198,11 +200,11 @@ function EventIntro() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
             <div className="mt-3 flex sm:justify-end">
               <AddToCalendar />
             </div>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </div>
