@@ -1,4 +1,4 @@
-import { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "react-router";
 
 export const loader: LoaderFunction = async () => {
   const robotsTxtContent = `User-agent: *\nAllow: /\nSitemap: https://openstreetstempe.org/sitemap.xml`;

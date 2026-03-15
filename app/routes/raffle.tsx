@@ -2,7 +2,7 @@ import type {
   LinksFunction,
   MetaFunction,
   LoaderFunctionArgs,
-} from "@remix-run/node";
+} from "react-router";
 import { ContentSection } from "~/components/ContentSection";
 import { Container } from "~/components/Container";
 import { LeadText } from "~/components/LeadText";

@@ -1,5 +1,5 @@
 import * as crypto from "node:crypto";
-import { createRequestHandler } from "@remix-run/express";
+import { createRequestHandler } from "@react-router/express";
 import helmet from "helmet";
 import compression from "compression";
 import express from "express";
@@ -14,12 +14,12 @@ const viteDevServer = isProduction
       }),
     );
 
-const remixHandler = createRequestHandler({
+const requestHandler = createRequestHandler({
   getLoadContext: (req, res) => ({
     cspNonce: res.locals.cspNonce,
   }),
   build: viteDevServer
-    ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
+    ? () => viteDevServer.ssrLoadModule("virtual:react-router/server-build")
     : await import("./build/server/index.js"),
 });
 
@@ -95,7 +95,7 @@ app.use(express.static("build/client", { maxAge: "1h" }));
 app.use(morgan("tiny"));
 
 // handle SSR requests
-app.all("*", remixHandler);
+app.all("*", requestHandler);
 
 const port = process.env.PORT || 3100;
 app.listen(port, () =>
