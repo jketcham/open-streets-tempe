@@ -1,4 +1,4 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "react-router";
 import { PageLayout } from "~/components/PageLayout";
 import { PageHead } from "~/components/PageHead";
 import { Container } from "~/components/Container";

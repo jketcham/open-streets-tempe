@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "react-router";
 
 const baseUrl = "https://openstreetstempe.org";
 

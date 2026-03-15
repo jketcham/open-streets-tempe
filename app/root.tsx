@@ -1,5 +1,4 @@
-import { json } from "@remix-run/node";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction } from "react-router";
 import {
   Links,
   Meta,
@@ -11,7 +10,7 @@ import {
   useMatches,
   isRouteErrorResponse,
   useRouteError,
-} from "@remix-run/react";
+} from "react-router";
 import { useEffect } from "react";
 import * as gtag from "~/utils/gtags.client";
 import { useNonce } from "~/utils/nonce-provider";
@@ -51,9 +50,9 @@ export const links: LinksFunction = () => {
 };
 
 export const loader = async () => {
-  return json({
+  return {
     gaTrackingId: process.env.GA_TRACKING_ID,
-  });
+  };
 };
 
 function Document({
