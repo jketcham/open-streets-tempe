@@ -14,7 +14,7 @@ A web application for [Tempe Bicycle Action Group's](https://biketempe.org?utm_s
 
 ### Prerequisites
 
-- Node.js >= 20.0.0
+- Node.js >= 24.0.0
 - npm
 
 ### Setup

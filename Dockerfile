@@ -1,5 +1,5 @@
 # Base image
-FROM node:20-alpine as builder
+FROM node:24-alpine AS builder
 
 # Set working directory
 WORKDIR /usr/src/app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Production image
-FROM node:20-alpine
+FROM node:24-alpine
 
 # Set working directory
 WORKDIR /usr/src/app
@@ -29,7 +29,7 @@ ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 
 # Install only production dependencies
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # Copy server file and other necessary files
 COPY server.js ./
