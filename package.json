@@ -11,6 +11,8 @@
     "dev:svg": "run-s icons icons:watch",
     "dev": "run-p dev:*",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "typecheck": "react-router typegen && tsc",
     "optimize-images": "node scripts/optimize-images.js"

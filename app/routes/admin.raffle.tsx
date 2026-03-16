@@ -158,10 +158,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const authParam = url.searchParams.get("auth");
 
   if (authParam !== adminPassword) {
-    return Response.json(
-      { error: "Not authenticated." } satisfies ActionData,
-      { status: 403 },
-    );
+    return Response.json({ error: "Not authenticated." } satisfies ActionData, {
+      status: 403,
+    });
   }
 
   if (intent === "draw") {
@@ -238,16 +237,17 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       const errorMessage =
         error instanceof Error ? error.message : "An unknown error occurred";
       return Response.json(
-        { error: `Failed to draw winner: ${errorMessage}` } satisfies ActionData,
+        {
+          error: `Failed to draw winner: ${errorMessage}`,
+        } satisfies ActionData,
         { status: 500 },
       );
     }
   }
 
-  return Response.json(
-    { error: "Invalid intent." } satisfies ActionData,
-    { status: 400 },
-  );
+  return Response.json({ error: "Invalid intent." } satisfies ActionData, {
+    status: 400,
+  });
 };
 
 export default function RaffleAdmin() {

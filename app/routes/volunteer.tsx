@@ -47,9 +47,7 @@ const faqItems = [
           volunteer position for its specific schedule. We ask that you arrive
           15 minutes before your shift for check-in and a brief orientation.
         </p>
-        <p>
-          After your shift, you&apos;re free to enjoy the event!
-        </p>
+        <p>After your shift, you&apos;re free to enjoy the event!</p>
       </>
     ),
   },

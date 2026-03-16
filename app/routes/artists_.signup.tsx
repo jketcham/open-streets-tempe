@@ -40,8 +40,8 @@ export default function ArtistSignup() {
             <ContentSection title="Form">
               <p>
                 Thank you for your interest in Open Streets Tempe! Artist
-                signups have ended for this year&apos;s event. Check back next year
-                for new opportunities.
+                signups have ended for this year&apos;s event. Check back next
+                year for new opportunities.
               </p>
             </ContentSection>
           </div>
