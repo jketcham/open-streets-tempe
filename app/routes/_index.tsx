@@ -283,7 +283,7 @@ function MainContent() {
                 </div>
 
                 <AngledImage
-                  basePath="/images/2025-skateboarders.JPG"
+                  basePath="/images/2025-skateboarders"
                   alt="Skateboarders at Open Streets Tempe"
                   angle="left"
                 />
@@ -334,7 +334,7 @@ function MainContent() {
                   />
                 </div>
                 <AngledImage
-                  basePath="/images/2025-unicycle.JPG"
+                  basePath="/images/2025-unicycle"
                   alt="Unicyclist at Open Streets Tempe"
                   angle="right"
                 />
@@ -429,7 +429,7 @@ function PedalPartySection() {
 
               <div className="flex items-center justify-center">
                 <AngledImage
-                  basePath="/images/stage-2025-01.JPG"
+                  basePath="/images/stage-2025-01"
                   alt="Live music performance at Pedal Haus Brewery"
                   angle="v"
                   grayscale
@@ -495,7 +495,7 @@ function HeroImage() {
     <main className="relative flex h-96 items-center justify-center sm:h-[30rem]">
       <div className="absolute inset-0">
         <ResponsiveImage
-          basePath="/images/2025-bike-riders.JPG"
+          basePath="/images/2025-bike-riders"
           alt="Bike riders at Open Streets Tempe"
           className="size-full object-cover"
           objectPosition="center 45%"
@@ -558,7 +558,7 @@ export const meta: MetaFunction = () => {
 export const links: LinksFunction = () => {
   return [
     ...generateFaviconLinks(pageTheme),
-    ...generatePreloadLinks("/images/pedalpalooza-overhead"),
+    ...generatePreloadLinks("/images/2025-bike-riders"),
   ];
 };
 
