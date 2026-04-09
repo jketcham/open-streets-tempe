@@ -15,10 +15,21 @@ permissions:
 
 jobs:
   ci:
-    name: Lint, Typecheck, Format & Build
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Lint
+            script: lint
+          - name: Typecheck
+            script: typecheck
+          - name: Format
+            script: format:check
+          - name: Build
+            script: build
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
@@ -26,11 +37,4 @@ jobs:
           node-version-file: ".nvmrc"
           cache: npm
       - run: npm ci
-      - name: Lint
-        run: npm run lint
-      - name: Typecheck
-        run: npm run typecheck
-      - name: Format check
-        run: npm run format:check
-      - name: Build
-        run: npm run build
+      - run: npm run ${{ matrix.script }}
