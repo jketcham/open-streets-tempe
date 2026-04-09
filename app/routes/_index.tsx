@@ -49,10 +49,7 @@ function AngledImage({
           style={{ clipPath }}
         />
       )}
-      <div
-        className="relative overflow-hidden shadow-lg"
-        style={{ clipPath }}
-      >
+      <div className="relative overflow-hidden shadow-lg" style={{ clipPath }}>
         <div className={grayscale ? "grayscale" : ""}>
           <ResponsiveImage basePath={basePath} alt={alt} />
         </div>
