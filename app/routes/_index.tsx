@@ -18,6 +18,54 @@ import {
 import { EventArtwork2026 } from "~/components/svg";
 const pageTheme: ThemeColor = "white";
 
+function AngledImage({
+  basePath,
+  alt,
+  angle = "right",
+  shadow = true,
+  overlay = false,
+  grayscale = false,
+}: {
+  basePath: string;
+  alt: string;
+  angle?: "left" | "right" | "v";
+  shadow?: boolean;
+  overlay?: boolean;
+  grayscale?: boolean;
+}) {
+  const theme = useTheme();
+  const clipPaths = {
+    right: "polygon(0 4%, 100% 0, 100% 96%, 0 100%)",
+    left: "polygon(0 0, 100% 4%, 100% 100%, 0 96%)",
+    v: "polygon(0 0, 100% 0, 100% 96%, 50% 100%, 0 96%)",
+  };
+  const clipPath = clipPaths[angle];
+
+  return (
+    <div className="relative">
+      {shadow && (
+        <div
+          className={`absolute inset-0 translate-x-3 translate-y-3 ${theme.bgInverse}`}
+          style={{ clipPath }}
+        />
+      )}
+      <div
+        className="relative overflow-hidden shadow-lg"
+        style={{ clipPath }}
+      >
+        <div className={grayscale ? "grayscale" : ""}>
+          <ResponsiveImage basePath={basePath} alt={alt} />
+        </div>
+        {overlay && (
+          <div
+            className={`pointer-events-none absolute inset-0 ${theme.bgInverse} opacity-20`}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
 const activities = [
   "Bike and Explore",
   "Discover Local Art",
@@ -220,7 +268,7 @@ function MainContent() {
         <FadeIn>
           <div className="mx-auto flex max-w-6xl flex-col">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-              <div className={`flex flex-col space-y-20 ${theme.textOnLight}`}>
+              <div className={`flex flex-col space-y-12 ${theme.textOnLight}`}>
                 <div className="space-y-4">
                   <h2 className="font-display text-2xl font-bold">
                     Experience the city like never before.
@@ -236,6 +284,12 @@ function MainContent() {
                     that bring us closer together.
                   </p>
                 </div>
+
+                <AngledImage
+                  basePath="/images/2025-skateboarders.JPG"
+                  alt="Skateboarders at Open Streets Tempe"
+                  angle="left"
+                />
 
                 <div className="space-y-4">
                   <h2 className="font-display text-2xl font-bold">
@@ -275,13 +329,18 @@ function MainContent() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center">
+              <div className="flex flex-col items-start justify-start gap-12">
                 <div className="overflow-hidden rounded-xl shadow-lg">
                   <ResponsiveImage
                     basePath="/images/2026-event-map"
                     alt="2026 Open Streets Tempe event route map"
                   />
                 </div>
+                <AngledImage
+                  basePath="/images/2025-unicycle.JPG"
+                  alt="Unicyclist at Open Streets Tempe"
+                  angle="right"
+                />
               </div>
             </div>
           </div>
@@ -319,6 +378,65 @@ function BikeParadeSection() {
                 <ResponsiveImage
                   basePath="/images/2026-bike-parade-schedule"
                   alt="2026 Open Streets Tempe bike parade schedule"
+                />
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
+const pedalPartyLineup = [
+  { time: "1 PM", artist: "Walt Richardson & Friends" },
+  { time: "2 PM", artist: "Sugar Thieves" },
+  { time: "3 PM", artist: "David Rhodes" },
+  { time: "4 PM", artist: "Farmer Wilson" },
+  { time: "5 PM", artist: "TBex and the Velociraptors" },
+];
+
+function PedalPartySection() {
+  const theme = useTheme();
+
+  return (
+    <div className="bg-white pb-16 pt-8">
+      <Container>
+        <FadeIn>
+          <div className="mx-auto flex max-w-6xl flex-col">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+              <div className={`flex flex-col ${theme.textOnLight}`}>
+                <h2 className="mb-2 font-display text-2xl font-bold sm:text-3xl">
+                  Pedal Party at Pedal Haus
+                </h2>
+                <p className="mb-6 text-lg">
+                  Live music all afternoon at Pedal Haus Brewery! Grab a drink
+                  and enjoy these incredible acts during and after the event.
+                </p>
+                <ul className="space-y-3">
+                  {pedalPartyLineup.map((act) => (
+                    <li
+                      key={act.artist}
+                      className="flex items-baseline gap-4 text-lg"
+                    >
+                      <span
+                        className={`w-14 shrink-0 font-semibold ${theme.text}`}
+                      >
+                        {act.time}
+                      </span>
+                      <span>{act.artist}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex items-center justify-center">
+                <AngledImage
+                  basePath="/images/stage-2025-01.JPG"
+                  alt="Live music performance at Pedal Haus Brewery"
+                  angle="v"
+                  grayscale
+                  overlay
                 />
               </div>
             </div>
@@ -380,10 +498,10 @@ function HeroImage() {
     <main className="relative flex h-96 items-center justify-center sm:h-[30rem]">
       <div className="absolute inset-0">
         <ResponsiveImage
-          basePath="/images/pedalpalooza-overhead"
-          alt="Overhead view of Open Streets event"
+          basePath="/images/2025-bike-riders.JPG"
+          alt="Bike riders at Open Streets Tempe"
           className="size-full object-cover"
-          objectPosition="center 25%"
+          objectPosition="center 45%"
           priority
         />
       </div>
@@ -455,6 +573,7 @@ export default function Index() {
         <HeroImage />
         <MainContent />
         <BikeParadeSection />
+        <PedalPartySection />
         <PartnersSection />
         <ThemedSection inverse>
           <Container>
