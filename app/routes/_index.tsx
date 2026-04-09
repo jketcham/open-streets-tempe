@@ -25,6 +25,7 @@ function AngledImage({
   shadow = true,
   overlay = false,
   grayscale = false,
+  maxSize,
 }: {
   basePath: string;
   alt: string;
@@ -32,6 +33,7 @@ function AngledImage({
   shadow?: boolean;
   overlay?: boolean;
   grayscale?: boolean;
+  maxSize?: 640 | 768 | 1024 | 1920 | 2560;
 }) {
   const theme = useTheme();
   const clipPaths = {
@@ -51,7 +53,7 @@ function AngledImage({
       )}
       <div className="relative overflow-hidden shadow-lg" style={{ clipPath }}>
         <div className={grayscale ? "grayscale" : ""}>
-          <ResponsiveImage basePath={basePath} alt={alt} />
+          <ResponsiveImage basePath={basePath} alt={alt} maxSize={maxSize} />
         </div>
         {overlay && (
           <div
@@ -286,6 +288,7 @@ function MainContent() {
                   basePath="/images/2025-skateboarders"
                   alt="Skateboarders at Open Streets Tempe"
                   angle="left"
+                  maxSize={1024}
                 />
 
                 <div className="space-y-4">
@@ -337,6 +340,7 @@ function MainContent() {
                   basePath="/images/2025-unicycle"
                   alt="Unicyclist at Open Streets Tempe"
                   angle="right"
+                  maxSize={1024}
                 />
               </div>
             </div>
@@ -434,6 +438,7 @@ function PedalPartySection() {
                   angle="v"
                   grayscale
                   overlay
+                  maxSize={1024}
                 />
               </div>
             </div>

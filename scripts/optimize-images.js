@@ -58,7 +58,11 @@ async function processImage(filePath, outputDir) {
   const fileName = basename(filePath, originalExt);
 
   // Clean up old resized versions before creating new ones
+  // Clean both lowercased and original extension patterns (e.g. .jpg and .JPG)
   await cleanupOldImages(outputDir, fileName + ext);
+  if (originalExt !== ext) {
+    await cleanupOldImages(outputDir, fileName + originalExt);
+  }
 
   // Load the image
   const image = sharp(filePath);
