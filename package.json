@@ -16,7 +16,7 @@
     "start": "cross-env NODE_ENV=production node ./server.js",
     "typecheck": "react-router typegen && tsc",
     "optimize-images": "node scripts/optimize-images.js",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
