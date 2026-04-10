@@ -1,0 +1,178 @@
+// Lineup data for Open Streets Tempe 2026.
+// Names were transcribed from the original promotional graphics —
+// please double-check spellings before publishing.
+
+export const liveArtArtists: string[] = [
+  "Allysa Wells",
+  "Andrea Pro",
+  "Brooke Shobe",
+  "Champ Styles",
+  "Dakota Drake",
+  "David Morgan",
+  "Izzy Brethour",
+  "K80",
+  "Kyllan Maney",
+  "LaLa Blue",
+  "Leilani Leilani",
+  "Marisa Skelpsa-Munoz",
+  "Martin Alcott",
+  "Nono the Artist",
+  "Rezmo",
+  "RJ Lopez",
+  "Slushiepunk",
+  "Such Styles",
+  "SYRE",
+  "Tracy Brown",
+  "Yukueone",
+];
+
+export interface MusicSet {
+  time: string;
+  artist: string;
+}
+
+export interface MusicStage {
+  name: string;
+  sets: MusicSet[];
+}
+
+// The Pedal Party at Pedal Haus stage is intentionally omitted here —
+// it has its own dedicated PedalPartySection on the home page.
+export const liveMusicStages: MusicStage[] = [
+  {
+    name: "Main Stage",
+    sets: [
+      { time: "10:30a", artist: "Schux Famicom" },
+      { time: "11:00a", artist: "SuperNormal" },
+      { time: "11:40a", artist: "Schux Famicom" },
+      { time: "12:00p", artist: "Cloudkickers" },
+      { time: "12:40p", artist: "Feral the DJ" },
+      { time: "1:00p", artist: "Boss Hectic" },
+      { time: "1:40p", artist: "Feral the DJ" },
+      { time: "2:00p", artist: "Juice the Sun" },
+      { time: "2:45p", artist: "Grupo Coatlicue" },
+    ],
+  },
+  {
+    name: "Busker Stage 1",
+    sets: [
+      { time: "10:30a", artist: "Peach Cinnamon" },
+      { time: "11:00a", artist: "Joe Giocinto" },
+      { time: "11:30a", artist: "Moon Squirrels" },
+      { time: "12:00p", artist: "Home Game" },
+      { time: "12:30p", artist: "Alaiza" },
+      { time: "1:00p", artist: "Chelle Naé" },
+      { time: "1:30p", artist: "Picasso Supreme" },
+      { time: "2:00p", artist: "Yessenia Reyna" },
+    ],
+  },
+  {
+    name: "Busker Stage 2",
+    sets: [
+      { time: "10:00a", artist: "DJ Gamabomb" },
+      { time: "10:45a", artist: "The End of History" },
+      { time: "11:30a", artist: "Electrxk Bloom" },
+      { time: "12:15p", artist: "Life on Standby" },
+      { time: "1:00p", artist: "The Terror Fx" },
+      { time: "2:00p", artist: "Orion Just Melted" },
+    ],
+  },
+  {
+    name: "Busker Stage 3",
+    sets: [
+      { time: "10:00a", artist: "El Sol JG the Sun" },
+      { time: "10:45a", artist: "Felix Moran" },
+      { time: "11:30a", artist: "Moon Zipper" },
+      { time: "12:15p", artist: "Eon Grey" },
+      { time: "1:00p", artist: "Ol' Man Fabel" },
+      { time: "2:00p", artist: "Felix Moran" },
+    ],
+  },
+  {
+    name: "Busker Stage 5",
+    sets: [
+      { time: "10:00a", artist: "Bree Cole" },
+      { time: "10:45a", artist: "Stratus the Fire" },
+      { time: "11:30a", artist: "Asphalt Astronaut" },
+      { time: "12:15p", artist: "Birdie Nichols" },
+      { time: "1:00p", artist: "Jessi Lawrence" },
+    ],
+  },
+];
+
+export const vendors: string[] = [
+  "AF Designs",
+  "Art With Kristie, LLC",
+  "Athena Mendez",
+  "Au-Rodriguez",
+  "Babey Pyrits",
+  "Biddy Areyo",
+  "Bike Saviors",
+  "Bogwitch Bobbles",
+  "Bozos Bineo",
+  "Burgess Greaway",
+  "C.A.S.S.",
+  "CAZCA Climbers",
+  "Casey Gibson",
+  "Cervantes",
+  "Chrissy Reesing",
+  "Craig Doxidi",
+  "The Cult of Chaos",
+  "Dani",
+  "Desert Botanical Garden",
+  "Desert Roots Kitchen",
+  "Diandra de Las Muertos",
+  "Enigma Arts",
+  "Eternal Noir Jewelry",
+  "Freakahaus Kraftz",
+  "Glenda Dria",
+  "Going Social Club Agency",
+  "Hannah Bismbrida",
+  "Hazel Flanagan",
+  "Hundred Foster Collective",
+  "Ice Pastel",
+  "InTheCut Opportunity Shop",
+  "Jam Works",
+  "James Fry",
+  "Jenky Clothes",
+  "Jerome Mann",
+  "Jesus Lizarraga",
+  "Judith Avon",
+  "Karen Soelens Creations",
+  "Kelp Toad",
+  "Kimberly Mina",
+  "Lady Salas",
+  "Laura Wojciechowicz",
+  "Lily Wilks",
+  "Luzel Bona",
+  "Macy Porter",
+  "Manuel Gomez",
+  "Megan Esry",
+  "Miki Rose",
+  "Miranda Isabella",
+  "Morgan Lindsay",
+  "Naked Sheep Knits",
+  "NON Couture",
+  "Oahh Ish Creations",
+  "Paula-Marie Benes",
+  "Penny Threebawrs",
+  "Petite Sweets",
+  "Prescription Love Coffee",
+  "Rabbits on Chala",
+  "Rae Wilson",
+  "Ray Kennedy",
+  "Richard Bagovera",
+  "Sad Vamp Ceramics",
+  "Sams",
+  "Scott Garcer",
+  "Sebatie Customs",
+  "Sharlie Singer",
+  "Shelby Smith",
+  "Smora James",
+  "Tabby Kilo",
+  "Teena Mama",
+  "Tempe History Museum",
+  "tetikomban.com",
+  "Vacaran Remots",
+  "Zachartah Oldhem",
+];
