@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { Container } from "~/components/Container";
 import { eventData, eventJsonLd } from "~/data/event";
+import { liveArtArtists, liveMusicStages, vendors } from "~/data/lineup";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
@@ -449,6 +450,124 @@ function PedalPartySection() {
   );
 }
 
+function SectionHeading({
+  title,
+  lead,
+  titleColor,
+}: {
+  title: string;
+  lead: string;
+  titleColor: string;
+}) {
+  return (
+    <div className="mx-auto mb-8 max-w-2xl text-center">
+      <h2
+        className={`font-display text-3xl font-bold sm:text-4xl ${titleColor}`}
+      >
+        {title}
+      </h2>
+      <p className="mt-3 text-lg text-gray-600">{lead}</p>
+    </div>
+  );
+}
+
+function LiveMusicSection() {
+  return (
+    <div className="bg-white pb-16 pt-8">
+      <Container>
+        <FadeIn>
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading
+              title="Live Music"
+              lead="Five free stages of local talent fill the streets all afternoon, from busker corners to a full main stage program."
+              titleColor="text-eggplant-900"
+            />
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {liveMusicStages.map((stage) => (
+                <div
+                  key={stage.name}
+                  className="rounded-2xl border-4 border-eggplant-200 bg-white p-6 shadow-sm"
+                >
+                  <h3 className="mb-4 border-b-4 border-eggplant-100 pb-3 font-display text-xl font-bold text-eggplant-900">
+                    {stage.name}
+                  </h3>
+                  <ul className="space-y-2">
+                    {stage.sets.map((set) => (
+                      <li
+                        key={`${stage.name}-${set.time}-${set.artist}`}
+                        className="flex items-baseline gap-4 text-lg"
+                      >
+                        <span className="w-20 shrink-0 font-semibold tabular-nums text-eggplant-700">
+                          {set.time}
+                        </span>
+                        <span className="text-gray-800">{set.artist}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
+function LiveArtSection() {
+  return (
+    <div className="bg-white pb-16 pt-8">
+      <Container>
+        <FadeIn>
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading
+              title="Live Art"
+              lead="Watch local artists create murals, paintings, and installations live throughout the route."
+              titleColor="text-apricot-700"
+            />
+            <div className="rounded-2xl border-4 border-apricot-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-4">
+                {liveArtArtists.map((artist) => (
+                  <div key={artist} className="text-lg text-gray-800">
+                    {artist}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
+function VendorsSection() {
+  return (
+    <div className="bg-white pb-16 pt-8">
+      <Container>
+        <FadeIn>
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading
+              title="Vendors & Booths"
+              lead="Browse handmade goods, art, food, and community organizations from across the Valley. Bring cash and an empty tote."
+              titleColor="text-tachi-900"
+            />
+            <div className="rounded-2xl border-4 border-tachi-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-4">
+                {vendors.map((vendor) => (
+                  <div key={vendor} className="text-lg text-gray-800">
+                    {vendor}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>
+    </div>
+  );
+}
+
 function PartnersSection() {
   const theme = useTheme();
 
@@ -576,6 +695,9 @@ export default function Index() {
         <MainContent />
         <BikeParadeSection />
         <PedalPartySection />
+        <LiveMusicSection />
+        <LiveArtSection />
+        <VendorsSection />
         <PartnersSection />
         <ThemedSection inverse>
           <Container>
