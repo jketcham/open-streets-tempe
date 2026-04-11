@@ -506,6 +506,19 @@ function LiveMusicSection() {
                   </ul>
                 </div>
               ))}
+              <div className="flex flex-col rounded-2xl border-4 border-eggplant-200 bg-white p-4 shadow-sm sm:p-6 lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+                <h3 className="mb-4 border-b-4 border-eggplant-100 pb-3 font-display text-xl font-bold text-eggplant-900">
+                  Stage Map
+                </h3>
+                <div className="flex flex-1 items-center justify-center overflow-hidden rounded-lg">
+                  <ResponsiveImage
+                    basePath="/images/2026-stage-map"
+                    alt="2026 Open Streets Tempe live music stage locations"
+                    maxSize={1024}
+                    className="size-auto max-h-full max-w-full"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </FadeIn>
