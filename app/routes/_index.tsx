@@ -2,7 +2,7 @@ import type { LinksFunction, MetaFunction } from "react-router";
 import { PageLayout } from "~/components/PageLayout";
 import { ThemedSection } from "~/components/ThemedSection";
 import MailchimpInput from "~/components/MailchimpInput";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { type ThemeColor, useTheme } from "~/components/ThemeProvider";
 import { Container } from "~/components/Container";
 import { eventData, eventJsonLd } from "~/data/event";
@@ -10,8 +10,6 @@ import { liveArtArtists, liveMusicStages, vendors } from "~/data/lineup";
 import { generateMetaTags, generateFaviconLinks } from "~/utils/meta";
 import { FadeIn } from "~/components/FadeIn";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import { AddToCalendar } from "~/components/AddToCalendar";
-import { useState, useEffect } from "react";
 import {
   ResponsiveImage,
   generatePreloadLinks,
@@ -66,23 +64,6 @@ function AngledImage({
   );
 }
 
-const activities = [
-  "Bike and Explore",
-  "Discover Local Art",
-  "Walk with Friends",
-  "Play and Connect",
-  "Dance with Joy",
-  "Run and Relax",
-  "Transform the Streets",
-  "Create and Imagine",
-  "Celebrate Community",
-  "Laugh and Play",
-  "Take it Easy",
-  "Ride and Roam",
-  "Share the Moment",
-  "Skate and Stroll",
-];
-
 const partnersData = {
   data: [
     {
@@ -113,71 +94,6 @@ const partnersData = {
   ],
 };
 
-function AnimatedText() {
-  const [index, setIndex] = useState(0);
-  const theme = useTheme();
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % activities.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <AnimatePresence mode="wait">
-      <motion.h1
-        key={activities[index]}
-        className={`mb-4 text-4xl font-bold italic sm:text-5xl ${theme.textOnLight} ml-[10px] overflow-visible`}
-        style={{ paddingRight: "0.1em" }}
-      >
-        <div className="overflow-visible">
-          {activities[index].split(" ").map((word, wordIndex, words) => (
-            <span
-              key={wordIndex}
-              className="overflow-visible whitespace-nowrap"
-            >
-              {word.split("").map((char, charIndex) => (
-                <motion.span
-                  key={`${wordIndex}-${charIndex}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: (wordIndex * word.length + charIndex) * 0.03,
-                    ease: "easeOut",
-                  }}
-                  className="relative ml-[-10px] inline-block overflow-visible pr-[10px]"
-                  style={{ transform: "translateZ(0)" }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-              {wordIndex < words.length - 1 && (
-                <motion.span
-                  key={`${wordIndex}-space`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: (wordIndex * word.length + word.length) * 0.03,
-                    ease: "easeOut",
-                  }}
-                  className="inline-block overflow-visible"
-                >
-                  {"\u00A0"}
-                </motion.span>
-              )}
-            </span>
-          ))}
-        </div>
-      </motion.h1>
-    </AnimatePresence>
-  );
-}
-
 function EventIntro() {
   const theme = useTheme();
 
@@ -197,19 +113,26 @@ function EventIntro() {
             </motion.div>
           </div>
 
-          {/* Animated text */}
+          {/* Thank you message */}
           <div className="md:order-first">
-            <div className="min-h-[8.5rem] pb-2 md:min-h-40">
-              <AnimatedText />
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-                className={`text-2xl sm:text-3xl ${theme.textOnLight}`}
-              >
-                at <span className="font-semibold">Open Streets Tempe</span>
-              </motion.p>
-            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className={`mb-4 font-display text-4xl font-bold italic sm:text-5xl ${theme.textOnLight}`}
+            >
+              Thank you!!
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+              className={`text-2xl sm:text-3xl ${theme.textOnLight}`}
+            >
+              Stay tuned for
+              <br />
+              <span className="font-semibold">Open Streets Tempe 2027</span>
+            </motion.p>
           </div>
 
           {/* Date/time info box */}
@@ -248,9 +171,6 @@ function EventIntro() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-3 flex sm:justify-end">
-              <AddToCalendar />
             </div>
           </motion.div>
         </div>
