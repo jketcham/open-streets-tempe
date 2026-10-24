@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
+  # Manual redeploy, e.g. to pick up a patched Node base image
+  workflow_dispatch:
 
 jobs:
   deploy:
     name: Deploy to Cloud Run and Firebase
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -47,7 +50,8 @@ jobs:
         id: build-push
         run: |
           IMAGE="us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/bike-tempe/open-streets-tempe:${{github.sha}}"
-          docker build -t $IMAGE .
+          # --pull: always fetch the latest base image (picks up Node security patches)
+          docker build --pull -t $IMAGE .
 
           # Push and capture the output to extract the digest
           docker push $IMAGE > push_output.txt 2>&1
