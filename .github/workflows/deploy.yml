@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  # Manual redeploy, e.g. to pick up a patched node:24-alpine image
+  # Manual redeploy, e.g. to pick up a patched Node base image
   workflow_dispatch:
 
 jobs:
@@ -50,7 +50,7 @@ jobs:
         id: build-push
         run: |
           IMAGE="us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/bike-tempe/open-streets-tempe:${{github.sha}}"
-          # --pull: always use the latest node:24-alpine (Node security patches)
+          # --pull: always fetch the latest base image (picks up Node security patches)
           docker build --pull -t $IMAGE .
 
           # Push and capture the output to extract the digest
